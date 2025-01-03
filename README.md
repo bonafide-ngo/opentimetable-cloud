@@ -1,4 +1,7 @@
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL%20v3-blue.svg)](https://www.gnu.org/licenses/agpl-3.0)
+![Badge](https://img.shields.io/badge/Analysis-DONE-green)
+![Badge](https://img.shields.io/badge/Design-DONE-green)
+![Badge](https://img.shields.io/badge/Analysis-IN_PROGRESS-yellow)
 
 # Open Timetable Cloud
 **Open Timetable Cloud** is an open-source application designed for schools, colleges, and universities, facilitating seamless integration with various timetabling data sources to generate dynamic, accessible, and user-friendly timetables. The application provides real-time timetable access via a cross-browser responsive web interface and dedicated Android and iOS mobile apps.
@@ -21,11 +24,6 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - **Real-Time Updates:** Ensures that all users have the most current timetable information, reducing confusion and scheduling conflicts.
 - **Open-Source Flexibility:** Allows for customization and integration with existing institutional systems, making it adaptable to specific needs.
 - **Open Timetable Standard:** Ensures interoperability, making it easier to integrate with other systems, share data seamlessly, and enhance user accessibility across platforms.
-
-## Status
-- **Analysis:** **<span style="color:green">DONE</span>**
-- **Design:** **<span style="color:green">DONE</span>**
-- **Implementation:** **<span style="color:orange">IN PROGRESS</span>**
 
 ## [Wiki](https://github.com/bonafide-ngo/opentimetable-cloud/wiki)
 - [Requirements](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Requirements)
