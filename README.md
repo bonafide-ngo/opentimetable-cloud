@@ -22,6 +22,11 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - **Open-Source Flexibility:** Allows for customization and integration with existing institutional systems, making it adaptable to specific needs.
 - **Open Timetable Standard:** Ensures interoperability, making it easier to integrate with other systems, share data seamlessly, and enhance user accessibility across platforms.
 
+## Status
+- **Analysis:** **<span style="color:green">DONE</span>**
+- **Design:** **<span style="color:green">DONE</span>**
+- **Implementation:** **<span style="color:orange">IN PROGRESS</span>**
+
 ## [Wiki](https://github.com/bonafide-ngo/opentimetable-cloud/wiki)
 - [Requirements](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Requirements)
 - [Personas](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Personas)
@@ -32,8 +37,8 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - [TODO](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/TODO)
 
 ## Stewardship
-![](https://bonafide.ngo/img/favicon/favicon-32x32.png) [Bona Fide NGO](https://bonafide.ngo) is the original custodian of the Open Timetable Cloud application, ensuring it meets the needs of users, educational institutions, and stakeholders. They provide vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Their commitment improves efficiency and accessibility in the educational sector.
+![](https://bonafide.ngo/img/favicon/favicon-32x32.png) [Bona Fide NGO](https://bonafide.ngo) is the original custodian of the **Open Timetable Cloud** application, ensuring it meets the needs of users, educational institutions, and stakeholders. They provide vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Their commitment improves efficiency and accessibility in the educational sector.
 
 ## Sponsorship
-The project is sponsored by the following organizations, offering essential business requirements and financial support for the design, development, and maintenance of the Open Timetable Cloud initiative:
+The project is sponsored by the following organizations, offering essential business requirements and financial support for the design, development, and maintenance of the **Open Timetable Cloud** initiative:
 > ![](https://www.maynoothuniversity.ie/sites/default/files/favicon.ico) [Maynooth University](https://mu.ie)
