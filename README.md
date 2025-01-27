@@ -9,7 +9,7 @@
 The system streamlines the scheduling process, enhances user experience, and supports efficient timetable management and distribution for educational institutions.
 
 ## Key Features
-- **Flexible Data Sources:** Pull, normalise and denormalise timetable data directly from bespoke databases or directly from APIs compatible with the [Open Timetable Standard](https://github.com/bonafide-ngo/opentimetable-standard).
+- **Flexible Data Sources:** Pull, normalise and denormalise timetable data directly from bespoke databases or directly from APIs compatible with the [OTF - Open Timetable Format](https://github.com/bonafide-ngo/opentimetable-standard).
 - **Dynamic Content Generation:** Automatically updates timetables.
 - **Accessibility:** Ensures all users can easily access and navigate timetables [WCAG 2.1](https://www.w3.org/WAI/WCAG22/quickref/?versions=2.1).
 - **Cross-Platform:** Compatibility across current web browsers and mobile devices.
