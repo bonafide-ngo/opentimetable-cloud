@@ -4,20 +4,20 @@
 ![Badge](https://img.shields.io/badge/Implementation-IN_PROGRESS-yellow)
 
 # Open Timetable Cloud
-**Open Timetable Cloud** is an open-source application designed for schools, colleges, and universities, facilitating seamless integration with various timetabling data sources to generate dynamic, accessible, and user-friendly timetables. The application provides real-time timetable access via a cross-browser responsive web interface and dedicated Android and iOS mobile apps.
+**Open Timetable Cloud** is an open-source application designed for schools, colleges, and universities, facilitating seamless integration with various timetabling data sources to generate dynamic, accessible, and user-friendly timetables. The application provides real-time timetable access via a cross-browser responsive web interface and across Android and iOS mobile devices.
 
 The system streamlines the scheduling process, enhances user experience, and supports efficient timetable management and distribution for educational institutions.
 
 ## Key Features
-- **Flexible Data Sources:** Pull, normalise and denormalise timetable data directly from bespoke databases or directly from APIs compatible with the [Open Timetable Standard](https://github.com/bonafide-ngo/opentimetable-standard).
+- **Flexible Data Sources:** Pull, normalise and denormalise timetable data directly from bespoke databases or directly from APIs compatible with the [OTF - Open Timetable Format](https://github.com/bonafide-ngo/opentimetable-standard).
 - **Dynamic Content Generation:** Automatically updates timetables.
 - **Accessibility:** Ensures all users can easily access and navigate timetables [WCAG 2.1](https://www.w3.org/WAI/WCAG22/quickref/?versions=2.1).
 - **Cross-Platform:** Compatibility across current web browsers and mobile devices.
-
+- **Single Sign-On:** Supporting Single Sign-On (SSO) for timetable management and student/depertment access.
 ## User Access
 - **Public Users:** View general timetable information.
-- **Students:** Access personalized timetables via Single Sign-On (SSO) for a secure and seamless experience.
-- **Staff and Administrators:** Manage and update timetables, ensuring accurate scheduling and resource allocation.
+- **Students:** Access personalized timetables via **SSO** for a secure and seamless experience.
+- **Staff and Administrators:** Manage and update timetables, ensuring accurate scheduling and resource allocation via **SSO**.
 
 ## Benefits
 - **Responsive Design:** Optimized for various devices, providing a consistent user experience across desktops, tablets, and smartphones.
@@ -35,8 +35,8 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - [TODO](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/TODO)
 
 ## Stewardship
-![](https://bonafide.ngo/img/favicon/favicon-32x32.png) [Bona Fide NGO](https://bonafide.ngo) is the original custodian of the **Open Timetable Cloud** application, ensuring it meets the needs of users, educational institutions, and stakeholders. They provide vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Their commitment improves efficiency and accessibility in the educational sector.
+![](https://bonafide.ngo/img/favicon/favicon-32x32.png) [Bona Fide NGO](https://bonafide.ngo) is the original custodian of the **Open Timetable Cloud** application, ensuring it meets the needs of users, educational institutions, and stakeholders. It provides vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Its commitment improves efficiency and accessibility in the educational sector.
 
 ## Sponsorship
-The project is sponsored by the following organizations, offering essential business requirements and financial support for the design, development, and maintenance of the **Open Timetable Cloud** initiative:
+The project is sponsored by the following organizations, offering essential business requirements and financial support for the design, development, and maintenance of the **Open Timetable Cloud** application:
 > ![](https://www.maynoothuniversity.ie/sites/default/files/favicon.ico) [Maynooth University](https://mu.ie)
