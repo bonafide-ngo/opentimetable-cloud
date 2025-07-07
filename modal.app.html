@@ -1,0 +1,95 @@
+<!-- Modal - PHPInfo -->
+<div id="modal-sysinfo" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div name="body" class="modal-body p-0"></div>
+            <div class="modal-footer bg-secondary">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" label="close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Log -->
+<div id="modal-log" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div name="body" class="modal-body p-0">
+                <pre class="line-numbers my-0"><code class="language-php" name="log"></code></pre>
+            </div>
+            <div class="modal-footer bg-primary">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" label="close"></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Query -->
+<div id="modal-query" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-warning text-light">
+                <h5 class="modal-title" name="title"></h5>
+                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div class="mb-3">
+                    <h5 label="position"></h5>
+                    <span name="isocode" class="badge bg-primary fs-6 me-1"></span>
+                    <span name="name" class="badge bg-info fs-6 me-1"></span>
+                </div>
+
+                <div class="mb-3">
+                    <h5 label="information"></h5>
+                    <div class="bg-light px-3 py-2">
+                        <code name="information" style="white-space: pre-line;"></code>
+                    </div>
+                </div>
+
+                <div>
+                    <h5 label="blocklist"></h5>
+                    <div name="blocklists"></div>
+                </div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between ">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" label="cancel"></button>
+                <div class="d-flex align-items-center">
+                    <span class="me-2" label="block-status"></span>
+                    <input name="block" type="checkbox" data-toggle="toggle" data-style="look" data-onstyle="danger" data-offstyle="success">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal - Map -->
+<div id="modal-map" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-body p-0">
+                <!-- Header -->
+                <div class="p-2 fixed-top bg-dark o-5">
+                    <div name="header" class="d-flex justify-content-between align-items-center p-0 py-2">
+                        <div class="d-flex justify-content-start align-items-center cursor text-truncate" data-bs-dismiss="modal" aria-label="Back">
+                            <i class="fas fa-arrow-left fa-lg pe-2 text-light"></i>
+                            <h5 name="name" class="m-0 ps-2 align-middle text-light"></h5>
+                        </div>
+                    </div>
+                </div>
+                <div name="template" style="display: none;"></div>
+                <div id="modal-map-atlas"></div>
+                <div id="modal-map-popup" style="display: none;">
+                    <div class="fs-6 text-center">
+                        <h4 name="code"></h4>
+                        <div name="name"></div>
+                    </div>
+                </div>
+            </div>
+            <!-- Footer -->
+            <div class="modal-footer d-flex justify-content-between ">
+                <button type="button" class="btn btn-light" data-bs-dismiss="modal" label="close"></button>
+                <button name="directions" type="button" class="btn btn-primary text-light" label="directions"></button>
+            </div>
+        </div>
+    </div>
+</div>

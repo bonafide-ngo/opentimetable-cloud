@@ -1,0 +1,10 @@
+{
+    "config": {
+    	"platform": {
+        	"php": "8.3.6"
+    	}
+    },
+    "require": {
+        "cheprasov/php-memcached-lock": "^1.0"
+    }
+}

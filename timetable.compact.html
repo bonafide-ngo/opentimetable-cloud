@@ -1,0 +1,72 @@
+<!-- Timetable compact templates-->
+<div style="display: none;">
+
+    <!-- Container -->
+    <div id="timetable-compact-container-template" class="container px-0 no-page-break">
+        <div class="row mt-4">
+            <div class="col">
+
+                <div class="card border-0">
+                    <div class="card-header border-bottom text-primary bg-light p-3">
+                        <h5 class="m-0">
+                            <i class="far fa-calendar-alt fa-lg pe-2"></i> <span name="period"></span>
+                        </h5>
+                    </div>
+                    <div class="card-body px-0">
+                        <ul name="tabs" class="nav nav-tabs nav-fill" role="tablist"></ul>
+                        <div name="days" class="tab-content pb-2 border-start border-bottom border-end border-2"></div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        <div class="row mb-4">
+            <div class="col text-end px-4">
+                <button name="full-week" data-bs-toggle="modal" data-bs-target="#" class="btn btn-outline-primary me-2" label="full-week"></button>
+                <button type="print" class="btn btn-outline-tertiary" label="print"></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tab -->
+    <li id="timetable-compact-tab-template" class="nav-item" role="presentation">
+        <!-- active? -->
+        <a class="nav-link" data-bs-toggle="tab" href="#" aria-selected="true" tabindex="0" role="tab"></a>
+    </li>
+
+    <!-- Day, active? -->
+    <div id="timetable-compact-day-template" class="tab-pane fade show pt-2" role="tabpanel">
+
+        <div class="row mx-2 mt-2 mb-3 text-nowrap">
+            <div class="col-3 bg-primary text-center text-light fw-bold py-2 border-end border-light border-2" label="time"></div>
+            <div class="col-9 bg-primary text-center text-light py-2 border-end border-light border-2">
+                <span label="module" class="fw-bold"></span> [ <span label="venue"></span> ]
+            </div>
+        </div>
+
+        <div name="periods"></div>
+    </div>
+
+    <!-- Empty -->
+    <div id="timetable-compact-empty-template" class="row mx-2 my-1 text-nowrap">
+        <div class="col-12 text-center">
+            <span class="text-danger" name="no-classes-day"></span>
+            <i class="fas fa-info-circle text-info fs-4 ps-2 cursor" data-bs-toggle="popover" data-bs-trigger="focus" label-content="information-no-classes" tabindex="0"></i>
+        </div>
+    </div>
+
+    <!-- Period -->
+    <div id="timetable-compact-period-template" class="row mx-2 my-1 text-nowrap">
+        <div class="col-3 text-center" name="time"></div>
+        <div class="col-9 text-center" name="classes"></div>
+    </div>
+
+    <!-- Class -->
+    <div id="timetable-compact-class-template" class="mb-2 text-center">
+        <span name="module" class="badge fw-light fs-6"></span> <a name="venue" code="" href="#" target="_blank" class="mb-1"></a>
+    </div>
+
+    <!-- Divider -->
+    <div id="timetable-compact-divider-template" class="row mx-2 mt-2 mb-3 border-bottom border-1"></div>
+
+</div>

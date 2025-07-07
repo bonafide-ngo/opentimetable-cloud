@@ -1,0 +1,83 @@
+<!-- Timetable full modal  -->
+<div id="timetable-full-modal" class="modal fade" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">
+                    <img src="/img/logo.png" label-alt="i-name" height="32" class="d-inline-block align-text-top me-2">
+                    <span label="i-title"></span>
+                </h5>
+                <button type="button" class="btn-close bg-light" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <div id="timetable-full-modal-body"></div>
+                <div class="w-100" label="disclaimer"></div>
+            </div>
+            <div class="modal-footer d-flex justify-content-between align-items-between">
+                <div name="timestamp"></div>
+                <div class="d-print-none">
+                    <button type="button" class="btn btn-light me-2" data-bs-dismiss="modal" label="close"></button>
+                    <button type="print" class="btn btn-tertiary" label="print"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Timetable full templates-->
+<div style=" display: none;">
+
+    <!-- Body -->
+    <div id="timetable-full-body-template">
+        <div class="border-bottom text-primary bg-light p-3">
+            <h5 class="m-1">
+                <i class="far fa-calendar-alt fa-lg pe-2"></i> <span name="period"></span>
+            </h5>
+        </div>
+        <div name="info" class="p-2 bg-info text-light d-print-none">
+            <i class="fas fa-info-circle fa-lg"></i> <span label="scroll-info"></span>
+        </div>
+        <table name="table" class="table table-fixed mt-3 mb-4 text-nowrap">
+            <thead>
+                <tr name="days"></tr>
+            </thead>
+            <tbody name="grid"></tbody>
+        </table>
+    </div>
+
+    <table>
+        <tr>
+            <!-- Days -->
+            <th id="timetable-full-corner-template" scope="col"></th>
+            <th id="timetable-full-day-template" scope="col" class="bg-primary text-light text-center border-end"></th>
+            <!-- Time -->
+            <th id="timetable-full-time-template" scope="row" class="bg-light"></th>
+            <!-- Wrapper -->
+            <td id="timetable-full-wrapper-template" class=" bg-light border-1">
+                <table class="table-borderless">
+                    <tbody></tbody>
+                </table>
+            </td>
+        </tr>
+    </table>
+
+    <table>
+        <!-- Class -->
+        <tr id="timetable-full-class-template">
+            <td class="text-end align-center pb-2 pe-2">
+                <span name="module" class="badge fw-light fs-6"></span>
+            </td>
+            <td class="text-start align-center pb-2 ps-2">
+                <a name="venue" code="" href="#" target="_blank" class="mb-1"></a>
+            </td>
+        </tr>
+    </table>
+
+    <!-- Empty -->
+    <div id="timetable-full-empty-template" class="row m-2 text-nowrap">
+        <div class="col-12">
+            <span class="text-danger" label="no-classes"></span>
+            <i class="fas fa-info-circle text-info fs-4 cursor" data-bs-toggle="popover" data-bs-trigger="focus" label-content="information-no-classes" tabindex="0"></i>
+        </div>
+    </div>
+</div>

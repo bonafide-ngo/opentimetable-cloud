@@ -1,0 +1,10 @@
+{
+    "config": {
+    	"platform": {
+        	"php": "8.3.6"
+    	}
+    },
+    "require": {
+        "giggsey/libphonenumber-for-php": "^8.13"
+    }
+}

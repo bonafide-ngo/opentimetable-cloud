@@ -1,0 +1,6 @@
+/* 
+ * TinyMCE, highlight save button on content change 
+ */
+.tox-tbtn.save-button-enabled {
+    background-color: #f0ab00 !important;
+}

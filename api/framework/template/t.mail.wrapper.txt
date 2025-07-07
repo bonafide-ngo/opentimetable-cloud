@@ -1,0 +1,5 @@
+{txt_title}NEWLINE
+NEWLINE
+{body}
+NEWLINE
+{txt_license} - {txt_version}NEWLINE

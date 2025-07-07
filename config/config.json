@@ -1,0 +1,327 @@
+{
+    "version": "1.5.0",
+    "license": "2025 Bona Fide NGO",
+    "lang": "en",
+    "language": {
+        "en": "english-in-english",
+        "ga": "gaeilge-in-gaeilge"
+    },
+    "logo": {
+        "invariant": "https://domain.ext/img/logo.png",
+        "variant": "https://domain.ext/img/logo.{0}.png",
+        "og": "https://domain.ext/img/logo.og.png"
+    },
+    "autosync": "@6am UTC",
+    "setting": {
+        "flag": {
+            "generalTimetable": "GENERAL_TIMETABLE_FLAG",
+            "generalNotice": "GENERAL_NOTICE_FLAG",
+            "studentTimetable": "STUDENTL_TIMETABLE_FLAG",
+            "studentNotice": "STUDENT_NOTICE_FLAG",
+            "autosync": "AUTOSYNC_FLAG",
+            "autopublish": "AUTOPUBLISH_FLAG",
+            "draft": "DRAFT_FLAG"
+        },
+        "text": {
+            "generalNotice": "GENERAL_NOTICE_TEXT",
+            "studentNotice": "STUDENTL_NOTICE_TEXT"
+        }
+    },
+    "url": {
+        "api": "https://domain.ext/api/",
+        "root": "/",
+        "home": "/app/home/",
+        "lecture": "/app/lecture/",
+        "venue": "/app/venue/",
+        "department": "/app/department/",
+        "student": "/app/student/",
+        "module": "/app/module/",
+        "admin": "/app/admin/",
+        "maintenance": "/app/maintenance/",
+        "analytics": "/goaccess/",
+        "uptime": "",
+        "ticketingSystem": "",
+        "www": "",
+        "privacy": "",
+        "coursesModule": "",
+        "map": "",
+        "directions": "https://www.google.com/maps/dir/?api=1&maptype=roadmap&destination={0},{1}",
+        "firebaseBatchFCM": "https://fcm.googleapis.com/batch",
+        "firebaseFCM": "https://fcm.googleapis.com/v1/projects/{0}/messages:send",
+        "ieInfo": "https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666",
+        "googlePlay": "",
+        "appleUrlScheme": "",
+        "appStore": ""
+    },
+    "links": {
+        "i-link-sample": ""
+    },
+    "social": [
+        {
+            "title": "Facebook",
+            "href": "",
+            "icon": "fab fa-facebook fa-2x"
+        },
+        {
+            "title": "Twitter",
+            "href": "",
+            "icon": "fab fa-twitter fa-2x"
+        },
+        {
+            "title": "LinkedIn",
+            "href": "",
+            "icon": "fab fa-linkedin fa-2x"
+        },
+        {
+            "title": "YouTube",
+            "href": "",
+            "icon": "fab fa-youtube fa-2x"
+        }
+    ],
+    "validity": {
+        "intervalPending": 10000,
+        "payload": 1200,
+        "syncTimeout": 600,
+        "toast": 5000,
+        "traffic": 31536000
+    },
+    "email": {
+        "support": [
+            "support@domain.ext",
+            "Support"
+        ],
+        "noreply": [
+            "noreply@domain.ext",
+            "NoReply"
+        ],
+        "timetable": [
+            "timetable@domain.ext",
+            "Timetable"
+        ]
+    },
+    "php": {
+        "session": {
+            "gc_maxlifetime": 604800,
+            "gc_probability": 1,
+            "gc_divisor": 100
+        },
+        "date": {
+            "timezone": "WET"
+        }
+    },
+    "vti": {
+        "enable": false,
+        "param": "__vti",
+        "storage": {
+            "PK_base64": "__vti/PK_base64",
+            "SK_base64": "__vti/SK_base64"
+        }
+    },
+    "firebase": {
+        "fcm": {
+            "oAuth": {},
+            "webpushKeyPair": ""
+        },
+        "generic": "generic"
+    },
+    "msal": {
+        "instance": {
+            "auth": {
+                "clientId": "",
+                "authority": "",
+                "redirectUri": ""
+            },
+            "cache": {
+                "cacheLocation": "localStorage",
+                "storeAuthStateInCookie": false
+            }
+        },
+        "url": {
+            "keys": "https://login.microsoftonline.com/common/discovery/keys",
+            "me": "https://graph.microsoft.com/v1.0/me",
+            "memberOf": "https://graph.microsoft.com/v1.0/me/memberOf",
+            "select": "https://graph.microsoft.com/v1.0/users/{0}?$select={1}"
+        },
+        "property": {
+            "user": "email",
+            "studentId": "employeeId"
+        },
+        "scopes": [
+            "User.Read",
+            "GroupMember.Read.All"
+        ],
+        "claims": {
+            "id_token": {
+                "groups": {
+                    "essential": true
+                }
+            },
+            "access_token": {
+                "groups": {
+                    "essential": true
+                }
+            }
+        },
+        "groups": {
+            "student": "",
+            "reviewer": "",
+            "staff": "",
+            "admin": ""
+        },
+        "groupsPriority": [
+            "student",
+            "reviewer",
+            "staff",
+            "admin"
+        ]
+    },
+    "cookie": {
+        "alive": [
+            "cookie.property.session.id",
+            "cookie.property.user.token"
+        ],
+        "property": {
+            "session": {
+                "id": {
+                    "name": "__session_id",
+                    "httponly": true,
+                    "expires": 604800
+                },
+                "sync": {
+                    "name": "__session_sync",
+                    "expires": 0
+                }
+            },
+            "msal": {
+                "id": {
+                    "name": "__msal_id",
+                    "expires": 0
+                },
+                "access": {
+                    "name": "__msal_access",
+                    "expires": 0
+                }
+            },
+            "user": {
+                "token": {
+                    "name": "__user_token",
+                    "httponly": true,
+                    "expires": 604800
+                },
+                "lang": {
+                    "name": "__user_lang",
+                    "httponly": false,
+                    "expires": 31536000
+                },
+                "smartbanner": {
+                    "name": "__user_smartbanner",
+                    "httponly": false,
+                    "expires": 604800
+                }
+            }
+        },
+        "option": {
+            "path": "/",
+            "secure": true,
+            "sameSite": "strict"
+        }
+    },
+    "prefix": {
+        "length": 4,
+        "week": "__w.",
+        "semester": "__s."
+    },
+    "map": {
+        "enable": true,
+        "layer": "osm",
+        "layers": {
+            "osm": {
+                "tile": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+                "subdomains": [
+                    "a",
+                    "b",
+                    "c"
+                ],
+                "attribution": {
+                    "href": "https://www.openstreetmap.org/copyright",
+                    "text": "OpenStreetMap"
+                }
+            },
+            "google": {
+                "tile": "https://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}",
+                "subdomains": [
+                    "mt0",
+                    "mt1",
+                    "mt2",
+                    "mt3"
+                ],
+                "attribution": {
+                    "href": "https://www.google.com/maps",
+                    "text": "Google"
+                }
+            }
+        }
+    },
+    "ott": {
+        "author": "",
+        "days": [
+            "monday",
+            "tuesday",
+            "wednesday",
+            "thursday",
+            "friday"
+        ],
+        "order": [
+            "1",
+            "2",
+            "3",
+            "4",
+            "5",
+            "6",
+            "7",
+            "8",
+            "9"
+        ],
+        "periods": {
+            "1": {
+                "from": "09:00",
+                "to": "10:00"
+            },
+            "2": {
+                "from": "10:00",
+                "to": "11:00"
+            },
+            "3": {
+                "from": "11:00",
+                "to": "12:00"
+            },
+            "4": {
+                "from": "12:00",
+                "to": "13:00"
+            },
+            "5": {
+                "from": "13:00",
+                "to": "14:00"
+            },
+            "6": {
+                "from": "14:00",
+                "to": "15:00"
+            },
+            "7": {
+                "from": "15:00",
+                "to": "16:00"
+            },
+            "8": {
+                "from": "16:00",
+                "to": "17:00"
+            },
+            "9": {
+                "from": "17:00",
+                "to": "18:00"
+            }
+        },
+        "showTimeRange": false,
+        "responsiveFirst": false
+    },
+    "ipBlocklist": []
+}

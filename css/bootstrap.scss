@@ -1,0 +1,52 @@
+// N.B. Compile against Bootstrap v5.3.3
+
+// Set functional color palette for CSO guidelines
+$primary: #25788b;
+$secondary: #103671;
+$tertiary: #966b00;
+$quaternary: #165260;
+$quintenary: #822327;
+$navbar: #fff;
+$success: #25788b;
+$info: #46A8B3;
+$warning: #966b00;
+$danger: #822327;
+$light: #f8f9fa;
+$dark: #373a3c;
+$body: #fff;
+
+// Import dependency for compiling theme colours
+@import "../../scss/functions";
+@import "../../scss/variables";
+
+// Set CSO theme colours
+$custom-theme-colours: (
+    'primary': $primary,
+    'secondary': $secondary,
+    'tertiary': $tertiary,
+    'quaternary': $quaternary,
+    'quintenary': $quintenary,
+    'navbar': $navbar,
+    'success': $success,
+    'info': $info,
+    'warning': $warning,
+    'danger': $danger,
+    'light': $light,
+    'dark': $dark,
+    'body': $body
+);
+
+// Merge the CSO theme with bootstraps default
+// N.B. map-merge is mandatory, do NOT assign $theme-colors directly
+$theme-colors: map-merge($custom-theme-colours, $theme-colors);
+
+// Toggle global options
+$enable-dark-mode : false;
+$enable-rounded: false; //true (default) or false	Enables predefined border-radius styles on various components.
+
+// Set and import CSO font
+$font-family-sans-serif: 'Arial', sans-serif;
+@import url("https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@300;400;700&display=swap");
+
+// Import vanila bootstrap
+@import "../../scss/bootstrap";

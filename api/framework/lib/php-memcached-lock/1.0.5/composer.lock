@@ -1,0 +1,67 @@
+{
+    "_readme": [
+        "This file locks the dependencies of your project to a known state",
+        "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
+        "This file is @generated automatically"
+    ],
+    "content-hash": "9f78925079b33e7b672cca32b3a4d065",
+    "packages": [
+        {
+            "name": "cheprasov/php-memcached-lock",
+            "version": "1.0.5",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cheprasov/php-memcached-lock.git",
+                "reference": "3afd41642ea0e87982bdcc8d56ea1e40f5d4620d"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cheprasov/php-memcached-lock/zipball/3afd41642ea0e87982bdcc8d56ea1e40f5d4620d",
+                "reference": "3afd41642ea0e87982bdcc8d56ea1e40f5d4620d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.5"
+            },
+            "require-dev": {
+                "cheprasov/php-parallel": "1.0.0",
+                "phpunit/phpunit": "4.8.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-0": {
+                    "": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Alexander Cheprasov",
+                    "email": "acheprasov84@gmail.com"
+                }
+            ],
+            "description": "MemcachedLock for PHP is a synchronization mechanism for enforcing limits on access to a resource in an environment where there are many threads of execution. A lock is designed to enforce a mutual exclusion concurrency control policy.",
+            "homepage": "http://github.com/cheprasov/php-memcached-lock",
+            "support": {
+                "issues": "https://github.com/cheprasov/php-memcached-lock/issues",
+                "source": "https://github.com/cheprasov/php-memcached-lock/tree/v1.0.5"
+            },
+            "time": "2017-10-08T16:09:10+00:00"
+        }
+    ],
+    "packages-dev": [],
+    "aliases": [],
+    "minimum-stability": "stable",
+    "stability-flags": [],
+    "prefer-stable": false,
+    "prefer-lowest": false,
+    "platform": [],
+    "platform-dev": [],
+    "platform-overrides": {
+        "php": "8.3.6"
+    },
+    "plugin-api-version": "2.3.0"
+}

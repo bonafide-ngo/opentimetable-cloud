@@ -1,0 +1,137 @@
+/* 
+ * Progress 
+ */
+
+.progress {
+    background-color: transparent;
+}
+
+/* 
+ * Form 
+ */
+
+.form-control {
+    border-width: 2px;
+}
+
+/* 
+ * Accordion 
+ */
+
+.accordion-button {
+    background-color: var(--bs-light);
+    font-weight: bold;
+}
+
+/* 
+ * Popover 
+ */
+
+.popover {
+    background-color: transparent;
+    border: none;
+    font-size: 1rem;
+}
+
+.bs-popover-top>.popover-arrow::after, .bs-popover-auto[data-popper-placement^="top"]>.popover-arrow::after {
+    border-top-color: var(--bs-primary);
+}
+
+.bs-popover-end>.popover-arrow::after, .bs-popover-auto[data-popper-placement^="right"]>.popover-arrow::after {
+    border-right-color: var(--bs-primary);
+}
+
+.bs-popover-bottom>.popover-arrow::after, .bs-popover-auto[data-popper-placement^="bottom"]>.popover-arrow::after {
+    border-bottom-color: var(--bs-primary);
+}
+
+.bs-popover-start>.popover-arrow::after, .bs-popover-auto[data-popper-placement^="left"]>.popover-arrow::after {
+    border-left-color: var(--bs-primary);
+}
+
+.popover-header, .popover-body {
+    background-color: var(--bs-primary);
+    color: var(--bs-light);
+    border-radius: 0.8rem !important;
+}
+
+/* 
+ * Bootstrap Tabs 
+ */
+
+.nav-tabs {
+    --bs-nav-tabs-border-width: 2px;
+  }
+
+.nav-tabs .nav-link.active,
+.nav-tabs .nav-item.show .nav-link {
+font-weight: bold;
+/*
+color: var(--bs-light);
+background-color: var(--bs-primary);
+*/
+}
+
+/* 
+ * List
+ */
+.list-group-item {
+    border: none;
+  }
+.list-group-item-action {
+    border: none;
+    border-bottom: var(--bs-border-width) var(--bs-border-style) var(--bs-border-color) !important;
+}
+
+/*
+ * Media print
+ */ 
+@media print {
+    .container {
+        width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    .modal,
+    .modal-dialog,
+    .modal-content {
+      position: static !important;
+      overflow: visible !important;
+      overflow: visible !important;
+      box-shadow: none !important;
+      padding: 0 !important;
+      border: none !important;
+      width: 100% !important;
+      max-width: 100% !important;
+      page-break-inside: avoid !important;
+      break-inside: avoid !important;
+    }
+
+    .modal-backdrop {
+      display: none !important;
+    }
+  
+    .table-responsive {
+      overflow-x: visible !important;
+    }
+  
+    .table {
+      width: 100% !important;
+      table-layout: auto !important;
+      margin-bottom: 30px;
+      overflow-x: visible !important;
+    }
+
+    .table-fixed {
+      width: 100% !important;
+      table-layout: auto !important;
+    }
+
+    body {
+      zoom: 60%;
+    }
+
+    @page {
+      size: portrait;
+    }
+  }

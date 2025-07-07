@@ -1,0 +1,9 @@
+{txt_header}NEWLINE
+========================================NEWLINE
+NEWLINE
+{txt_body}NEWLINE
+NEWLINE
+========================================NEWLINE
+{txt_date} UTC {txt_time}NEWLINE
+NEWLINE
+{txt_footer}NEWLINE

@@ -1,0 +1,90 @@
+<!-- No flickering on reload -->
+
+<body style="background-color: var(--bs-body-bg);">
+    <!-- SS Container -->
+    <div id="ss-container" style="display: none;">
+        <!-- SS Animation & App Container -->
+        <div class="ss-animation container mb-2" id="student">
+
+            <div class="container mb-4 px-0">
+                <div class="card mb-4 border-0" style="display: none;">
+                    <div class="card-header bg-info text-light fs-4 border-0" label="notice"></div>
+                    <div id="student-notice" class="card-body bg-light"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <div class="card border-0">
+                            <div class="card-header text-white bg-quintenary p-3">
+                                <h3 class="m-1">
+                                    <i class="fas fa-book-reader fa-lg pe-2"></i> <span label="student-title"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p label="i-notice" class="card-text"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-steps" class="container mb-4 px-0">
+                <div class="accordion" id="student-select">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="student-select-period-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#student-select-period" aria-expanded="false" aria-controls="student-select-period" label="step-1-period"></button>
+                        </h2>
+                        <div id="student-select-period" class="accordion-collapse collapse show" aria-labelledby="student-select-period-heading" data-bs-parent="#student-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="student-select-period-option" class="form-label fw-bold" label="period"></label>
+                                    <select class="form-select" id="student-select-period-option" required></select>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-selection" class="container mb-2 px-0" style="display: none;">
+                <div class="border-bottom text-primary bg-light p-3">
+                    <h5 class="m-0">
+                        <i class="far fa-check-square fa-lg pe-2"></i> <span label="selection"></span>
+                    </h5>
+                </div>
+
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="period"></span>:
+                    </div>
+                    <div class="col" name="period"></div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col text-end px-4">
+                        <button id="student-change" class="btn btn-outline-quintenary" label="change"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="student-timetable-compact" style="display: none;">
+                <div name="timetables"></div>
+                <div label="disclaimer"></div>
+                <div name="timestamp" class="border-top text-end mt-2 px-2 py-2"></div>
+            </div>
+
+            <!-- Framework routine -->
+            <script src="/js/frm.location.js"></script>
+            <!-- Local resources -->
+            <script src="/app/student/js/student.library.js"></script>
+            <script src="/app/student/js/student.js"></script>
+
+            <!-- SS Animation & App Container: end -->
+        </div>
+
+        <!-- SS Container: end -->
+    </div>
+</body>

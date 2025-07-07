@@ -1,0 +1,7 @@
+# User-agent: Name
+# Disallow: /URLs
+# Allow: /URLs
+
+Sitemap: https://domain.ext/sitemap.xml
+User-agent: *
+Allow: /

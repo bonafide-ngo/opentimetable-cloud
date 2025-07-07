@@ -1,0 +1,20 @@
+/* 
+ * SmoothState 
+ */
+
+#ss-container {
+    max-width: 768px;
+}
+
+#ss-overlay {
+    background-color: var(--bs-body-bg);
+    opacity: 0.9;
+}
+
+#ss-overlay .spinner {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    /* bring your own prefixes */
+    transform: translate(-50%, -50%);
+}

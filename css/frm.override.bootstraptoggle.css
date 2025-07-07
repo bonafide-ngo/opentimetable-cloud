@@ -1,0 +1,11 @@
+/* 
+ * Bootstrap Toggle 
+ */
+
+.toggle.look, .toggle-on.look, .toggle-off.look {
+    /* border-radius: 0.8rem; */
+}
+
+.toggle.look .toggle-handle {
+    /* border-radius: 0.8rem; */
+}

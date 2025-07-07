@@ -1,0 +1,163 @@
+<!-- No flickering on reload -->
+
+<body style="background-color: var(--bs-body-bg);">
+    <!-- SS Container -->
+    <div id="ss-container" style="display: none;">
+        <!-- SS Animation & App Container -->
+        <div class="ss-animation container mb-2" id="department">
+
+            <div class="container mb-4 px-0">
+                <div class="card mb-4 border-0" style="display: none;">
+                    <div class="card-header bg-info text-light fs-4 border-0" label="notice"></div>
+                    <div id="department-notice" class="card-body bg-light"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <div class="card border-0">
+                            <div class="card-header text-white bg-quaternary p-3">
+                                <h3 class="m-1">
+                                    <i class="fas fa-book-reader fa-lg pe-2"></i> <span label="departments-title"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p label="i-notice" class="card-text"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="department-steps" class="container mb-4 px-0">
+                <div class="accordion" id="department-select">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="department-select-departments-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#department-select-departments" aria-expanded="true" aria-controls="department-select-departments" label="step-1-departments"></button>
+                        </h2>
+                        <div id="department-select-departments" class="accordion-collapse collapse show" aria-labelledby="department-select-departments-heading" data-bs-parent="#department-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="department-select-departments-option" class="form-label fw-bold" label="departments"></label>
+                                    <select class="form-select" id="department-select-departments-option" multiple="multiple"></select>
+                                    <small class="fw-light" label="multiple-info"></small>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="department-select-courses-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#department-select-courses" aria-expanded="false" aria-controls="department-select-courses" label="step-2-courses"></button>
+                        </h2>
+                        <div id="department-select-courses" class="accordion-collapse collapse show" aria-labelledby="department-select-courses-heading" data-bs-parent="#department-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="department-select-courses-option" class="form-label fw-bold" label="courses"></label>
+                                    <select class="form-select" id="department-select-courses-option" multiple="multiple"></select>
+                                    <small class="fw-light" label="multiple-info"></small>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="cancel" class="btn btn-light me-2" label="back"></button>
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="department-select-period-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#department-select-period" aria-expanded="false" aria-controls="department-select-period" label="step-3-period"></button>
+                        </h2>
+                        <div id="department-select-period" class="accordion-collapse collapse show" aria-labelledby="department-select-period-heading" data-bs-parent="#department-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="department-select-period-option" class="form-label fw-bold" label="period"></label>
+                                    <select class="form-select" id="department-select-period-option" required></select>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="cancel" class="btn btn-light me-2" label="back"></button>
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="department-select-modules-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#department-select-modules" aria-expanded="false" aria-controls="department-select-modules" label="step-4-modules"></button>
+                        </h2>
+                        <div id="department-select-modules" class="accordion-collapse collapse show" aria-labelledby="department-select-modules-heading" data-bs-parent="#department-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="department-select-modules-option" class="form-label fw-bold" label="module"></label>
+                                    <select class="form-select" id="department-select-modules-option" multiple="multiple"></select>
+                                    <small class="fw-light" label="multiple-info"></small>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="cancel" class="btn btn-light me-2" label="back"></button>
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="department-selection" class="container mb-2 px-0" style="display: none;">
+                <div class="border-bottom text-primary bg-light p-3">
+                    <h5 class="m-0">
+                        <i class="far fa-check-square fa-lg pe-2"></i> <span label="selection"></span>
+                    </h5>
+                </div>
+
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="departments"></span>:
+                    </div>
+                    <div class="col" name="departments"></div>
+                </div>
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="courses"></span>:
+                    </div>
+                    <div class="col" name="courses"></div>
+                </div>
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="period"></span>:
+                    </div>
+                    <div class="col" name="period"></div>
+                </div>
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="modules"></span>:
+                    </div>
+                    <div class="col" name="modules"></div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col text-end px-4">
+                        <button id="department-share" class="btn btn-outline-primary me-2" data-bs-toggle="popover" data-bs-trigger="focus" label-content="link-copied" label="share"></button>
+                        <button id="department-change" class="btn btn-outline-quintenary" label="change"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="department-timetable-compact" style="display: none;">
+                <div name="timetables"></div>
+                <div label="disclaimer"></div>
+                <div name="timestamp" class="border-top text-end mt-2 px-2 py-2"></div>
+            </div>
+
+            <!-- Framework routine -->
+            <script src="/js/frm.location.js"></script>
+            <!-- Local resources -->
+            <script src="/app/department/js/department.library.js"></script>
+            <script src="/app/department/js/department.js"></script>
+
+            <!-- SS Animation & App Container: end -->
+        </div>
+
+        <!-- SS Container: end -->
+    </div>
+</body>

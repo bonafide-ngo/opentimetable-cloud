@@ -1,0 +1,11 @@
+{txt_header}NEWLINE
+========================================NEWLINE
+NEWLINE
+{txt_message}NEWLINE
+NEWLINE
+{txt_name} <{txt_email}> {txt_organisation} [{txt_type}] {txt_lang}, {txt_ip}NEWLINE
+NEWLINE
+========================================NEWLINE
+{txt_date} UTC {txt_time}NEWLINE
+NEWLINE
+{txt_footer}NEWLINE

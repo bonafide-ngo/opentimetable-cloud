@@ -1,0 +1,58 @@
+<!-- Trail -->
+<div id="toast-trail" aria-live="polite" aria-atomic="true" class="position-fixed top-0 end-0 p-1"></div>
+
+<!-- Template for an active chat -->
+<div name="template-active-chat" class="toast rounded-8 o-9 mb-1" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+    <div class="toast-header bg-dark rounded-top-8">
+        <i class="fas fa-comments fa-lg pe-2 text-info"></i>
+        <span class="me-auto text-truncate">
+            <span name="group" class="fw-bold" style="display: none;"></span>
+            <span name="fullname" class="fw-bold" style="display: none;"></span>
+            <span name="organisation" style="display: none;"></span>
+        </span>
+    </div>
+    <div class="toast-body bg-secondary p-2 o-8 rounded-bottom-8 text-truncate">
+        <span name="text" style="display: none;"></span>
+        <span name="audio" style="display: none;">
+            <span class="badge rounded-8 bg-success">
+                <i class="fas fa-microphone pe-1"></i>
+                <span label="audio"></span>
+            </span>
+        </span>
+        <span name="camera" style="display: none;">
+            <span class="badge rounded-8 bg-primary">
+                <i class="fas fa-camera pe-1"></i>
+                <span label="picture"></span>
+            </span>
+        </span>
+        <span name="map" style="display: none;">
+            <span class="badge rounded-8 bg-danger">
+                <i class="fas fa-map-marker-alt pe-1"></i>
+                <span label="position"></span>
+            </span>
+        </span>
+        <span name="file" style="display: none;">
+            <span class="badge rounded-8 bg-warning text-light">
+                <i class="fas fa-paperclip pe-1"></i>
+                <span label="attachment"></span>
+            </span>
+        </span>
+        <span name="newbie" style="display: none;">
+            <span class="badge rounded-8 bg-warning text-light">
+                <i class="fas fa-user-plus pe-1"></i>
+                <span class="text-secondary" label="new-group-member"></span>
+            </span>
+        </span>
+    </div>
+</div>
+
+<!-- Template for notification -->
+<div name="template-notification" class="toast rounded-8 o-9 mb-1" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="false">
+    <div class="toast-header bg-info rounded-top-8">
+        <i name="icon" class="fas fa-lg pe-2"></i>
+        <span class="me-auto text-truncate">
+            <span name="title" class="fw-bold text-light"></span>
+        </span>
+    </div>
+    <div name="body" class="toast-body bg-light p-2 o-8 rounded-bottom-8 text-truncate"></div>
+</div>

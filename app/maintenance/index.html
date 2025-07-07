@@ -1,0 +1,33 @@
+<!-- No flickering on reload -->
+
+<body style="background-color: var(--bs-body-bg);">
+    <!-- SS Container -->
+    <div id="ss-container" style="display: none;">
+        <!-- SS Animation & App Container -->
+        <div class="ss-animation container my-2" id="maintenance">
+
+            <div class="min-vh-100 d-flex justify-content-center align-items-center">
+                <div class="d-flex flex-column mb-3">
+                    <div class="text-center pb-3">
+                        <img src="/img/logo.png" width="128px">
+                    </div>
+                    <div class="text-center text-warning">
+                        <h1 label="maintenance"></h1>
+                    </div>
+                    <div class="text-center" label="maintenance-info"></div>
+                    <div class="text-center mt-4">
+                        <a href="/app/home/" class="fs-5" label="try-again"></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Framework routine -->
+            <script src="/js/frm.location.js"></script>
+            <!-- Local resources -->
+            <script src="/app/maintenance/js/maintenance.js"></script>
+
+            <!-- SS Animation & App Container: end -->
+        </div>
+        <!-- SS Container: end -->
+    </div>
+</body>

@@ -1,0 +1,125 @@
+<!-- No flickering on reload -->
+
+<body style="background-color: var(--bs-body-bg);">
+    <!-- SS Container -->
+    <div id="ss-container" style="display: none;">
+        <!-- SS Animation & App Container -->
+        <div class="ss-animation container mb-2" id="home">
+
+            <div class="container">
+                <div class="card mb-4 border-0" style="display: none;">
+                    <div class="card-header bg-info text-light fs-4 border-0" label="notice"></div>
+                    <div id="home-notice" class="card-body bg-light"></div>
+                </div>
+                <div id="home-menu" class="row">
+                    <div class="col col-12 col-sm-6">
+
+                        <div class="card mb-4 border-0">
+                            <div id="home-lecture" class="card-header text-center text-white bg-secondary p-3 cursor">
+                                <h3 class="m-1">
+                                    <i class="fas fa-book-reader fa-lg pe-2"></i> <span label="lectures"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p class="card-text" label="lectures-info"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col col-12 col-sm-6">
+
+                        <div class="card mb-4 border-0">
+                            <div id="home-venue" class="card-header text-center text-white bg-tertiary p-3 cursor">
+                                <h3 class="m-1">
+                                    <i class="fas fa-university fa-lg pe-2"></i> <span label="venues"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p class="card-text" label="venues-info"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col col-12 col-sm-6">
+
+                        <div class="card mb-4 border-0">
+                            <div id="home-department" class="card-header text-center text-white bg-quaternary p-3 cursor">
+                                <h3 class="m-1">
+                                    <i class="fas fa-sitemap fa-lg pe-2"></i> <span label="departments"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p class="card-text" label="departments-info"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col col-12 col-sm-6">
+
+                        <div class="card mb-4 border-0">
+                            <!-- iPhone fix for MSAL login popoup, must bind click event on button/a tag -->
+                            <button id="home-student" type="button" class="card-header text-center text-white btn bg-quintenary p-3 cursor">
+                                <h3 class="m-1">
+                                    <i class="fas fa-user fa-lg pe-2"></i> <span label="student"></span>
+                                </h3>
+                            </button>
+                            <div class="card-body bg-light">
+                                <p class="card-text" label="student-info"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="container mb-4 p-4">
+                <h4 label="links"></h4>
+                <div id="home-links" class="list-group"></div>
+            </div>
+
+            <!-- TODO: Pending mobile app -->
+            <div class="container" style="display: none;">
+                <div class="row">
+                    <div class="col col-12 col-sm-6">
+
+                        <div id="home-android" class="card mb-4 border-0">
+                            <div class="card-body bg-light">
+                                <div class="text-center">
+                                    <a href="#" target="_blank">
+                                        <img alt="Google Play" src="#" width="240px" />
+                                    </a>
+                                </div>
+                                <small class="text-dark fw-light" label="notice-trademark-google"></small>
+                            </div>
+                        </div>
+
+                    </div>
+                    <div class="col col-12 col-sm-6">
+
+                        <div id="home-ios" class="card mb-4 border-0">
+                            <div class="card-body bg-dark text-light">
+                                <div class="text-center">
+                                    <a href="#" target="_blank">
+                                        <img alt="Apple Store" src="#" width="200px" class="p-3" />
+                                    </a>
+                                </div>
+                                <small class="fw-light" label="notice-trademark-apple"></small>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- Framework routine -->
+            <script src="/js/frm.location.js"></script>
+            <!-- Local resources -->
+            <script src="/app/home/js/home.library.js"></script>
+            <script src="/app/home/js/home.js"></script>
+
+            <!-- SS Animation & App Container: end -->
+        </div>
+
+        <!-- SS Container: end -->
+    </div>
+</body>

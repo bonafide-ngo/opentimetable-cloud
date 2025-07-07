@@ -1,0 +1,139 @@
+<!-- No flickering on reload -->
+
+<body style="background-color: var(--bs-body-bg);">
+    <!-- SS Container -->
+    <div id="ss-container" style="display: none;">
+        <!-- SS Animation & App Container -->
+        <div class="ss-animation container mb-2" id="lecture">
+
+            <div class="container mb-4 px-0">
+                <div class="card mb-4 border-0" style="display: none;">
+                    <div class="card-header bg-info text-light fs-4 border-0" label="notice"></div>
+                    <div id="lecture-notice" class="card-body bg-light"></div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <div class="card border-0">
+                            <div class="card-header text-white bg-secondary p-3">
+                                <h3 class="m-1">
+                                    <i class="fas fa-book-reader fa-lg pe-2"></i> <span label="lectures-title"></span>
+                                </h3>
+                            </div>
+                            <div class="card-body bg-light">
+                                <p label="i-notice" class="card-text"></p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div id="lecture-steps" class="container mb-4 px-0">
+                <div class="accordion" id="lecture-select">
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="lecture-select-courses-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lecture-select-courses" aria-expanded="true" aria-controls="lecture-select-courses" label="step-1-course"></button>
+                        </h2>
+                        <div id="lecture-select-courses" class="accordion-collapse collapse show" aria-labelledby="lecture-select-courses-heading" data-bs-parent="#lecture-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="lecture-select-courses-option" class="form-label fw-bold" label="courses"></label>
+                                    <select class="form-select" id="lecture-select-courses-option" multiple="multiple"></select>
+                                    <small class="fw-light" label="multiple-info"></small>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="lecture-select-period-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lecture-select-period" aria-expanded="false" aria-controls="lecture-select-period" label="step-2-period"></button>
+                        </h2>
+                        <div id="lecture-select-period" class="accordion-collapse collapse show" aria-labelledby="lecture-select-period-heading" data-bs-parent="#lecture-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="lecture-select-period-option" class="form-label fw-bold" label="period"></label>
+                                    <select class="form-select" id="lecture-select-period-option" required></select>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="cancel" class="btn btn-light me-2" label="back"></button>
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="accordion-item border-0">
+                        <h2 class="accordion-header border-bottom" id="lecture-select-modules-heading">
+                            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#lecture-select-modules" aria-expanded="false" aria-controls="lecture-select-modules" label="step-3-modules"></button>
+                        </h2>
+                        <div id="lecture-select-modules" class="accordion-collapse collapse show" aria-labelledby="lecture-select-modules-heading" data-bs-parent="#lecture-select" style="">
+                            <div class="accordion-body">
+                                <div class="form-group">
+                                    <label for="lecture-select-modules-option" class="form-label fw-bold" label="module"></label>
+                                    <select class="form-select" id="lecture-select-modules-option" multiple="multiple"></select>
+                                    <small class="fw-light" label="multiple-info"></small>
+                                </div>
+                                <div class="mt-2 text-end">
+                                    <button type="cancel" class="btn btn-light me-2" label="back"></button>
+                                    <button type="submit" class="btn btn-primary" label="continue"></button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lecture-selection" class="container mb-2 px-0" style="display: none;">
+                <div class="border-bottom text-primary bg-light p-3">
+                    <h5 class="m-0">
+                        <i class="far fa-check-square fa-lg pe-2"></i> <span label="selection"></span>
+                    </h5>
+                </div>
+
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="courses"></span>:
+                    </div>
+                    <div class="col" name="courses"></div>
+                </div>
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="period"></span>:
+                    </div>
+                    <div class="col" name="period"></div>
+                </div>
+                <div class="row py-1 mt-2 mx-0 border-bottom">
+                    <div class="col-4 col-sm-3 text-end pe-2">
+                        <span class="fs-6 fw-bold" label="modules"></span>:
+                    </div>
+                    <div class="col" name="modules"></div>
+                </div>
+                <div class="row pt-2">
+                    <div class="col text-end px-4">
+                        <button id="lecture-share" class="btn btn-outline-primary me-2" data-bs-toggle="popover" data-bs-trigger="focus" label-content="link-copied" label="share"></button>
+                        <button id="lecture-change" class="btn btn-outline-quintenary" label="change"></button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="lecture-timetable-compact" style="display: none;">
+                <div name="timetables"></div>
+                <div label="disclaimer"></div>
+                <div name="timestamp" class="border-top text-end mt-2 px-2 py-2"></div>
+            </div>
+
+            <!-- Framework routine -->
+            <script src="/js/frm.location.js"></script>
+            <!-- Local resources -->
+            <script src="/app/lecture/js/lecture.library.js"></script>
+            <script src="/app/lecture/js/lecture.js"></script>
+
+            <!-- SS Animation & App Container: end -->
+        </div>
+
+        <!-- SS Container: end -->
+    </div>
+</body>

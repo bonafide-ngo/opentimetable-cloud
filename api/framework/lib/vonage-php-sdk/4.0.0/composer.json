@@ -1,0 +1,10 @@
+{
+    "config": {
+    	"platform": {
+        	"php": "8.3.6"
+    	}
+    },
+    "require": {
+        "vonage/client": "^4.0"
+    }
+}
