@@ -1,0 +1,10 @@
+### Disallow access
+RewriteRule ^/?api/session/.*$ - [F,L]
+RewriteRule ^/?api/cache/.*$ - [F,L]
+RewriteRule ^/?api/log/.*$ - [F,L]
+RewriteRule ^/?sql/.*$ - [F,L]
+
+### Rewrite Rule
+RewriteEngine On
+RewriteCond %{HTTP_HOST} ^www.(.*)$
+RewriteRule ^(.*)$ http://%1/$1 [L,R=301]
