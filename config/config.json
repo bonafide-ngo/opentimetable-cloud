@@ -1,5 +1,5 @@
 {
-    "version": "1.5.0",
+    "version": "1.6.0",
     "license": "2025 Bona Fide NGO",
     "lang": "en",
     "language": {
@@ -45,7 +45,8 @@
         "privacy": "",
         "coursesModule": "",
         "map": "",
-        "directions": "https://www.google.com/maps/dir/?api=1&maptype=roadmap&destination={0},{1}",
+        "directionsGPS": "https://www.google.com/maps/dir/?api=1&maptype=roadmap&destination={0},{1}",
+        "directionsStatic": "https://www.google.com/maps/?q={0},{1}",
         "firebaseBatchFCM": "https://fcm.googleapis.com/batch",
         "firebaseFCM": "https://fcm.googleapis.com/v1/projects/{0}/messages:send",
         "ieInfo": "https://techcommunity.microsoft.com/t5/microsoft-365-blog/microsoft-365-apps-say-farewell-to-internet-explorer-11-and/ba-p/1591666",
@@ -123,6 +124,13 @@
             "webpushKeyPair": ""
         },
         "generic": "generic"
+    },
+    "matomo": {
+        "enable": false,
+        "siteId": null,
+        "baseUrl": "https://matomo.domain.ext/",
+        "disableCookies": true,
+        "timetableTitle": "OTF"
     },
     "msal": {
         "instance": {

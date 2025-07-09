@@ -48,15 +48,14 @@ frm.map.listen = function (latitude, longitude, code, name) {
 frm.map.bindDirections = function () {
     // Trigger directions
     $('#modal-map').find('[name="directions"]').once('click', function () {
-        // eg. Google Map Location
-        //https://www.google.com/maps/place/34.1030032,-118.41046840000001
-        // eg. Google Map Directions
-        //https://www.google.com/maps/dir/?api=1&origin=34.1030032,-118.41046840000001&destination=34.059808,-118.368152
-        //https://www.google.com/maps/dir/?api=1&origin=34.1030032,-118.41046840000001
-
         //Set url
-        var url = frm.config.url.directions.sprintf([frm.map.position.coords.latitude, frm.map.position.coords.longitude]);
-        window.open(url, '_blank');
+        if (isMobile.any)
+            var url = frm.config.url.directionsGPS;
+        else
+            var url = frm.config.url.directionsStatic;
+
+        // Open in another page
+        window.open(url.sprintf([frm.map.position.coords.latitude, frm.map.position.coords.longitude]), '_blank');
     });
 }
 

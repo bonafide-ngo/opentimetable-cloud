@@ -1130,5 +1130,3 @@ table.dataTable.table-bordered th.dtr-control.dtr-hidden + *,
 table.dataTable.table-bordered td.dtr-control.dtr-hidden + * {
   border-left-width: 1px;
 }
-
-

@@ -1,21 +1,3 @@
-// Init
-var frm = frm || {};
-
-/*******************************************************************************
-Framework - Initialise - Loads
-*******************************************************************************/
-// Load resources
-$(document).ready(function () {
-    // Toasts
-    frm.ajax.content.load("#toast", "./toast.html");
-    // Timetable templates
-    frm.ajax.content.load("#timetable-compact", "./timetable.compact.html");
-    frm.ajax.content.load("#timetable-full", "./timetable.full.html");
-    // Modal templates
-    frm.ajax.content.load("#modal-app", "./modal.app.html");
-    frm.ajax.content.load("#modal-frm", "./modal.frm.html");
-});
-
 /*******************************************************************************
 Framework - Initialise - Label
 *******************************************************************************/
@@ -314,3 +296,9 @@ frm.msal.override.init = async function (isLogin) {
 
 // Set MSAL plublic client app
 frm.msal.setPublicClientApplication();
+
+/*******************************************************************************
+Framework - Initialise - Matomo
+*******************************************************************************/
+
+frm.common.matomo.init();

@@ -51,7 +51,7 @@
     <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/jquery@3.7.1b0/dist/jquery.min.js" crossorigin="anonymous"></script>
 
     <!-- Bootstrap 5 - https://github.com/bonafide-ngo/bootstrap -->
-    <link href="/css/bootstrap.css" rel="stylesheet">
+    <link href="/css/bootstrap/5.3.3/bootstrap.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
 
     <!-- Bootstrap 5 Toggle - https://github.com/bonafide-ngo/bootstrap5-toggle/ -->
@@ -79,8 +79,8 @@
     <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/tinymce@7.6.1b0/langs/ga.js" crossorigin="anonymous"></script>
 
     <!-- DataTables - https://github.com/bonafide-ngo/opentimetable-cloud -->
-    <link href="https://cdn.jsdelivr.net/gh/bonafide-ngo/opentimetable-cloud@1.5.0/css/datatables.min.css" rel="stylesheet" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/opentimetable-cloud@1.5.0/js/datatables.min.js" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/gh/bonafide-ngo/opentimetable-cloud@1.6.0/css/datatables/2.2.1/datatables.min.css" rel="stylesheet" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/opentimetable-cloud@1.6.0/js/datatables/2.2.1/datatables.min.js" crossorigin="anonymous"></script>
 
     <!-- Select2 - https://github.com/bonafide-ngo/select2 -->
     <link href="https://cdn.jsdelivr.net/gh/bonafide-ngo/select2@4.0.13b0/dist/css/select2.min.css" rel="stylesheet" crossorigin="anonymous">
@@ -109,33 +109,40 @@
     <link href="https://cdn.jsdelivr.net/gh/bonafide-ngo/smoothState.js@0.7.2b2/dist/smoothstate.min.css" rel="stylesheet" crossorigin="anonymous">
     <script src="https://cdn.jsdelivr.net/gh/bonafide-ngo/smoothState.js@0.7.2b2/dist/smoothstate.min.js" crossorigin="anonymous"></script>
 
+    <!-- Constant JS -->
+    <script src="/js/constant.js"></script>
+
     <!-- Framework CSS -->
-    <link href="/css/frm.library.css" rel="stylesheet">
-    <link href="/css/frm.override.bootstrap.css" rel="stylesheet">
-    <link href="/css/frm.override.bootstraptoggle.css" rel="stylesheet">
-    <link href="/css/frm.override.smoothstate.css" rel="stylesheet">
-    <link href="/css/frm.override.tinymce.css" rel="stylesheet">
+    <link href="/css/framework/frm.override.bootstrap.css" rel="stylesheet">
+    <link href="/css/framework/frm.override.bootstraptoggle.css" rel="stylesheet">
+    <link href="/css/framework/frm.override.smoothstate.css" rel="stylesheet">
+    <link href="/css/framework/frm.override.tinymce.css" rel="stylesheet">
 
     <!-- Framework JS Library -->
-    <script src="/js/lib/frm.ajax.js"></script>
-    <script src="/js/lib/frm.common.js"></script>
-    <script src="/js/lib/frm.crypto.js"></script>
-    <script src="/js/lib/frm.label.js"></script>
-    <script src="/js/lib/frm.misc.js"></script>
-    <script src="/js/lib/frm.modal.js"></script>
-    <script src="/js/lib/frm.spinner.js"></script>
-    <script src="/js/lib/frm.uri.js"></script>
-    <script src="/js/lib/frm.share.js"></script>
-    <script src="/js/lib/frm.firebase.js"></script>
-    <script src="/js/lib/frm.map.js"></script>
-    <script src="/js/lib/frm.msal.js"></script>
-    <script src="/js/lib/frm.ott.js"></script>
+    <script src="/js/framework/lib/frm.ajax.js"></script>
+    <script src="/js/framework/lib/frm.common.js"></script>
+    <script src="/js/framework/lib/frm.crypto.js"></script>
+    <script src="/js/framework/lib/frm.label.js"></script>
+    <script src="/js/framework/lib/frm.misc.js"></script>
+    <script src="/js/framework/lib/frm.modal.js"></script>
+    <script src="/js/framework/lib/frm.spinner.js"></script>
+    <script src="/js/framework/lib/frm.uri.js"></script>
+    <script src="/js/framework/lib/frm.share.js"></script>
+    <script src="/js/framework/lib/frm.firebase.js"></script>
+    <script src="/js/framework/lib/frm.map.js"></script>
+    <script src="/js/framework/lib/frm.msal.js"></script>
+    <script src="/js/framework/lib/frm.ott.js"></script>
 
     <!-- Framework JS -->
-    <script src="/js/frm.constant.js"></script>
-    <script src="/js/frm.config.js"></script>
-    <script src="/js/frm.location.js"></script>
-    <script src="/js/frm.init.js"></script>
+    <script src="/js/framework/frm.config.js"></script>
+    <script src="/js/framework/frm.location.js"></script>
+    <script src="/js/framework/frm.init.js"></script>
+
+    <!-- App CSS -->
+    <link href="/css/app/app.library.css" rel="stylesheet">
+
+    <!-- App JS -->
+    <script src="/js/app/app.init.js"></script>
 
 </head>
 
@@ -328,7 +335,7 @@
     <!-- Beep -->
     <audio id="audio-beep" src="/audio/beep.mp3"></audio>
 
-    <!-- Local resources -->
+    <!-- App JS -->
     <script src="/index.js"></script>
 </body>
 

@@ -275,5 +275,8 @@ app.department.readTimetable = function () {
         // Auto load full modal
         if (!frm.config.ott.responsiveFirst && !isMobile.any && frm.breakpoint() > C_BREAKPOINT_LG)
             $('#timetable-full-modal').modal('show');
+
+        // Matomo SPA traking
+        frm.common.matomo.track(true);
     };
 };

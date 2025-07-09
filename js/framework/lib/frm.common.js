@@ -12,6 +12,7 @@ frm.common.sync.id = null;
 frm.common.sync.isDraft = false;
 frm.common.sync.isActive = false;
 frm.common.sync.isPreview = false;
+frm.common.matomo = {};
 
 /**
  * Customise the header when scrolling
@@ -129,6 +130,9 @@ frm.common.routine = function (title, description, breadcrumb) {
     // Check cookies
     if (!frm.isCookie())
         return false;
+
+    // Matomo SPA traking
+    frm.common.matomo.track();
 
     return true;
 }
@@ -506,7 +510,6 @@ frm.common.sync.render = function () {
         $('#breadcrumb').find('[name="sync"]').html('').hide();
 }
 
-
 /*******************************************************************************
 Framework - Common - Select2
 *******************************************************************************/
@@ -604,4 +607,63 @@ frm.common.select2.module = function (results) {
         });
     else
         return [];
+}
+
+/*******************************************************************************
+Framework - Common - Matomo
+*******************************************************************************/
+
+/**
+ * Initiliase Matomo
+ * @returns 
+ */
+frm.common.matomo.init = function () {
+    if (!frm.config.matomo.enable)
+        return;
+
+    // Fetch instance
+    var _paq = window._paq = window._paq || [];
+
+    if (frm.config.matomo.disableCookies)
+        // Cookieless tracking
+        _paq.push(['disableCookies']);
+
+    // Link tracking
+    _paq.push(['enableLinkTracking']);
+
+    (function () {
+        const u = frm.config.matomo.baseUrl;
+        _paq.push(['setTrackerUrl', u + 'matomo.php']);
+        _paq.push(['setSiteId', frm.config.matomo.siteId]);
+        var d = document, g = d.createElement('script'), s = d.getElementsByTagName('script')[0];
+        g.async = true; g.src = u + 'matomo.js'; s.parentNode.insertBefore(g, s);
+    })();
+
+    // Set referrer
+    window.referrerSPA = window.location.href;
+}
+
+/**
+ * Track a Single Page App (SPA) visit
+ * @param {*} isOTT 
+ * @returns 
+ */
+frm.common.matomo.track = function (isOTT) {
+    isOTT = isOTT || false;
+
+    if (!frm.config.matomo.enable)
+        return;
+
+    // Fetch instance
+    var _paq = window._paq = window._paq || [];
+
+    _paq.push(['setReferrerUrl', window.referrerSPA]);
+    _paq.push(['setCustomUrl', window.location.href]);
+    _paq.push(['setDocumentTitle', document.title + (isOTT ? ' [' + frm.config.matomo.timetableTitle + ']' : '')]);
+    // Tracker methods like "setCustomDimension" should be called before "trackPageView"
+    _paq.push(['trackPageView']);
+
+    if (!isOTT)
+        // Update referrer
+        window.referrerSPA = window.location.href;
 }
