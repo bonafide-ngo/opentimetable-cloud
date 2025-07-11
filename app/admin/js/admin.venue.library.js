@@ -54,11 +54,14 @@ app.admin.venue.read = function () {
                     {
                         className: 'dt-body-left',
                         render: function (data, type, row) {
-                            return $('<a>', {
-                                name: 'map',
-                                href: '#',
-                                text: data
-                            })[0].outerHTML;
+                            if (row.lct_latitude && row.lct_longitude)
+                                return $('<a>', {
+                                    name: 'map',
+                                    href: '#',
+                                    text: data
+                                })[0].outerHTML;
+                            else
+                                return data;
                         },
                         targets: 0
                     },
