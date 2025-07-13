@@ -32,6 +32,7 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - [Personas](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Personas)
 - [Functional Specifications](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Functional-Specifications)
 - [Non Functional Specifications](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Non-Functional-Specifications)
+- [Accessibility WCAG 2.1](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Accessibility-WCAG-2.1)
 - [Data Architecture](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Data-Architecture)
 - [Data Model](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/Data-Model)
 - [TODO](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/TODO)
