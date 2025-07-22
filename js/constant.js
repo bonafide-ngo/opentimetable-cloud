@@ -48,3 +48,6 @@ const C_MSAL_GROUP_ADMIN = 'admin';
 const C_DB_SYNC_STATUS_SUCCESS = 'success';
 const C_DB_SYNC_STATUS_ERROR = 'error';
 const C_DB_SYNC_STATUS_PENDING = 'pending';
+
+// Map
+const C_MAP_ESRI = 'esri';

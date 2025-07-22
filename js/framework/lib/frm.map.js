@@ -75,10 +75,19 @@ frm.map.draw = function (id, position, fitBounds) {
     window.geolocation.atlas.attributionControl.setPrefix('<a href="https://leafletjs.com/" target="_blank">Leaflet</a>');
 
     // Add layer
-    L.tileLayer(frm.config.map.layers[frm.config.map.layer].tile, {
-        attribution: `<a href="${frm.config.map.layers[frm.config.map.layer].attribution.href}" target="_blank">${frm.config.map.layers[frm.config.map.layer].attribution.text}</a>`,
-        subdomains: frm.config.map.layers[frm.config.map.layer].subdomains
-    }).addTo(window.geolocation.atlas);
+    switch (frm.config.map.layer) {
+        case C_MAP_ESRI:
+            L.esri.tiledMapLayer({
+                url: frm.config.map.layers[frm.config.map.layer].tile
+            }).addTo(window.geolocation.atlas);
+            break;
+        default:
+            L.tileLayer(frm.config.map.layers[frm.config.map.layer].tile, {
+                attribution: `<a href="${frm.config.map.layers[frm.config.map.layer].attribution.href}" target="_blank">${frm.config.map.layers[frm.config.map.layer].attribution.text}</a>`,
+                subdomains: frm.config.map.layers[frm.config.map.layer].subdomains
+            }).addTo(window.geolocation.atlas);
+            break;
+    }
 
     // Add zoom controls
     new L.Control.Zoom({ position: 'bottomleft' }).addTo(window.geolocation.atlas);

@@ -1,12 +1,3 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
---
--- Host: localhost
--- Generation Time: Jun 28, 2025 at 08:25 AM
--- Server version: 10.6.22-MariaDB-0ubuntu0.22.04.1
--- PHP Version: 7.4.33
-
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -22,7 +13,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE link_module
-ENGINE=CONNECT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci CONNECTION='DSN=OracleDB' TABLE_TYPE='ODBC' TABNAME='V_MODULE';
+-- TOCONFIGURE
 
 -- --------------------------------------------------------
 
@@ -31,7 +22,7 @@ ENGINE=CONNECT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci CONNECTION='DS
 --
 
 CREATE TABLE link_student
-ENGINE=CONNECT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci CONNECTION='DSN=OracleDB' TABLE_TYPE='ODBC' TABNAME='V_STUDENT';
+-- TOCONFIGURE
 
 -- --------------------------------------------------------
 
@@ -40,7 +31,7 @@ ENGINE=CONNECT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci CONNECTION='DS
 --
 
 CREATE TABLE link_timetable
-ENGINE=CONNECT DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci CONNECTION='DSN=OracleDB' TABLE_TYPE='ODBC' TABNAME='V_TIMETABLE';
+-- TOCONFIGURE
 
 -- --------------------------------------------------------
 

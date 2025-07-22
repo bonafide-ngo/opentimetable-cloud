@@ -1,5 +1,5 @@
 {
-    "version": "1.6.1",
+    "version": "1.6.2",
     "license": "2025 Bona Fide NGO",
     "lang": "en",
     "language": {
@@ -267,6 +267,11 @@
                     "href": "https://www.google.com/maps",
                     "text": "Google"
                 }
+            },
+            "esri": {
+                "tile": "https://utility.arcgis.com/usrsvcs/servers/88f1db9e4ae04df69e499223b8295843/rest/services/MapGeniePremiumWM/MapServer",
+                "subdomains": [],
+                "attribution": {}
             }
         }
     },
