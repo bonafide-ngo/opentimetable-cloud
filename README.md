@@ -38,8 +38,11 @@ The system streamlines the scheduling process, enhances user experience, and sup
 - [TODO](https://github.com/bonafide-ngo/opentimetable-cloud/wiki/TODO)
 
 ## Stewardship
-![](https://bonafide.ngo/img/favicon/favicon-32x32.png) [Bona Fide NGO](https://bonafide.ngo) is the original custodian of the **Open Timetable Cloud** application, ensuring it meets the needs of users, educational institutions, and stakeholders. It provides vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Its commitment improves efficiency and accessibility in the educational sector.
+[Bona Fide NGO](https://bonafide.ngo) is the original custodian of the **Open Timetable Cloud** application, ensuring it meets the needs of users, educational institutions, and stakeholders. It provides vital support, expertise, and guidance, helping the project thrive and deliver optimal results. Its commitment improves efficiency and accessibility in the educational sector.
 
 ## Sponsorship
-The project is sponsored by the following organizations, offering essential business requirements and financial support for the design, development, and maintenance of the **Open Timetable Cloud** application:
-> ![](https://www.maynoothuniversity.ie/sites/default/files/favicon.ico) [Maynooth University](https://mu.ie)
+This project is proudly supported by the following organizations, whose contributions are vital to the success of the **Open Timetable Cloud** application. They provides essential resources across business analysis, research, funding and infrastructure, enabling continuous design, development, and long-term maintenance:
+The project is supported by the following organizations, offering essential business requirements, research capability and financial support for the design, development, and maintenance of the **Open Timetable Cloud** application:
+- [Maynooth University](https://mu.ie): Providing domain expertise, real-world use cases, and continuous feedback to help shape the functionality and usability of the system. The production SaaS environment is hosted at https://timetable.maynoothuniversity.ie by **Bona Fide NGO**.
+- [AWS](https://aws.amazon.com/): Offering credits for cloud infrastructure and services to support the initial research and proof-of-concept of the project.
+
