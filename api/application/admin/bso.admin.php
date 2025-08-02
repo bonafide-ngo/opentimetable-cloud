@@ -334,23 +334,30 @@ class BSO_Admin {
 
                 // Insert raw data
                 // N.B. Out of transaction to retain records in case of error for debugging
+
+                // Students may not be allocated, do not throw exception if no record
                 $vBindVars = array('btc_id' => $vBatchId);
-                if (
-                    !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_timetable', $vBindVars, DB_LINK_DEFAULT, true) ||
-                    !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_student', $vBindVars, DB_LINK_DEFAULT, true) ||
-                    !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_module', $vBindVars, DB_LINK_DEFAULT, true)
-                )
+                \OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_student', $vBindVars, DB_LINK_DEFAULT, true);
+
+                // Modules may not exist, do not throw exception if no record
+                $vBindVars = array('btc_id' => $vBatchId);
+                \OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_module', $vBindVars, DB_LINK_DEFAULT, true);
+
+                // Timetable must always exist
+                $vBindVars = array('btc_id' => $vBatchId);
+                if (!\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_raw_timetable', $vBindVars, DB_LINK_DEFAULT, true)) {
+                    // Log and mail error
+                    \Log::ERROR(__FILE__, __METHOD__, __LINE__, array('insert_raw_timetable', 'No record to sync'), true);
                     throw new \UnexpectedException();
+                }
 
                 // Begin transaction
                 \OSQL::__TransactionBegin();
 
-                // Insert and update ott data
+                // Insert mandatory ott data
                 $vBindVars = array('btc_id' => $vBatchId);
                 if (
                     !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_timetable', $vBindVars, DB_LINK_DEFAULT, true) ||
-                    !\OSQL::_Query(PATH_SQL_INSTANCE, 'update_timetable', $vBindVars, DB_LINK_DEFAULT, true) ||
-                    !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_student', $vBindVars, DB_LINK_DEFAULT, true) ||
                     !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_course', $vBindVars, DB_LINK_DEFAULT, true) ||
                     !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_department', $vBindVars, DB_LINK_DEFAULT, true) ||
                     !\OSQL::_Query(PATH_SQL_INSTANCE, 'insert_period', $vBindVars, DB_LINK_DEFAULT, true) ||
@@ -358,8 +365,16 @@ class BSO_Admin {
                 )
                     throw new \UnexpectedException();
 
-                // Insert unique location after venue
-                // N.B. Run after venue insert and it may retun no updated row count (INSERT IGNORE)
+                // Insert optional ott data
+                $vBindVars = array('btc_id' => $vBatchId);
+                \OSQL::_Query(PATH_SQL_INSTANCE, 'insert_student', $vBindVars, DB_LINK_DEFAULT, true);
+
+                // Update optional ott data
+                $vBindVars = array('btc_id' => $vBatchId);
+                \OSQL::_Query(PATH_SQL_INSTANCE, 'update_timetable', $vBindVars, DB_LINK_DEFAULT, true);
+
+                // Insert unique location after venue, use INSERT IGNORE to avoid duplicate error on unique index
+                // N.B. Run after venue insert and it may retun no updated row count
                 $vBindVars = array(
                     'btc_id' => $vBatchId,
                     'lct_update_by' => $vUser
