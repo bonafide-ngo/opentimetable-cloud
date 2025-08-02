@@ -20,10 +20,7 @@ WHERE
             :in_list_courses = 1
             AND tmt_crs_code IN (:in_courses)
         )
-        OR (
-            :in_list_courses = 0
-            AND tmt_crs_code IS NOT NULL
-        )
+        OR :in_list_courses = 0
     )
     AND (
         (
