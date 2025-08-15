@@ -1,6 +1,19 @@
 {
-    "name": "App",
+    "name": "OpenTimetable Cloud",
+    "short_name": "OpenTimetable Cloud",
+    "description": "Open-source timetable application app for educational institutes",
+    "start_url": "/",
+    "scope": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#ffffff",
+    "orientation": "any",
     "icons": [
+        {
+            "src": "/img/logo.pwa.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        },
         {
             "src": "/img/favicon/android-icon-36x36.png",
             "sizes": "36x36",

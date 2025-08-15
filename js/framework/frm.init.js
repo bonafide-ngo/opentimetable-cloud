@@ -302,3 +302,15 @@ Framework - Initialise - Matomo
 *******************************************************************************/
 
 frm.common.matomo.init();
+
+/*******************************************************************************
+Framework - Initialise - Service Worker (PWA)
+*******************************************************************************/
+
+if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/service-worker.js")
+            .then((service) => console.log("Service worker registered:", service))
+            .catch((error) => console.error("Service worker registration failed:", error));
+    });
+}
