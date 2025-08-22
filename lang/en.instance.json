@@ -2,6 +2,7 @@
     "instance": {
         "i-description": "Access XYZ's timetables by lecture, venue, department, or your personal schedule.",
         "i-logo-disclaimer": "...",
+        "i-map": "Campus Map",
         "i-name": "XYZ",
         "i-title": "XYZ OpenTimetable Cloud",
         "i-notice": "Please see <a href=\"http://domain.ext/path\" target=\"_blank\">Courses</a> for more details. All optional modules may not be available to you. Labs, tutorials, and conversation classes may not show. If you cannot find a module timetabled, contact the relevant academic Department or School."

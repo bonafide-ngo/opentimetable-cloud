@@ -11,6 +11,7 @@ $(document).ready(function () {
     // Set overall footer
     $('footer').find('[name="www"]').attr('href', frm.config.url.www);
     $('footer').find('[name="www"]').find('img').attr('src', frm.config.logo.variant.sprintf([frm.label.lang]));
+    $('footer').find('[name="map"]').attr('href', frm.config.url.map);
     $('footer').find('[name="privacy"]').attr('href', frm.config.url.privacy);
     $('footer').find('[name="contactus"]').attr('href', 'mailto:' + frm.config.email.timetable[0]);
 

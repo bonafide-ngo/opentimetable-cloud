@@ -1,5 +1,6 @@
 {
     "static": {
+        "about": "About",
         "account": "Account",
         "action": "Action",
         "active": "Active",
@@ -95,7 +96,6 @@
         "lectures": "Lectures",
         "lectures-title": "Timetables for Lectures",
         "lectures-info": "Access lecture schedules, designed to help you search for course-specific timetables based on the University's available offerings.",
-        "legal": "Legal",
         "link-copied": "Link copied",
         "links": "Links",
         "live-by": "Live By",

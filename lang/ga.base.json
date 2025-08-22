@@ -1,5 +1,6 @@
 {
     "static": {
+        "about": "Maidir le",
         "account": "Cuntas",
         "action": "Gníomh",
         "active": "Gníomhach",
@@ -95,7 +96,6 @@
         "lectures": "Léachtaí",
         "lectures-title": "Amchláir do Léachtaí",
         "lectures-info": "Rochtain ar sceidil léachtaí, atá deartha chun cabhrú leat cuardach a dhéanamh ar sceidil léachtaí atá sainiúil do chúrsaí bunaithe ar na léachtaí atá ar fáil san Ollscoil.",
-        "legal": "Dlíthiúil",
         "link-copied": "Cóipeáladh an nasc",
         "links": "Naisc",
         "live-by": "Beo Ag",
