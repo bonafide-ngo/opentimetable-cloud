@@ -14,7 +14,7 @@ app.admin.venue.read = function () {
     frm.ajax.jsonrpc.request(
         frm.config.url.api,
         'App.Admin.Read_Location_All',
-        { syncId: frm.common.sync.id },
+        { syncId: frm.common.sync.id || 0 },
         onSuccess,
         null,
         null,

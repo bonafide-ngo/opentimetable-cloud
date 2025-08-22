@@ -676,6 +676,10 @@ class BSO_Admin {
         // Get params
         $vDTO = new DTO_Admin_Read_Location_All($pParams);
 
+        if (!$vDTO->syncId)
+            // No result if no syncid
+            return new \ApiResponse(array());
+
         // Check privile
         Common::CheckUserInGroups(array(APP_MSAL_GROUP_ADMIN, APP_MSAL_GROUP_STAFF));
 
