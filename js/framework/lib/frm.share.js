@@ -94,6 +94,15 @@ frm.share.clearParams = function () {
     frm.share.paramsBase = null;
 }
 
+/** 
+ * Handle trigger 
+ */
+frm.share.handleTrigger = function (shares, options, trigger) {
+    // Trigger if sharing anything or something against valid options
+    if (!shares || (options.length && options.length))
+        trigger();
+}
+
 /**
  * Check sharing is in progress
  */

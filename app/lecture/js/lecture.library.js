@@ -130,7 +130,7 @@ app.lecture.callbackSync = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.lecture.readModules();
+            frm.share.handleTrigger(frm.share.params.courses, $('#lecture-select-courses-option').val(), app.lecture.readModules);
     });
 
 };
@@ -159,7 +159,7 @@ app.lecture.readModules = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.lecture.readTimetable();
+            frm.share.handleTrigger(frm.share.params.modules, $('#lecture-select-modules-option').val(), app.lecture.readTimetable);
     };
 };
 

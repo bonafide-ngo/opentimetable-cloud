@@ -128,7 +128,7 @@ app.venue.callbackSync = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.venue.readTimetable();
+            frm.share.handleTrigger(frm.share.params.venues, $('#venue-select-venues-option').val(), app.venue.readTimetable);
     });
 
 };

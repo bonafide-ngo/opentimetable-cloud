@@ -139,7 +139,7 @@ app.module.callbackSync = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.module.readTimetable();
+            frm.share.handleTrigger(frm.share.params.modules, $('#module-select-modules-option').val(), app.module.readTimetable);
     });
 
 };

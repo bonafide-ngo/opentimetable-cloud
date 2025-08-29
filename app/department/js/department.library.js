@@ -130,7 +130,7 @@ app.department.callbackSync = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.department.readCourses();
+            frm.share.handleTrigger(frm.share.params.departments, $('#department-select-departments-option').val(), app.department.readCourses);
     });
 
 };
@@ -158,7 +158,7 @@ app.department.readCourses = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.department.readModules();
+            frm.share.handleTrigger(frm.share.params.courses, $('#department-select-courses-option').val(), app.department.readModules);
     };
 };
 
@@ -187,7 +187,7 @@ app.department.readModules = function () {
 
         // Trigger next step
         if (frm.share.params)
-            app.department.readTimetable();
+            frm.share.handleTrigger(frm.share.params.modules, $('#department-select-modules-option').val(), app.department.readTimetable);
     };
 };
 
