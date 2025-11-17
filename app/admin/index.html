@@ -62,6 +62,13 @@
                         <div id="admin-student" class="accordion-collapse collapse show" aria-labelledby="admin-student-heading" data-bs-parent="#admin-accordion" style="">
                             <div class="accordion-body">
                                 <div class="row mb-3">
+                                    <div class="input-group">
+                                        <input name="studentid" type="text" class="form-control border-1" label-placeholder="student-id">
+                                        <button name="preview" class="btn btn-primary" type="button" label="preview"></button>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row mb-3">
                                     <div class="col-4 col-sm-2 text-end">
                                         <input name="toggle-timetable" type="checkbox" data-toggle="toggle" data-style="look" data-onstyle="success" data-offstyle="danger">
                                     </div>
@@ -76,7 +83,7 @@
                                     </div>
                                     <div class="col-8 col-sm-10 text-start d-flex align-items-center" label="switch-student-timetable-notice"></div>
                                 </div>
-                                <div>
+                                <div class="row">
                                     <h6 class="fw-bold ms-2" label="notice-editor"></h6>
                                     <textarea id="admin-student-notice"></textarea>
                                 </div>

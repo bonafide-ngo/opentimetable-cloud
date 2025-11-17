@@ -55,20 +55,11 @@ class Crypto {
     }
 
     /**
-     * Generate a random unique user uid
+     * Generate a random unique seed
      *
      * @return string
      */
-    public static function Uuid(): string {
-        return self::RandomUniqueHash(null, 'sha1');
-    }
-
-    /**
-     * Generate a random unique group uid
-     *
-     * @return string
-     */
-    public static function Guid(): string {
+    public static function Seed(): string {
         return self::RandomUniqueHash(null, 'sha1');
     }
 
@@ -87,15 +78,6 @@ class Crypto {
      * @return string
      */
     public static function Salsa(): string {
-        return self::RandomUniqueHash(null, 'sha512');
-    }
-
-    /**
-     * Generate a random unique avatar
-     *
-     * @return string
-     */
-    public static function Avatar(): string {
         return self::RandomUniqueHash(null, 'sha512');
     }
 

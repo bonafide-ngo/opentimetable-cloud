@@ -19,7 +19,7 @@ app.student.studentTimetable = function () {
 
     function onSuccess(result) {
         // Check if student timetable is enabled
-        if (result)
+        if (result || (frm.uri.isParam(C_PARAM_PAYLOAD) && [C_MSAL_GROUP_ADMIN, C_MSAL_GROUP_STAFF].includes(frm.msal.role)))
             frm.common.sync.init(app.student.callbackSync);
         else
             $('#student-steps').hide();
@@ -195,7 +195,7 @@ app.student.readTimetable = function () {
         if (!frm.config.ott.responsiveFirst && !isMobile.any && frm.breakpoint() > C_BREAKPOINT_LG)
             $('#timetable-full-modal').modal('show');
 
-        // Matomo SPA traking
+        // Matomo SPA tracking
         frm.common.matomo.track(true);
     };
 

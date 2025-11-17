@@ -89,19 +89,24 @@ app.admin.initSettings = function () {
             }
         });
 
-        // Bind settings
+        // Bind general
         $('#admin-general').find('input[name="toggle-timetable"]').once("change", function () {
             app.admin.updateSettingFlag(frm.config.setting.flag.generalTimetable, $(this).is(':checked'));
         });
         $('#admin-general').find('input[name="toggle-notice"]').once("change", function () {
             app.admin.updateSettingFlag(frm.config.setting.flag.generalNotice, $(this).is(':checked'));
         });
+
+        // Bind student
         $('#admin-student').find('input[name="toggle-timetable"]').once("change", function () {
             app.admin.updateSettingFlag(frm.config.setting.flag.studentTimetable, $(this).is(':checked'));
         });
         $('#admin-student').find('input[name="toggle-notice"]').once("change", function () {
             app.admin.updateSettingFlag(frm.config.setting.flag.studentNotice, $(this).is(':checked'));
         });
+        $('#admin-student').find('button[name="preview"]').once("click", app.admin.readStudentTimetable);
+
+        // Bind sync
         $('#admin-sync').find('input[name="toggle-autosync"]').once("change", function () {
             app.admin.updateSettingFlag(frm.config.setting.flag.autosync, $(this).is(':checked'));
             if ($(this).is(':checked'))
@@ -158,6 +163,29 @@ app.admin.initSettings = function () {
         });
     }
 }
+/**
+ * Preview student timetable 
+ */
+app.admin.readStudentTimetable = function () {
+    frm.ajax.jsonrpc.request(
+        frm.config.url.api,
+        'App.Admin.Create_Payload',
+        {
+            syncId: frm.common.sync.id,
+            studentId: $('#admin-student').find('input[name="studentid"]').val().trim()
+        },
+        onSuccess,
+        null,
+        null,
+        null,
+        { async: false });
+
+    function onSuccess(result) {
+        window.open(frm.config.url.studentPayload.sprintf([result]), "_blank");
+    }
+
+}
+
 /**
  * Update a flag setting 
  */

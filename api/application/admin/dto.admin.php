@@ -36,6 +36,20 @@ class DTO_Admin_Update_SettingText extends \DTO {
     }
 }
 
+class DTO_Admin_Create_Payload extends \DTO {
+    public int $syncId = 0;
+    public ?string $studentId = null;
+
+    public function Validate() {
+        \Validate::EnforceNull($this->studentId);
+
+        if (!\Validate::Exist($this->syncId))
+            throw new \ValidateException;
+        if (!\Validate::Exist($this->studentId))
+            throw new \ValidateException;
+    }
+}
+
 /* 
  * Admin - Sync
  * ************************************************************************

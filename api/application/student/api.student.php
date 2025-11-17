@@ -4,7 +4,6 @@ namespace App;
 
 class Student {
 
-
     /**
      * Read timetables
      *

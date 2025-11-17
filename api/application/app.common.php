@@ -123,8 +123,8 @@ class Common {
             $vUserGroups = \MSAL::GetMe_Groups(\Util::GetCookie('cookie.property.msal.access'));
 
         foreach ($pGroups as $vGroup) {
-            if (in_array(\Util::GetConfig('msal.groups.' . $vGroup), $vUserGroups))
-                // At least one group matches
+            if (array_intersect(\Util::GetConfig('msal.groups.' . $vGroup), $vUserGroups))
+                // At least one group in common
                 return;
         }
 

@@ -4,15 +4,15 @@
     <loc>https://domain.ext/</loc>
   </url>
   <url>
-    <loc>https://domain.ext/lecture/</loc>
+    <loc>https://domain.ext/app/lecture/</loc>
   </url>
   <url>
-    <loc>https://domain.ext/venue/</loc>
+    <loc>https://domain.ext/app/venue/</loc>
   </url>
   <url>
-    <loc>https://domain.ext/department/</loc>
+    <loc>https://domain.ext/app/department/</loc>
   </url>
   <url>
-    <loc>https://domain.ext/module/</loc>
+    <loc>https://domain.ext/app/module/</loc>
   </url>
 </urlset>

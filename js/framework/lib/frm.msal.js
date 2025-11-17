@@ -290,9 +290,14 @@ frm.msal.initRole = async function () {
     const userGroupsIds = await frm.msal.getUserGroupsIds();
     if (userGroupsIds.length)
         // Get the highest role of a user, since they could be in multiple msal groups
-        frm.config.msal.groupsPriority.forEach(role => {
-            if (userGroupsIds.includes(frm.config.msal.groups[role]))
+        frm.config.msal.groupsPriority.some(role => {
+            if (userGroupsIds.some(group => frm.config.msal.groups[role].includes(group))) {
                 frm.msal.role = role;
+                // stops .some()
+                return true;
+            } else
+                // continues .some()
+                return false;
         });
 
     return frm.msal.role;

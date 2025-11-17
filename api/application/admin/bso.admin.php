@@ -99,6 +99,37 @@ class BSO_Admin {
         return new \ApiResponse(\JsonRpc::SUCCESS);
     }
 
+    /**
+     * Undocumented function
+     *
+     * @param mixed $pParams
+     * @return mixed
+     */
+    public static function Create_Payload(mixed $pParams = null): mixed {
+        // Get params
+        $vDTO = new DTO_Admin_Create_Payload($pParams);
+
+        // Check privile
+        Common::CheckUserInGroups(array(APP_MSAL_GROUP_ADMIN, APP_MSAL_GROUP_STAFF));
+
+        // Chekc student
+        $vBindVars = array(
+            'snc_id' => $vDTO->syncId,
+            'in_student' => $vDTO->studentId
+        );
+        if (!\OSQL::_GetRow(PATH_SQL_ADMIN, 'select_student_exist', $vBindVars))
+            return new \ApiResponse(null, \Lang::Get('static.error-student-id'));
+
+        $vPayload = new \stdClass();
+        $vPayload->studentId = $vDTO->studentId;
+        $vPayload->timestamp = NOW;
+        $vPayload->seed = \Crypto::Seed();
+        $vPayload->signature = \Crypto::Sha512($vPayload->studentId . $vPayload->timestamp . $vPayload->seed . SALSA);
+
+        // Encode payload
+        return new \ApiResponse(base64_encode(json_encode($vPayload)));
+    }
+
     /* 
      * Admin - Sync
      * ************************************************************************

@@ -49,6 +49,16 @@ class Admin {
         return BSO_Admin::Update_SettingText($pParams);
     }
 
+    /**
+     * Create payload
+     *
+     * @param mixed $pParams
+     * @return mixed
+     */
+    public static function Create_Payload(mixed $pParams = null): mixed {
+        return BSO_Admin::Create_Payload($pParams);
+    }
+
     /* 
      * Admin - Sync
      * ************************************************************************
