@@ -5,13 +5,15 @@
  */
 class Security {
 
-    const IPBLOCKLIST = 'IPBLOCKLIST';
-    const IPBLOCK = 'IPBLOCK';
-    const IPBLOCK_VALIDITY = 172800; // 48h
-    const POSTRAW = 'request';
+    // Constants
+    const string IPBLOCKLIST = 'IPBLOCKLIST';
+    const string IPBLOCK = 'IPBLOCK';
+    const string IPBLOCK_VALIDITY = '172800'; // 48h
+    const string POSTRAW = 'request';
 
-    protected static $mIpBlocklist = [];
-    protected static $mDecodeInputUTF8 = false;
+    // Properties
+    protected static array $mIpBlocklist = array();
+    protected static bool $mDecodeInputUTF8 = false;
 
     /**
      * Initialize Security
@@ -20,8 +22,8 @@ class Security {
      * @return void
      */
     public static function Initialise(array $pParams = array()) {
-        self::$mIpBlocklist         = array_key_exists('ip_blocklist', $pParams)        ? $pParams['ip_blocklist']      : self::$mIpBlocklist;
-        self::$mDecodeInputUTF8     = array_key_exists('utf8_decode_input', $pParams)   ? $pParams['utf8_decode_input'] : self::$mDecodeInputUTF8;
+        self::$mIpBlocklist = array_key_exists('ip_blocklist', $pParams) ? $pParams['ip_blocklist'] : self::$mIpBlocklist;
+        self::$mDecodeInputUTF8 = array_key_exists('utf8_decode_input', $pParams) ? $pParams['utf8_decode_input'] : self::$mDecodeInputUTF8;
 
         // Fix GLOBAL hack
         self::UnRegisterGlobals();
@@ -152,7 +154,7 @@ class Security {
     /**
      * Check if an IP is blocked
      *
-     * @param string|null $pIp
+     * @param ?string $pIp
      * @return boolean
      */
     public static function IsIpBlocked(?string $pIp = null): bool {

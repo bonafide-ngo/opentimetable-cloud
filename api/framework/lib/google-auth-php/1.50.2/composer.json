@@ -1,0 +1,10 @@
+{
+    "config": {
+        "platform": {
+            "php": "8.5"
+        }
+    },
+    "require": {
+        "google/auth": "^1.50"
+    }
+}

@@ -4,19 +4,33 @@
  * OSQL Class
  */
 class OSQL {
-    protected $mResource        = null;
-    protected $mAffectedRows    = 0;
-    protected $mInsertID        = 0;
-    protected $mLastResults     = array();
-    protected $mColumnInfo      = null;
-    protected $mExceptionMessage = 'OSQL exception';
+
+    // Properties
+    public static array $mDBs = array();
+    protected ?mysqli $mResource = null;
+    protected int $mAffectedRows = 0;
+    protected int $mInsertID = 0;
+    protected array $mLastResults = array();
+    protected array $mColumnInfo = array();
+    protected string $mExceptionMessage = 'OSQL exception';
+
+    /**
+     * Initilize DBs
+     *
+     * @param array $pDBs
+     * @return void
+     */
+    public static function Initialise(array $pDBs) {
+        foreach ($pDBs as $vDBName => $vDBParameters)
+            self::$mDBs[$vDBName] = new $vDBParameters[DB_TYPE]($vDBParameters);
+    }
 
     /**
      * Flush data
      */
     protected function Flush() {
         $this->mLastResults = array();
-        $this->mColumnInfo = null;
+        $this->mColumnInfo = array();
         $this->mInsertID = 0;
     }
 
@@ -26,9 +40,7 @@ class OSQL {
      * @return integer
      */
     public static function __GetInsertID(string $pDB = DB_LINK_DEFAULT) {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetInsertID();
+        return self::$mDBs[$pDB]->GetInsertID();
     }
     public function GetInsertID(): int {
         return $this->mInsertID;
@@ -70,9 +82,7 @@ class OSQL {
      * @return integer
      */
     public static function __Query(string $pQuery, array $pBindVars = array(), string $pDB = DB_LINK_DEFAULT): ?int {
-        global $gDBs;
-
-        return $gDBs[$pDB]->Query($pQuery, $pBindVars);
+        return self::$mDBs[$pDB]->Query($pQuery, $pBindVars);
     }
     /**
      * Undocumented function
@@ -80,18 +90,15 @@ class OSQL {
      * @param string $pPath
      * @param string $pFilename
      * @param array $pBindVars
-     * @param [type] $pDB
+     * @param string $pDB
      * @param boolean $pTiming
-     * @return integer|null
+     * @return ?integer
      */
     public static function _Query(string $pPath, string $pFilename, array $pBindVars = array(), string $pDB = DB_LINK_DEFAULT, bool $pTiming = false): ?int {
-        global $gDBs;
-
-        if ($pTiming)
-            $vTime = time();
+        $vTime = $pTiming ? time() : 0;
 
         $vQuery = file_get_contents($pPath . strtolower($pFilename) . '.sql');
-        $vAffectedRows = $gDBs[$pDB]->Query($vQuery, $pBindVars);
+        $vAffectedRows = self::$mDBs[$pDB]->Query($vQuery, $pBindVars);
 
         if ($pTiming)
             \Log::Debug(__FILE__, __METHOD__, __LINE__, $pFilename . ': ' . (time() - $vTime) . 's', true);
@@ -105,17 +112,15 @@ class OSQL {
     /**
      * Get a Value
      *
-     * @param string $pQuery
+     * @param ?string $pQuery
      * @param array $pBindVars
      * @param integer $pX
      * @param integer $pY
      * @param string $pDB
      * @return mixed
      */
-    public static function __GetValue(string $pQuery = null, array $pBindVars = array(), int $pX = 0, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetValue($pQuery, $pBindVars, $pX, $pY);
+    public static function __GetValue(?string $pQuery = null, array $pBindVars = array(), int $pX = 0, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
+        return self::$mDBs[$pDB]->GetValue($pQuery, $pBindVars, $pX, $pY);
     }
     /**
      * @param string $pPath
@@ -123,16 +128,14 @@ class OSQL {
      * @param array $pBindVars
      * @param integer $pX
      * @param integer $pY
-     * @param [type] $pDB
+     * @param string $pDB
      * @return mixed
      */
     public static function _GetValue(string $pPath, string $pFilename, array $pBindVars = array(), int $pX = 0, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
         $vQuery = file_get_contents($pPath . strtolower($pFilename) . '.sql');
-        return $gDBs[$pDB]->GetValue($vQuery, $pBindVars, $pX, $pY);
+        return self::$mDBs[$pDB]->GetValue($vQuery, $pBindVars, $pX, $pY);
     }
-    public function GetValue(string $pQuery = null, array $pBindVars = array(), int $pX = 0, int $pY = 0): mixed {
+    public function GetValue(?string $pQuery = null, array $pBindVars = array(), int $pX = 0, int $pY = 0): mixed {
         // If there is a query then perform it else use cached results
         if ($pQuery)
             $this->Query($pQuery, $pBindVars);
@@ -148,34 +151,30 @@ class OSQL {
     /**
      * Get a row
      *
-     * @param string $pQuery
+     * @param ?string $pQuery
      * @param array $pBindVars
-     * @param string $pOutputType
+     * @param integer $pOutputType
      * @param integer $pY
      * @param string $pDB
      * @return mixed
      */
-    public static function __GetRow(string $pQuery = null, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetRow($pQuery, $pBindVars, $pOutputType, $pY);
+    public static function __GetRow(?string $pQuery = null, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
+        return self::$mDBs[$pDB]->GetRow($pQuery, $pBindVars, $pOutputType, $pY);
     }
     /**
      * @param string $pPath
      * @param string $pFilename
      * @param array $pBindVars
-     * @param [type] $pOutputType
+     * @param integer $pOutputType
      * @param integer $pY
-     * @param [type] $pDB
+     * @param string $pDB
      * @return mixed
      */
-    public static function _GetRow(string $pPath, string $pFilename, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
+    public static function _GetRow(string $pPath, string $pFilename, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC, int $pY = 0, string $pDB = DB_LINK_DEFAULT): mixed {
         $vQuery = file_get_contents($pPath . strtolower($pFilename) . '.sql');
-        return $gDBs[$pDB]->GetRow($vQuery, $pBindVars, $pOutputType, $pY);
+        return self::$mDBs[$pDB]->GetRow($vQuery, $pBindVars, $pOutputType, $pY);
     }
-    public function GetRow(string $pQuery = null, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC, int $pY = 0): mixed {
+    public function GetRow(?string $pQuery = null, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC, int $pY = 0): mixed {
         // If there is a query then perform it else use cached results
         if ($pQuery)
             $this->Query($pQuery, $pBindVars);
@@ -199,32 +198,28 @@ class OSQL {
     /**
      * Get a Column
      *
-     * @param string $pQuery
+     * @param ?string $pQuery
      * @param array $pBindVars
      * @param integer $pX
      * @param string $pDB
      * @return array
      */
-    public static function __GetColumn(string $pQuery = null, array $pBindVars = array(), int $pX = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetColumn($pQuery, $pBindVars, $pX);
+    public static function __GetColumn(?string $pQuery = null, array $pBindVars = array(), int $pX = 0, string $pDB = DB_LINK_DEFAULT): mixed {
+        return self::$mDBs[$pDB]->GetColumn($pQuery, $pBindVars, $pX);
     }
     /**
      * @param string $pPath
      * @param string $pFilename
      * @param array $pBindVars
      * @param integer $pX
-     * @param [type] $pDB
+     * @param string $pDB
      * @return mixed
      */
     public static function _GetColumn(string $pPath, string $pFilename, array $pBindVars = array(), int $pX = 0, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
         $vQuery = file_get_contents($pPath . strtolower($pFilename) . '.sql');
-        return $gDBs[$pDB]->GetColumn($vQuery, $pBindVars, $pX);
+        return self::$mDBs[$pDB]->GetColumn($vQuery, $pBindVars, $pX);
     }
-    public function GetColumn(string $pQuery = null, array $pBindVars = array(), int $pX = 0): array {
+    public function GetColumn(?string $pQuery = null, array $pBindVars = array(), int $pX = 0): array {
         // If there is a query then perform it else use cached results
         if ($pQuery)
             $this->Query($pQuery, $pBindVars);
@@ -241,32 +236,28 @@ class OSQL {
     /**
      * Get Results
      *
-     * @param string $pQuery
+     * @param ?string $pQuery
      * @param array $pBindVars
-     * @param string $pOutputType
+     * @param integer $pOutputType
      * @param string $pDB
      * @return mixed
      */
-    public static function __GetResults(string $pQuery = null, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetResults($pQuery, $pBindVars, $pOutputType);
+    public static function __GetResults(?string $pQuery = null, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC, string $pDB = DB_LINK_DEFAULT): mixed {
+        return self::$mDBs[$pDB]->GetResults($pQuery, $pBindVars, $pOutputType);
     }
     /**
      * @param string $pPath
      * @param string $pFilename
      * @param array $pBindVars
-     * @param [type] $pOutputType
-     * @param [type] $pDB
+     * @param integer $pOutputType
+     * @param string $pDB
      * @return mixed
      */
-    public static function _GetResults(string $pPath, string $pFilename, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
+    public static function _GetResults(string $pPath, string $pFilename, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC, string $pDB = DB_LINK_DEFAULT): mixed {
         $vQuery = file_get_contents($pPath . strtolower($pFilename) . '.sql');
-        return $gDBs[$pDB]->GetResults($vQuery, $pBindVars, $pOutputType);
+        return self::$mDBs[$pDB]->GetResults($vQuery, $pBindVars, $pOutputType);
     }
-    public function GetResults(string $pQuery = null, array $pBindVars = array(), string $pOutputType = MYSQLI_ASSOC): mixed {
+    public function GetResults(?string $pQuery = null, array $pBindVars = array(), int $pOutputType = MYSQLI_ASSOC): mixed {
         // If there is a query then perform it else use cached results
         if ($pQuery)
             $this->Query($pQuery, $pBindVars);
@@ -301,9 +292,7 @@ class OSQL {
      * @return mixed
      */
     public static function __GetColumnInfo(string $pType = 'name', int $pOffset = -1, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->GetColumnInfo($pType, $pOffset);
+        return self::$mDBs[$pDB]->GetColumnInfo($pType, $pOffset);
     }
     public function GetColumnInfo(string $pType = 'name', int $pOffset = -1): mixed {
         if ($this->mColumnInfo) {
@@ -327,12 +316,10 @@ class OSQL {
      *
      * @param string $pString
      * @param string $pDB
-     * @return void
+     * @return string
      */
     public static function __Escape(string $pString, string $pDB = DB_LINK_DEFAULT) {
-        global $gDBs;
-
-        return $gDBs[$pDB]->Escape($pString);
+        return self::$mDBs[$pDB]->Escape($pString);
     }
 
     /**
@@ -342,9 +329,7 @@ class OSQL {
      * @return void
      */
     public static function __TransactionBegin(string $pDB = DB_LINK_DEFAULT) {
-        global $gDBs;
-
-        return $gDBs[$pDB]->TransactionBegin();
+        self::$mDBs[$pDB]->TransactionBegin();
     }
 
     /**
@@ -354,9 +339,7 @@ class OSQL {
      * @return void
      */
     public static function __TransactionCommit(string $pDB = DB_LINK_DEFAULT) {
-        global $gDBs;
-
-        return $gDBs[$pDB]->TransactionCommit();
+        self::$mDBs[$pDB]->TransactionCommit();
     }
 
     /**
@@ -366,9 +349,7 @@ class OSQL {
      * @return void
      */
     public static function __TransactionRollback(string $pDB = DB_LINK_DEFAULT) {
-        global $gDBs;
-
-        return $gDBs[$pDB]->TransactionRollback();
+        self::$mDBs[$pDB]->TransactionRollback();
     }
 
     /**
@@ -393,28 +374,24 @@ class OSQL {
      * @param string $pSearch
      * @param string $pColumn
      * @param string $pOperator
-     * @param string $pStrips
+     * @param array $pStrips
      * @param string $pDB
      * @return string
      */
     public static function __LikeOperator(string $pSearch, string $pColumn, string $pOperator = 'OR', array $pStrips = [], string $pDB = DB_LINK_DEFAULT): string {
-        global $gDBs;
-
-        return $gDBs[$pDB]->LikeOperator($pSearch,  $pColumn,  $pOperator, $pStrips);
+        return self::$mDBs[$pDB]->LikeOperator($pSearch,  $pColumn,  $pOperator, $pStrips);
     }
 
     /**
      * Build the IN operator
      *
      * @param mixed $pStuff
-     * @param string $pStrips
+     * @param array $pStrips
      * @param string $pDB
      * @return string
      */
     public static function __InOperator(mixed $pStuff, array $pStrips = [], string $pDB = DB_LINK_DEFAULT): string {
-        global $gDBs;
-
-        return $gDBs[$pDB]->InOperator($pStuff, $pStrips);
+        return self::$mDBs[$pDB]->InOperator($pStuff, $pStrips);
     }
 
     /**
@@ -425,8 +402,6 @@ class OSQL {
      * @return mixed
      */
     public static function __Null2Blank(mixed $pParam, string $pDB = DB_LINK_DEFAULT): mixed {
-        global $gDBs;
-
-        return $gDBs[$pDB]->Null2Blank($pParam);
+        return self::$mDBs[$pDB]->Null2Blank($pParam);
     }
 }

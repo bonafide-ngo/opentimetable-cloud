@@ -1,6 +1,6 @@
 {
-    "version": "1.8.0",
-    "license": "2025 Bona Fide NGO",
+    "version": "1.9.2",
+    "license": "2026 Bona Fide NGO",
     "lang": "en",
     "language": {
         "en": "english-in-english",
@@ -85,7 +85,7 @@
         "payload": 1200,
         "syncTimeout": 600,
         "toast": 5000,
-        "traffic": 31536000
+        "trafficLog": 31536000
     },
     "email": {
         "support": [
@@ -109,6 +109,9 @@
         },
         "date": {
             "timezone": "WET"
+        },
+        "log": {
+            "maxsize": 1048576
         }
     },
     "vti": {
@@ -138,14 +141,16 @@
             "auth": {
                 "clientId": "",
                 "authority": "",
-                "redirectUri": ""
+                "redirectUri": "",
+                "navigateToLoginRequestUrl": false
             },
             "cache": {
                 "cacheLocation": "localStorage",
                 "storeAuthStateInCookie": true
             },
             "system": {
-                "allowRedirectInIframe": true
+                "allowRedirectInIframe": true,
+                "allowPlatformBroker": false
             }
         },
         "url": {
@@ -189,8 +194,7 @@
     },
     "cookie": {
         "alive": [
-            "cookie.property.session.id",
-            "cookie.property.user.token"
+            "cookie.property.session.id"
         ],
         "property": {
             "session": {
@@ -215,11 +219,6 @@
                 }
             },
             "user": {
-                "token": {
-                    "name": "__user_token",
-                    "httponly": true,
-                    "expires": 604800
-                },
                 "lang": {
                     "name": "__user_lang",
                     "httponly": false,

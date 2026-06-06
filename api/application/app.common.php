@@ -138,12 +138,10 @@ class Common {
      * @param string $pSubject
      * @param string $pBody
      * @param string $pEmail
-     * @param string|null $pXname
+     * @param ?string $pXname
      * @return void
      */
     public static function Send_Email(string $pSubject, string $pBody, string $pEmail, ?string $pXname = null) {
-        global $gMailer;
-
         $vDay       = gmdate("d", NOW);
         $vMonth     = gmdate("m", NOW);
         $vYear      = gmdate("Y", NOW);
@@ -159,11 +157,11 @@ class Common {
         $vParams['txt_date']        = "$vDay/$vMonth/$vYear";
         $vParams['txt_time']        = "$vHours:$vMinutes:$vSeconds";
 
-        $gMailer->clearAllRecipients();
-        $gMailer->addAddress($pEmail, $pXname ? $pXname : '');
-        $gMailer->msgHTML(\Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.html', PATH_TEMPLATE . 't.mail.body.html', $vParams));
-        $gMailer->msgPlain(\Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.txt', PATH_TEMPLATE . 't.mail.body.txt', $vParams));
-        $gMailer->Mail($pSubject);
+        \Mailer::$mInstance->clearAllRecipients();
+        \Mailer::$mInstance->addAddress($pEmail, $pXname ? $pXname : '');
+        \Mailer::$mInstance->msgHTML(\Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.html', PATH_TEMPLATE . 't.mail.body.html', $vParams));
+        \Mailer::$mInstance->msgPlain(\Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.txt', PATH_TEMPLATE . 't.mail.body.txt', $vParams));
+        \Mailer::$mInstance->Mail($pSubject);
     }
 
     /**
@@ -171,7 +169,7 @@ class Common {
      *
      * @param string $pMobile
      * @param string $pText
-     * @param [type] $pSender
+     * @param string $pSender
      * @return void
      */
     public static function Send_SMS(string $pMobile, string $pText, string $pSender = SMS_SENDER) {

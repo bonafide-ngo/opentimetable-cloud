@@ -310,7 +310,8 @@ ALTER TABLE `ott_location`
 --
 ALTER TABLE `ott_period`
   ADD PRIMARY KEY (`prd_id`),
-  ADD KEY `prd_btc_id` (`prd_btc_id`);
+  ADD KEY `prd_btc_id` (`prd_btc_id`),
+  ADD KEY `prd_semester` (`prd_semester`);
 
 --
 -- Indexes for table `ott_setting`

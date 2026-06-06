@@ -7,38 +7,38 @@ require_once(PATH_CONSTANT . 'constant.application.php');
 // Constant environemnt
 require_once(PATH_CONSTANT_ENV . 'env.php');
 
-// Framework - Device Detector (Composer PHP 8.3.6)
+// Framework - Device Detector
 // https://gitea.bonafide.ngo/bonafide.ngo/device-detector
 // N.B. Diff client/mobile_apps.yml
-require_once(PATH_LIB . 'device-detector/6.4.1/vendor/autoload.php');
+require_once(PATH_LIB . 'device-detector/6.5.1/vendor/autoload.php');
 
-// Framework - GeoIp2 (Composer PHP 8.3.6)
+// Framework - GeoIp2
 // https://gitea.bonafide.ngo/bonafide.ngo/GeoIP2-php
-require_once(PATH_LIB . 'geoip2/2.13.0/vendor/autoload.php');
+require_once(PATH_LIB . 'geoip2/3.3.0/vendor/autoload.php');
 
-// Framework - Google Auth (Composer PHP 8.3.6)
+// Framework - Google Auth
 // https://gitea.bonafide.ngo/bonafide.ngo/google-auth-library-php
-require_once(PATH_LIB . 'google-auth-php/1.40.0/vendor/autoload.php');
+require_once(PATH_LIB . 'google-auth-php/1.50.2/vendor/autoload.php');
 
-// Framework - LibPhoneNumber for PHP (Composer PHP 8.3.6)
+// Framework - LibPhoneNumber for PHP
 // https://gitea.bonafide.ngo/bonafide.ngo/libphonenumber-for-php
-require_once(PATH_LIB . 'libphonenumber-for-php/8.13.37/vendor/autoload.php');
+require_once(PATH_LIB . 'libphonenumber-for-php/9.0.30/vendor/autoload.php');
 
-// Framework - PHP MemCacheD Lock (Composer PHP 8.3.6)
+// Framework - PHP MemCacheD Lock
 // https://gitea.bonafide.ngo/bonafide.ngo/php-memcached-lock
 require_once(PATH_LIB . 'php-memcached-lock/1.0.5/vendor/autoload.php');
 
-// Framework - PHPMailer (Composer PHP 8.3.6)
+// Framework - PHPMailer
 // https://gitea.bonafide.ngo/bonafide.ngo/PHPMailer
-require_once(PATH_LIB . 'phpmailer/6.9.1/vendor/autoload.php');
+require_once(PATH_LIB . 'phpmailer/7.1.1/vendor/autoload.php');
 
-// Framework - Vonage PHP SDK (Composer PHP 8.3.6)
+// Framework - Vonage PHP SDK
 // https://gitea.bonafide.ngo/bonafide.ngo/vonage-php-sdk
-require_once(PATH_LIB . 'vonage-php-sdk/4.0.0/vendor/autoload.php');
+require_once(PATH_LIB . 'vonage-php-sdk/4.3.0/vendor/autoload.php');
 
-// Framework - Firebase PHP JWT (Composer PHP 8.3.6)
+// Framework - Firebase PHP JWT
 // https://gitea.bonafide.ngo/bonafide.ngo/php-jwt
-require_once(PATH_LIB . 'firebase-php-jwt/6.11.0/vendor/autoload.php');
+require_once(PATH_LIB . 'php-jwt/7.0.5/vendor/autoload.php');
 
 // Framework - OSQL
 require_once(PATH_CLASS . 'c.osql.php');

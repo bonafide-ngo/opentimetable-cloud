@@ -93,7 +93,7 @@ class BSO_Cron {
             throw new \UnexpectedException();
 
         // Delete outdated traffic
-        $vBindVars = array('validity' => \Util::GetConfig('validity.traffic'));
+        $vBindVars = array('validity' => \Util::GetConfig('validity.trafficLog'));
         \OSQL::_Query(PATH_SQL_CRON, 'delete_traffic', $vBindVars);
 
         return new \ApiResponse(\JsonRpc::SUCCESS);

@@ -229,6 +229,7 @@
         "no-classes-day": "Níl aon léachtaí ar siúl ar {0}",
         "notice-maintenance": "Cothabháil riachtanach ar {0}. <a href=\"{1}\" target=\"_blank\">Léigh níos mó</a>",
         "safari-notice-info": "<p>Tá tacaíocht theoranta ag do bhrabhsálaí Safari do <i>fhógraí brú</i>.</p><p>Íoslódáil an Aip ar an <a href=\"{0}\" target=\"_blank\">App Store</a> nó bain úsáid as brabhsálaí seachas Safari.</p>",
+        "top-api-traffic-info": "<b>{0} lá anuas</b>, taiscthe gach uair",
         "uptime-x-days": "Am suas: {0} lá(laethanta)"
     },
     "email": {

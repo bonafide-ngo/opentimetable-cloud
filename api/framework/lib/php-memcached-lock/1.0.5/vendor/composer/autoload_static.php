@@ -4,7 +4,7 @@
 
 namespace Composer\Autoload;
 
-class ComposerStaticInitc1b1731c5babb4a4a236833925e11d5b
+class ComposerStaticInit56f1f60b9dc7273e694122941b713d5e
 {
     public static $fallbackDirsPsr0 = array (
         0 => __DIR__ . '/..' . '/cheprasov/php-memcached-lock/src',
@@ -17,8 +17,8 @@ class ComposerStaticInitc1b1731c5babb4a4a236833925e11d5b
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
-            $loader->fallbackDirsPsr0 = ComposerStaticInitc1b1731c5babb4a4a236833925e11d5b::$fallbackDirsPsr0;
-            $loader->classMap = ComposerStaticInitc1b1731c5babb4a4a236833925e11d5b::$classMap;
+            $loader->fallbackDirsPsr0 = ComposerStaticInit56f1f60b9dc7273e694122941b713d5e::$fallbackDirsPsr0;
+            $loader->classMap = ComposerStaticInit56f1f60b9dc7273e694122941b713d5e::$classMap;
 
         }, null, ClassLoader::class);
     }

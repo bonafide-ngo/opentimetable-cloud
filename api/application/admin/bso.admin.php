@@ -309,7 +309,9 @@ class BSO_Admin {
      * @return mixed
      */
     public static function Create_Batch(mixed $pParams = null): mixed {
-        global $gDBs;
+        // Try catch init
+        $vUser = null;
+        $vSyncId = null;
 
         try {
             // Get params
@@ -454,12 +456,12 @@ class BSO_Admin {
             // N.B. Restore from terminal: gunzip -c mysqldump_batch_VERSION_TIMESTAMP.sql.gz | mysql -u USER -p DATABASE
             exec(
                 'mysqldump'
-                    . ' --host=' . $gDBs[DB_LINK_MYSQLDUMP]->mHost
-                    . ' --port=' . $gDBs[DB_LINK_MYSQLDUMP]->mPort
-                    . ' --user=' . $gDBs[DB_LINK_MYSQLDUMP]->mUser
-                    . ' --password="' . $gDBs[DB_LINK_MYSQLDUMP]->mPassword . '"'
-                    . ' ' . $gDBs[DB_LINK_MYSQLDUMP]->mSchema
-                    . ' raw_timetable raw_student'
+                    . ' --host=' . \OSQL::$mDBs[DB_LINK_MYSQLDUMP]->mHost
+                    . ' --port=' . \OSQL::$mDBs[DB_LINK_MYSQLDUMP]->mPort
+                    . ' --user=' . \OSQL::$mDBs[DB_LINK_MYSQLDUMP]->mUser
+                    . ' --password="' . \OSQL::$mDBs[DB_LINK_MYSQLDUMP]->mPassword . '"'
+                    . ' ' . \OSQL::$mDBs[DB_LINK_MYSQLDUMP]->mSchema
+                    . ' raw_module raw_timetable raw_student'
                     . ' | gzip > ' . PATH_SQL_DUMP_ABS . 'mysqldump_batch_' . $vBatchId . '_' . NOW . '.sql.gz',
                 $vExecOutput,
                 $vExecReturn
@@ -520,6 +522,7 @@ class BSO_Admin {
         // Get latest syncs to retain
         $vRetainers = \OSQL::_GetResults(PATH_SQL_ADMIN, 'select_sync_keep');
         if (!empty($vRetainers)) {
+            $vSyncIds = array();
             foreach ($vRetainers as $vRetainer) {
                 $vSyncIds[] = $vRetainer['snc_id'];
             }
@@ -584,7 +587,7 @@ class BSO_Admin {
      * Undocumented function
      *
      * @param mixed $pParams
-     * @param string|null $pUser
+     * @param ?string $pUser
      * @return mixed
      */
     public static function Update_Sync_Publish(mixed $pParams = null, ?string $pUser = null): mixed {
@@ -669,7 +672,7 @@ class BSO_Admin {
      * Undocumented function
      *
      * @param mixed $pParams
-     * @param string|null $pUser
+     * @param ?string $pUser
      * @return mixed
      */
     public static function Update_Sync_Draft(mixed $pParams = null, ?string $pUser = null): mixed {
@@ -789,12 +792,23 @@ class BSO_Admin {
         // Check privile
         Common::CheckUserInGroups(array(APP_MSAL_GROUP_ADMIN));
 
+        // Check cache
+        $vResponse = \Cache::Get([__CLASS__, __METHOD__]);
+        if ($vResponse)
+            return new \ApiResponse($vResponse);
+
         $vResponse = new DTO_Admin_Read_TrafficStats_Response();
         $vResponse->top = \OSQL::_GetResults(PATH_SQL_ADMIN, 'select_traffic_top');
         $vResponse->avgHits = intval(\OSQL::_GetValue(PATH_SQL_ADMIN, 'select_traffic_avg4hits'));
         $vResponse->avgSizeIn = intval(\OSQL::_GetValue(PATH_SQL_ADMIN, 'select_traffic_avg4size_in'));
         $vResponse->avgSizeOut = intval(\OSQL::_GetValue(PATH_SQL_ADMIN, 'select_traffic_avg4size_out'));
         $vResponse->avgTime = intval(\OSQL::_GetValue(PATH_SQL_ADMIN, 'select_traffic_avg4time'));
+
+        // Set cache
+        // N.B. Valid till the next hour
+        $vValidity = (int) (strtotime(date('Y-m-d H:00:00', strtotime('+1 hour'))) - time());
+        \Cache::Set([__CLASS__, __METHOD__], $vResponse, $vValidity);
+
         return new \ApiResponse($vResponse);
     }
 

@@ -5,8 +5,9 @@
  */
 class Benchmark {
 
-    protected static $mTimer = [];
-    protected static $mMemory = [];
+    // Properties
+    protected static array $mTimer = array();
+    protected static array $mMemory = array();
 
     /**
      * 
@@ -122,10 +123,10 @@ class Benchmark {
 
     /**
      * 
-     * @param integer $pTimeout
+     * @param ?integer $pTimeout
      * @return boolean
      */
-    public static function IsOvertime(int $pTimeout = null): ?bool {
+    public static function IsOvertime(?int $pTimeout = null): ?bool {
         if (!DEBUG)
             return null;
 
@@ -170,14 +171,17 @@ class Benchmark {
         // Cache
         $vCacheStats = Cache::Stats();
         if ($vCacheStats) {
+            // Memory cache
             self::$mMemory['MemCacheD_MemoryPercent'] = round($vCacheStats['bytes'] * 100 / $vCacheStats['limit_maxbytes']);
-            self::$mMemory['MemCacheD_ExtStorePercent'] = round($vCacheStats['extstore_bytes_used'] * 100 / $vCacheStats['extstore_limit_maxbytes']);
-
             $vLog .= NL . 'MemCacheD Memory, Current: ' . self::FormatMemory($vCacheStats['bytes']) . ' (' . self::$mMemory['MemCacheD_MemoryPercent'] . '%)';
             $vLog .= NL . 'MemCacheD Memory, Limit: ' . self::FormatMemory($vCacheStats['limit_maxbytes']);
 
-            $vLog .= NL . 'MemCacheD ExtStore, Current: ' . self::FormatMemory($vCacheStats['extstore_bytes_used']) . ' (' . self::$mMemory['MemCacheD_ExtStorePercent'] . '%)';
-            $vLog .= NL . 'MemCacheD ExtStore, Limit: ' . self::FormatMemory($vCacheStats['extstore_limit_maxbytes']);
+            // ExtStore cache
+            if (isset($vCacheStats['extstore_limit_maxbytes'])) {
+                self::$mMemory['MemCacheD_ExtStorePercent'] = round($vCacheStats['extstore_bytes_used'] * 100 / $vCacheStats['extstore_limit_maxbytes']);
+                $vLog .= NL . 'MemCacheD ExtStore, Current: ' . self::FormatMemory($vCacheStats['extstore_bytes_used']) . ' (' . self::$mMemory['MemCacheD_ExtStorePercent'] . '%)';
+                $vLog .= NL . 'MemCacheD ExtStore, Limit: ' . self::FormatMemory($vCacheStats['extstore_limit_maxbytes']);
+            }
         }
 
         return $vLog;
@@ -188,10 +192,10 @@ class Benchmark {
      *
      * @param integer $pByteIn
      * @param integer $pByteOut
-     * @param string|null $pMethod
+     * @param ?string $pMethod
      * @return void
      */
-    public static function Log(int $pByteIn = 0, int $pByteOut = 0, string $pMethod = null) {
+    public static function Log(int $pByteIn = 0, int $pByteOut = 0, ?string $pMethod = null) {
         if (DEBUG)
             Log::Debug(__FILE__, __METHOD__, __LINE__, self::Stats());
 

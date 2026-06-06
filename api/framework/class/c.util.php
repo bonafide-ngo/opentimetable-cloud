@@ -5,28 +5,36 @@
  */
 class Util {
 
-    protected static $mReverseProxy     = null;
-    protected static $mURL              = '';
-    protected static $mConfig           = null;
-    protected static $mSessionName      = '';
+    // Properties
+    protected static array $mConfig = array();
+    protected static ?string $mReverseProxy = null;
+    protected static ?string $mURL = null;
+    protected static bool $mStateless = false;
+    protected static ?string $mSessionName = null;
 
     /**
      * Initialize Util
+     * N.B. Cannot log because the Log object has not been initialized yet
      *
      * @param array $pParams
      * @return void
      */
     public static function Initialise(array $pParams = array()) {
-        self::$mReverseProxy        = array_key_exists('reverse_proxy', $pParams)       ? $pParams['reverse_proxy']     : self::$mReverseProxy;
-        self::$mURL                 = array_key_exists('url', $pParams)                 ? $pParams['url']               : self::$mURL;
-        self::$mSessionName         = array_key_exists('session_name', $pParams)        ? $pParams['session_name']      : self::$mSessionName;
-        // Cannot log because the Log object has not been initialized yet
+        self::$mReverseProxy = array_key_exists('reverse_proxy', $pParams) ? $pParams['reverse_proxy'] : self::$mReverseProxy;
+        self::$mURL = array_key_exists('url', $pParams) ? $pParams['url'] : self::$mURL;
+        self::$mSessionName = array_key_exists('session_name', $pParams) ? $pParams['session_name'] : self::$mSessionName;
+        self::$mStateless = array_key_exists('stateless', $pParams) ? $pParams['stateless'] : self::$mStateless;
+
+        // Start a session if not stateless
+        if (!self::$mStateless) {
+            self::StartSession();
+        }
     }
 
     /**
      * Start a session
      *
-     * @param string|null $pSID
+     * @param ?string $pSID
      * @return void
      */
     public static function StartSession(?string $pSID = null) {
@@ -201,7 +209,7 @@ class Util {
      * Set cookie safely
      *
      * @param string $pCookieConfigPath
-     * @param string|null $pValue
+     * @param ?string $pValue
      * @param bool $pRemove
      * @param bool $pForceSession
      * @return void
@@ -231,16 +239,17 @@ class Util {
     /**
      * Extend cookies
      *
-     * @param array $pCookieConfigPaths
+     * @param ?array $pCookieConfigPaths
      * @return void
      */
-    public static function ExtendCookies(array $pCookieConfigPaths = array()) {
-        foreach ($pCookieConfigPaths as $vCookieConfigPath) {
-            $vCookieValue = self::GetCookie($vCookieConfigPath);
-            if ($vCookieValue)
-                // Extend
-                self::SetCookie($vCookieConfigPath, $vCookieValue);
-        }
+    public static function ExtendCookies(?array $pCookieConfigPaths = array()) {
+        if (!empty($pCookieConfigPaths))
+            foreach ($pCookieConfigPaths as $vCookieConfigPath) {
+                $vCookieValue = self::GetCookie($vCookieConfigPath);
+                if ($vCookieValue)
+                    // Extend
+                    self::SetCookie($vCookieConfigPath, $vCookieValue);
+            }
     }
 
     /**
@@ -275,7 +284,7 @@ class Util {
             } else
                 $vRequests[] = urlencode($vKey) . '=' . urlencode($vValue);
 
-        $vURL  = $pURLBase;
+        $vURL = $pURLBase;
         $vURL .= strpos($vURL, '?') === false
             ? '?'
             : (strpos($vURL, '=') === false
@@ -340,11 +349,11 @@ class Util {
     /**
      * Redirect
      *
-     * @param string $pURI
+     * @param ?string $pURI
      * @param array $pParams
      * @return void
      */
-    public static function Redirect(string $pURI = null, array $pParams = array()) {
+    public static function Redirect(?string $pURI = null, array $pParams = array()) {
         // Initialize
         $vURI = $pURI ? $pURI : self::GetURI();
         $vRequests = array();
@@ -356,7 +365,7 @@ class Util {
             } else
                 $vRequests[] = urlencode($vKey) . '=' . urlencode($vValue);
 
-        $vURL  = $vURI;
+        $vURL = $vURI;
         $vURL .= strpos($vURL, '?') === false
             ? '?'
             : (strpos($vURL, '=') === false
@@ -463,8 +472,8 @@ class Util {
      * @param string $pURL
      * @param mixed $pPOST
      * @param array $pHeaders
-     * @param [type] $pHttpVersion
-     * @param integer $pTimeout
+     * @param int $pHttpVersion
+     * @param int $pTimeout
      * @return mixed
      */
     public static function cURL(string $pURL, mixed $pPOST = null, array $pHeaders = array(), int $pHttpVersion = CURL_HTTP_VERSION_NONE, int $pTimeout = 3): mixed {
@@ -499,7 +508,7 @@ class Util {
         curl_setopt($cURL, CURLOPT_HTTP_VERSION, $pHttpVersion);
 
         // Handle verbose output
-        $vVerboseHandler =  fopen('php://temp', 'w+');
+        $vVerboseHandler = fopen('php://temp', 'w+');
         curl_setopt($cURL, CURLOPT_VERBOSE, DEBUG);
         curl_setopt($cURL, CURLOPT_STDERR, $vVerboseHandler);
 
@@ -540,8 +549,8 @@ class Util {
                 Log::Debug(__FILE__, __METHOD__, __LINE__, ['cURL Error[' . curl_errno($cURL) . '] >> ' . curl_error($cURL), $vResponse, $vVerboseLog], true);
         }
 
-        // Close cURL
-        curl_close($cURL);
+        // Explicit release
+        $cURL = null;
 
         // Do not throw exception, handle the issue by checking the response
         return $vResponse;
@@ -558,7 +567,7 @@ class Util {
         $vTypeItem1 = gettype($pItem1);
         $vTypeItem2 = gettype($pItem2);
 
-        if ($vTypeItem1 == $vTypeItem2  && $vTypeItem1 == 'array')
+        if ($vTypeItem1 == $vTypeItem2 && $vTypeItem1 == 'array')
             return array_merge($pItem1, $pItem2);
         else if ($vTypeItem1 == $vTypeItem2 && $vTypeItem1 == 'object')
             return (object)array_merge((array)$pItem1, (array)$pItem2);
@@ -690,7 +699,7 @@ class Util {
      * @param array $pParams
      * @return mixed
      */
-    public static function GetConfig(string $pKey,  array $pParams = array()): mixed {
+    public static function GetConfig(string $pKey, array $pParams = array()): mixed {
         $vKeys = explode('.', $pKey);
         $vConfig = self::$mConfig;
 
@@ -710,8 +719,8 @@ class Util {
     /**
      * Get a country from an IP address
      *
-     * @param string|null $pIP
-     * @return object|null
+     * @param ?string $pIP
+     * @return ?object
      */
     public static function GetCountry(?string $pIP = null): ?object {
         // Init
@@ -740,7 +749,7 @@ class Util {
     /**
      * Emulate in_array case insensitive
      *
-     * @param string|null $pNeedle
+     * @param ?string $pNeedle
      * @param array $pHaystack
      * @return boolean
      */

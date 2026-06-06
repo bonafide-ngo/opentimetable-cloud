@@ -27,7 +27,7 @@ app.admin.callbackSync = function () {
 
     // System tab is for admin only
     if ([C_MSAL_GROUP_ADMIN].includes(frm.msal.role)) {
-        // Fetch raw exists
+        // Fetch raw info
         app.admin.system.readRaw();
         // Fetch environment stats
         app.admin.system.readStats();

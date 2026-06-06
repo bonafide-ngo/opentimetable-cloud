@@ -79,6 +79,9 @@ $(document).ready(function () {
         Chart.register(app.admin.chartjs.plugin.line);
         Chart.register(app.admin.chartjs.plugin.tracker);
 
+        // Dynamic Labels
+        $('#admin-system-traffic').find('[name="top-api-traffic-info"]').html(frm.label.parseDynamic('top-api-traffic-info', [Math.round(frm.config.validity.trafficLog / 86400)]));
+
         // Environment events
         $("#admin-system-environment").find('button[name="refresh"]').once('click', function () {
             app.admin.system.readRaw();

@@ -5,22 +5,22 @@
  */
 class Crypto {
 
-    public static $mSign_PublicKey = null;
-    public static $mSign_SecretKey = null;
-    public static $mSalsa = null;
-    public static $mCrc64Table = null;
+    // Properties
+    protected static string $mSign_PublicKey = '';
+    protected static string $mSign_SecretKey = '';
+    protected static string $mSalsa = '';
+    protected static ?array $mCrc64Table = null;
 
     /**
      * Initilize Lang
-     * 
-     * @param <type> $pPath
-     * @param <type> $pLanguages
-     * @param <type> $mDefaultLanguage
+     *
+     * @param array $pParams
+     * @return void
      */
     public static function Initialise(array $pParams = array()) {
-        self::$mSign_PublicKey  = array_key_exists('sign_public_key', $pParams) ? sodium_base642bin($pParams['sign_public_key'], SODIUM_BASE64_VARIANT_ORIGINAL)   : self::$mSign_PublicKey;
-        self::$mSign_SecretKey  = array_key_exists('sign_secret_key', $pParams) ? sodium_base642bin($pParams['sign_secret_key'], SODIUM_BASE64_VARIANT_ORIGINAL)   : self::$mSign_SecretKey;
-        self::$mSalsa           = array_key_exists('salsa', $pParams)           ? $pParams['salsa']                                                                : self::$mSalsa;
+        self::$mSign_PublicKey = array_key_exists('sign_public_key', $pParams) ? sodium_base642bin($pParams['sign_public_key'], SODIUM_BASE64_VARIANT_ORIGINAL) : self::$mSign_PublicKey;
+        self::$mSign_SecretKey = array_key_exists('sign_secret_key', $pParams) ? sodium_base642bin($pParams['sign_secret_key'], SODIUM_BASE64_VARIANT_ORIGINAL) : self::$mSign_SecretKey;
+        self::$mSalsa = array_key_exists('salsa', $pParams) ? $pParams['salsa'] : self::$mSalsa;
     }
 
     /**
@@ -37,8 +37,8 @@ class Crypto {
      * 
      * Test an Hx hash code against a Text
      *
-     * @param string|null $pHx
-     * @param string|null $pText
+     * @param ?string $pHx
+     * @param ?string $pText
      * @return bool
      */
     public static function IsHx(?string $pHx, ?string $pText): bool {
@@ -84,7 +84,7 @@ class Crypto {
     /**
      * Generate a random unique hash with high entrophy
      *
-     * @param string|null $pAlphaPrefix
+     * @param ?string $pAlphaPrefix
      * @param string $pAlgorithm
      * @return string
      */
@@ -120,11 +120,10 @@ class Crypto {
     /**
      * Sign and set an Item
      *
-     * @param string $pCookie
-     * @param string $pConfigPath
-     * @param boolean $pForceSession
+     * @param string $pItem
+     * @return string
      */
-    public static function SignItem(string $pItem) {
+    public static function SignItem(string $pItem): string {
         return sodium_bin2base64(sodium_crypto_sign($pItem, self::$mSign_SecretKey), SODIUM_BASE64_VARIANT_ORIGINAL);
     }
 
@@ -143,7 +142,7 @@ class Crypto {
     /**
      * Return an Item if signature matches
      *
-     * @param string $pConfigPath
+     * @param string $pSignedItem
      * @return string|boolean
      */
     public static function GetSignedItem(string $pSignedItem): string|bool {
@@ -153,14 +152,14 @@ class Crypto {
      * Return a Cookie if signature matches
      *
      * @param string $pConfigPath
-     * @param boolean $pIsMandatory
+     * @param ?boolean $pIsMandatory
      * @return string
      */
-    public static function GetSignedCookie(string $pConfigPath, $pIsMandatory = false): string {
+    public static function GetSignedCookie(string $pConfigPath, ?bool $pIsMandatory = false): string {
         // Get signed cookied
         $vSignedCookie = Util::GetCookie($pConfigPath);
         // Verify base64 integrity and get cookie
-        $vCookie =  $vSignedCookie != base64_encode(base64_decode($vSignedCookie)) ? false : self::GetSignedItem(Util::GetCookie($pConfigPath));
+        $vCookie = $vSignedCookie != base64_encode(base64_decode($vSignedCookie)) ? false : self::GetSignedItem(Util::GetCookie($pConfigPath));
         if ($vCookie !== false)
             return $vCookie;
         else if ($pIsMandatory) {
@@ -176,7 +175,7 @@ class Crypto {
      * Generate a Hash code
      *
      * @param mixed $pInput
-     * @param string $pUseSalsa
+     * @param boolean $pUseSalsa
      * @param string $pAlgorithm
      * @return string
      */
@@ -205,12 +204,12 @@ class Crypto {
      * Emulate CRC64 in PHP
      * https://gist.github.com/hightemp/4da5ac39b8d57fcd7e7988b90a48017d
      * 
-     *  Crc64('php'); // afe4e823e7cef190
-     *  Crc64('php, '%x'); // afe4e823e7cef190
-     *  Crc64('php', '0x%x'); // 0xafe4e823e7cef190
-     *  Crc64('php', '0x%X'); // 0xAFE4E823E7CEF190
-     *  Crc64('php', '%d'); // -5772233581471534704 signed int
-     *  Crc64('php', '%u'); // 12674510492238016912 unsigned int
+     * Crc64('php'); // afe4e823e7cef190
+     * Crc64('php, '%x'); // afe4e823e7cef190
+     * Crc64('php', '0x%x'); // 0xafe4e823e7cef190
+     * Crc64('php', '0x%X'); // 0xAFE4E823E7CEF190
+     * Crc64('php', '%d'); // -5772233581471534704 signed int
+     * Crc64('php', '%u'); // 12674510492238016912 unsigned int
      *
      * @param string $pInput
      * @param string $pFormat

@@ -5,17 +5,16 @@
  */
 class Cache {
 
-
     // Constants
-    const CC_MAX_VALIDITY   = 2592000; // Max 30 days - hard rule
-    const CC_EXPIRY         = 'expiry';
-    const CC_DATA           = 'data';
+    const int CC_MAX_VALIDITY = 2592000; // Max 30 days - hard rule
+    const string CC_EXPIRY = 'expiry';
+    const string CC_DATA = 'data';
 
     // Properties
-    static $mMemCacheD      = null;
-    static $mObGzHandler    = false;
-    static $mPath           = PATH_CACHE;
-    static $mValidity       = Cache::CC_MAX_VALIDITY;
+    protected static ?Memcached $mMemCacheD = null;
+    protected static int $mValidity = Cache::CC_MAX_VALIDITY;
+    protected static ?string $mPath = PATH_CACHE;
+    protected static bool $mObGzHandler = false;
 
     /**
      * Initialise Cache
@@ -24,15 +23,15 @@ class Cache {
      * @return void
      */
     public static function Initialise(array $pParams = array()) {
-        self::$mValidity    = array_key_exists('validity', $pParams)        ? $pParams['validity']      : self::$mValidity;
-        self::$mPath        = array_key_exists('path', $pParams)            ? $pParams['path']          : self::$mPath;
-        self::$mObGzHandler = array_key_exists('ob_gzhandler', $pParams)    ? $pParams['ob_gzhandler']  : self::$mObGzHandler;
+        self::$mValidity = array_key_exists('validity', $pParams) ? $pParams['validity'] : self::$mValidity;
+        self::$mPath = array_key_exists('path', $pParams) ? $pParams['path'] : self::$mPath;
+        self::$mObGzHandler = array_key_exists('ob_gzhandler', $pParams) ? $pParams['ob_gzhandler'] : self::$mObGzHandler;
 
         // Enforce cahce validity max limit
         self::$mValidity = self::$mValidity > Cache::CC_MAX_VALIDITY ? Cache::CC_MAX_VALIDITY : self::$mValidity;
 
         // Set MemCacheD
-        if (array_key_exists('memcached', $pParams) && $pParams['memcached']) {
+        if (array_key_exists('memcached_servers', $pParams) && $pParams['memcached_servers']) {
             // Connect to MemCacheD 
             self::$mMemCacheD = new Memcached();
             self::$mMemCacheD->setOptions(array(
@@ -40,14 +39,26 @@ class Cache {
                 Memcached::OPT_COMPRESSION => true,
                 Memcached::OPT_SERIALIZER => Memcached::SERIALIZER_PHP
             ));
-            if (self::$mMemCacheD->addServers($pParams['memcached']))
-                Log::Debug(__FILE__, __METHOD__, __LINE__, ["MemCacheD connection success", $pParams['memcached']]);
+            if (self::$mMemCacheD->addServers($pParams['memcached_servers']))
+                Log::Debug(__FILE__, __METHOD__, __LINE__, ["MemCacheD connection success", $pParams['memcached_servers']]);
             else {
-                self::$mMemCacheD = null;
-                Log::Error(__FILE__, __METHOD__, __LINE__, ["MemCacheD connection failed", $pParams['memcached']], true);
+                Log::Error(__FILE__, __METHOD__, __LINE__, ["MemCacheD connection failed", $pParams['memcached_servers']], true);
             }
         } else
             Log::Debug(__FILE__, __METHOD__, __LINE__, $pParams);
+    }
+
+    /**
+     * Implode servers list
+     *
+     * @param array $pServers
+     * @return string
+     */
+    public static function ImplodeServers(array $pServers): string {
+        return implode(',', array_map(
+            fn($vServer) => "{$vServer[0]}:{$vServer[1]}",
+            $pServers
+        ));
     }
 
     /**
@@ -94,7 +105,7 @@ class Cache {
     /**
      * Set data into cache
      *
-     * @param mixed $pInput
+     * @param mixed $pKey
      * @param mixed $pData
      * @param integer $pValidity
      * @param mixed $pForceFilesystem
@@ -189,7 +200,7 @@ class Cache {
     /**
      * Delete a cache entry
      * 
-     * @param mixed $pInput
+     * @param mixed $pKey
      * @param mixed $pForceFilesystem
      * @return mixed 
      */
@@ -272,6 +283,6 @@ class Cache {
             return false;
 
         $vStats = self::$mMemCacheD->getStats();
-        return $vStats ? $vStats[MEMCACHED[0][0] . ':' . MEMCACHED[0][1]] : false;
+        return $vStats ? $vStats[MEMCACHED_SERVERS[0][0] . ':' . MEMCACHED_SERVERS[0][1]] : false;
     }
 }

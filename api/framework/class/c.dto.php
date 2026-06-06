@@ -4,10 +4,10 @@ class DTO {
     /**
      * Constructor
      *
-     * @param mixed $pParams
+     * @param ?object &$pParams
      * @param boolean $pGC
      */
-    function __construct(object &$pParams = null, bool $pGC = true) {
+    function __construct(?object &$pParams = null, bool $pGC = true) {
         if (!empty($pParams)) {
             // Sanitise the DTO
             array_walk($pParams, array('Security', 'SanitizeInput'));

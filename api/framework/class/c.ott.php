@@ -5,7 +5,8 @@
  */
 class OTT {
 
-    protected $mOTT = array();
+    // Properties
+    protected array $mOTT = array();
 
     /**
      * Constructor
@@ -19,7 +20,7 @@ class OTT {
                 "metadata" => array(
                     "version" => "1.0",
                     "timezone" => Util::GetConfig('php.date.timezone'),
-                    "timezone" => Util::GetConfig('ott.author'),
+                    "author" => Util::GetConfig('ott.author'),
                     "timestamp" => NOW
                 ),
                 "order" => Util::GetConfig('ott.order'),

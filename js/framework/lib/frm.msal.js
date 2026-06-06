@@ -14,7 +14,7 @@ frm.msal.decodedIdToken = {};
 frm.msal.instance = null;
 frm.msal.ready = null;
 frm.msal.role = null;
-frm.msal.accountId = null;
+frm.msal.isAccessToken = false;
 
 /**
  * Overridable methods
@@ -29,9 +29,9 @@ frm.msal.override.logout = function () {
 
 /**
  * Handle msal exception
+ * 
  * @param {*} origin 
- * @param {*} code 
- * @param {*} message 
+ * @param {*} error 
  */
 frm.msal.exception = function (origin, error) {
     console.error(origin, error);
@@ -47,12 +47,12 @@ frm.msal.setPublicClientApplication = async function () {
         frm.msal.instance = new msal.PublicClientApplication(frm.config.msal.instance);
         // Initialise the instance, async
         frm.msal.ready = frm.msal.instance.initialize()
-            .then(() => {
+            .then(async () => {
                 // Handle promise and response
-                return frm.msal.instance.handleRedirectPromise();
+                return await frm.msal.instance.handleRedirectPromise();
             })
-            .then(response => {
-                return frm.msal.handleResponse(response);
+            .then(async response => {
+                return await frm.msal.handleResponse(response);
             })
             .catch(e => {
                 frm.msal.exception('frm.msal.setPublicClientApplication', e);
@@ -73,36 +73,38 @@ frm.msal.handleResponse = async function (response, isLogin) {
     // Simulate spinner buying time
     await frm.spinner.start(true);
 
-    if (response !== null) {
+    if (response?.account) {
         // Decode the id token
         const decodedIdToken = frm.msal.decodeIdToken(response.idToken);
         // Store for later
-        frm.msal.accountId = response.account.homeAccountId;
         frm.msal.decodedIdToken = decodedIdToken;
-        // Set cookie
+        // Set cookie for APIs
         frm.crypto.setCookie(frm.config.cookie.property.msal.id, encodeURIComponent(response.idToken));
         frm.crypto.setCookie(frm.config.cookie.property.msal.access, encodeURIComponent(response.accessToken));
         // Set active MSAL account
         frm.msal.instance.setActiveAccount(response.account);
+
         // Call override init method
         await frm.msal.override.init(isLogin);
     } else {
-        // Read all authenticated accounts
-        const currentAccounts = frm.msal.instance.getAllAccounts();
-        if (currentAccounts && currentAccounts.length) {
-            // Store for later
-            frm.msal.accountId = currentAccounts[0].homeAccountId;
-            // Set active MSAL account
-            frm.msal.instance.setActiveAccount(currentAccounts[0]);
-            // Refresh id/access tokens
-            await frm.msal.getAccessToken();
-            // Call override init method
-            await frm.msal.override.init(isLogin);
-        } else
-            // Call override init method
-            await frm.msal.override.init(isLogin);
-    }
+        // Attempt to get active account
+        const activeAccount = frm.msal.instance.getActiveAccount();
+        if (!activeAccount) {
+            // Get all accounts
+            const accounts = frm.msal.instance.getAllAccounts();
+            if (accounts && accounts.length) {
+                // Set active account
+                frm.msal.instance.setActiveAccount(accounts[0]);
+                // Refresh id/access tokens
+                await frm.msal.getAccessToken();
+                // Call override init method
+                await frm.msal.override.init(isLogin);
+            }
+        }
 
+        // Call override init method
+        await frm.msal.override.init(isLogin);
+    }
     // Simulate spinner buying time
     frm.spinner.stop();
 }
@@ -116,7 +118,9 @@ frm.msal.login = function () {
 
     // Handle login via Microsoft popup and implicit redirect
     frm.msal.instance.loginPopup({ scopes: frm.config.msal.scopes })
-        .then(response => frm.msal.handleResponse(response, true))
+        .then(async response => {
+            await frm.msal.handleResponse(response, true);
+        })
         .catch(e => {
             switch (e.errorCode) {
                 case 'interaction_in_progress':
@@ -157,11 +161,11 @@ frm.msal.logout = function (intentional) {
 
     // Handle logout via Microsoft popup
     frm.msal.instance.logoutPopup({
-        account: frm.msal.instance.getAccountByHomeId(frm.msal.accountId)
+        account: frm.msal.instance.getActiveAccount()
     }).then(() => {
         // Check if the user dismissed the logout instead
         if (!frm.msal.isAuthenticated()) {
-            // Remove cookie
+            // Remove cookie for APIs
             frm.crypto.removeCookie(frm.config.cookie.property.msal.id);
             frm.crypto.removeCookie(frm.config.cookie.property.msal.access);
             // Call override logout method
@@ -191,20 +195,37 @@ frm.msal.isAuthenticated = function () {
  * @returns 
  */
 frm.msal.getAccessToken = async function () {
-    if (!frm.msal.instance || !frm.msal.accountId)
+    if (!frm.msal.instance)
         return null;
 
-    // Extend scopes with authenticated account
-    const scopes = $.extend(true, { account: frm.msal.instance.getAccountByHomeId(frm.msal.accountId) }, { scopes: frm.config.msal.scopes });
+    // Wait for the pending access token flag
+    await new Promise(resolve => {
+        const check = () => {
+            if (!frm.msal.isAccessToken) {
+                resolve();
+            } else {
+                setTimeout(check, 100);
+            }
+        };
+        check();
+    });
+
+    // Set pending access token flag
+    frm.msal.isAccessToken = true;
 
     // Attempt to retrieve silently first
-    return await frm.msal.instance.acquireTokenSilent(scopes)
+    return await frm.msal.instance.acquireTokenSilent({
+        account: frm.msal.instance.getActiveAccount(),
+        scopes: frm.config.msal.scopes
+    })
         .then((response) => {
+            // Set active account in case it changed
+            frm.msal.instance.setActiveAccount(response.account);
             // Decode the id token
             const decodedIdToken = frm.msal.decodeIdToken(response.idToken);
             // Store for later
             frm.msal.decodedIdToken = decodedIdToken;
-            // Set cookie
+            // Set cookie for APIs
             frm.crypto.setCookie(frm.config.cookie.property.msal.id, encodeURIComponent(response.idToken));
             frm.crypto.setCookie(frm.config.cookie.property.msal.access, encodeURIComponent(response.accessToken));
             return response.accessToken;
@@ -212,13 +233,18 @@ frm.msal.getAccessToken = async function () {
         .catch(async (e) => {
             if (e instanceof msal.InteractionRequiredAuthError) {
                 // Fallback to interactive method if silent acquisition fails
-                return await frm.msal.instance.acquireTokenPopup(scopes)
+                return await frm.msal.instance.acquireTokenPopup({
+                    account: frm.msal.instance.getActiveAccount(),
+                    scopes: frm.config.msal.scopes
+                })
                     .then((response) => {
+                        // Set active account in case it changed
+                        frm.msal.instance.setActiveAccount(response.account);
                         // Decode the id token
                         const decodedIdToken = frm.msal.decodeIdToken(response.idToken);
                         // Store for later
                         frm.msal.decodedIdToken = decodedIdToken;
-                        // Set cookie
+                        // Set cookie for APIs
                         frm.crypto.setCookie(frm.config.cookie.property.msal.id, encodeURIComponent(response.idToken));
                         frm.crypto.setCookie(frm.config.cookie.property.msal.access, encodeURIComponent(response.accessToken));
                         return response.accessToken;
@@ -248,6 +274,10 @@ frm.msal.getAccessToken = async function () {
                 frm.msal.exception('frm.msal.getAccessToken', e);
                 return null;
             }
+        })
+        .finally(() => {
+            // Reset pending access token flag
+            frm.msal.isAccessToken = false;
         });
 }
 
@@ -313,22 +343,10 @@ frm.msal.getUserGroupsIds = async function () {
     if (!frm.msal.instance)
         return groups;
 
-    const accounts = frm.msal.instance.getAllAccounts();
-    if (!accounts || !accounts.length)
-        return groups;
-
-    // Get the id token
-    const idToken = accounts[0].idToken;
-    if (!idToken)
-        return groups;
-
-    // Decode the id token
-    const decodedIdToken = frm.msal.decodeIdToken(idToken);
-    if (!decodedIdToken)
-        return groups;
-
-    // Attempt extracting groups from the token
-    groups = decodedIdToken.groups || [];
+    // Get active account
+    const activeAccount = frm.msal.instance.getActiveAccount();
+    // Get groups via id token claims if present, otherwise query graph API
+    groups = activeAccount?.idTokenClaims?.groups || [];
     if (groups.length)
         return groups;
     else
@@ -363,7 +381,7 @@ frm.msal.graphAPI.await.memberOf = async function () {
 
 /**
  * Query Graph API to get the user groups details
- * N.B. For debugging as (essential) groups are retrieved via id/access token
+ * N.B. For debugging purpose only, as (essential) groups are retrieved via id/access token
  */
 frm.msal.graphAPI.promise.memberOf = function () {
     if (!frm.msal.instance)

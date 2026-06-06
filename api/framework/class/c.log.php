@@ -4,22 +4,21 @@
  * Log Class
  */
 class Log {
-	const DEBUG             = 'debug';
-	const ERROR             = 'error';
-	const REPORT            = 'report';
-	const FILE_NAME         = 'log';
-	const PATTERN_LOG       = '|^[a-zA-Z0-9\\.@_]*$|'; // log.2022.03.01@13.30.11_3b4d99d2b8f45907260b487e8d714d92e123b6f3
 
-	/**
-	 * Error messages in the same order the errors were raised
-	 */
-	private static $mErrors = [];
+	// Constants
+	const string DEBUG = 'debug';
+	const string ERROR = 'error';
+	const string REPORT = 'report';
+	const string FILE_NAME = 'log';
+	const string PATTERN_LOG = '|^[a-zA-Z0-9\\.@_]*$|'; // log.2022.03.01@13.30.11_3b4d99d2b8f45907260b487e8d714d92e123b6f3
 
-	protected static $mPath          	= 'log/';
-	protected static $mPathAbs       	= '/';
-	protected static $mMaxsize       	= 1048576; // 1MB
-	protected static $mWebmasterEmail   = '';
-	protected static $mWebmasterAlias   = '';
+	// Properties
+	protected static array $mErrors = [];
+	protected static string $mPath = 'log/';
+	protected static string $mPathAbs = '/';
+	protected static int $mLogMaxsize = 1048576; // 1MB
+	protected static string $mWebmasterEmail = '';
+	protected static string $mWebmasterAlias = '';
 
 	/**
 	 * Initialize Log
@@ -28,11 +27,11 @@ class Log {
 	 * @return void
 	 */
 	public static function Initialise(array $pParams = array()) {
-		self::$mPath             	= array_key_exists('path', $pParams)            	? $pParams['path']          	: self::$mPath;
-		self::$mPathAbs             = array_key_exists('path_abs', $pParams)            ? $pParams['path_abs']          : self::$mPathAbs;
-		self::$mMaxsize          	= array_key_exists('maxsize', $pParams)         	? $pParams['maxsize']       	: self::$mMaxsize;
-		self::$mWebmasterEmail      = array_key_exists('webmaster_email', $pParams)     ? $pParams['webmaster_email']   : self::$mWebmasterEmail;
-		self::$mWebmasterAlias      = array_key_exists('webmaster_alias', $pParams)     ? $pParams['webmaster_alias']   : self::$mWebmasterAlias;
+		self::$mPath = array_key_exists('path', $pParams) ? $pParams['path'] : self::$mPath;
+		self::$mPathAbs = array_key_exists('path_abs', $pParams) ? $pParams['path_abs'] : self::$mPathAbs;
+		self::$mLogMaxsize = array_key_exists('log_maxsize', $pParams) ? $pParams['log_maxsize'] : self::$mLogMaxsize;
+		self::$mWebmasterEmail = array_key_exists('webmaster_email', $pParams) ? $pParams['webmaster_email'] : self::$mWebmasterEmail;
+		self::$mWebmasterAlias = array_key_exists('webmaster_alias', $pParams) ? $pParams['webmaster_alias'] : self::$mWebmasterAlias;
 
 		self::Debug(__FILE__, __METHOD__, __LINE__, ['********************************************************************************', $pParams]);
 	}
@@ -107,11 +106,11 @@ class Log {
 	 *
 	 * @param integer $pErrorID
 	 * @param string $pErrorDescription
-	 * @param string $pErrorFilename
-	 * @param integer $pErrorLine
+	 * @param ?string $pErrorFilename
+	 * @param ?integer $pErrorLine
 	 * @return void
 	 */
-	public static function ErrorHandler(int $pErrorID, string $pErrorDescription, string $pErrorFilename = null, int $pErrorLine = null) {
+	public static function ErrorHandler(int $pErrorID, string $pErrorDescription, ?string $pErrorFilename = null, ?int $pErrorLine = null) {
 		switch ($pErrorID) {
 			case 0: // Suppressed code by @operator
 				return true;
@@ -133,9 +132,6 @@ class Log {
 				break;
 			case E_NOTICE: // 8
 				$vErrorCode = 'E_NOTICE';
-				break;
-			case E_STRICT: // 2048
-				$vErrorCode = 'E_STRICT';
 				break;
 			case E_CORE_ERROR: // 16
 				$vErrorCode = 'E_CORE_ERROR';
@@ -170,7 +166,7 @@ class Log {
 		}
 
 		if ($pErrorID != E_NOTICE || DEBUG) {
-			$pLog  = 	  "PHP " . PHP_VERSION . " [$pErrorID] $vErrorCode:  $pErrorDescription";
+			$pLog =  "PHP " . PHP_VERSION . " [$pErrorID] $vErrorCode: $pErrorDescription";
 			$pLog .= NL . "Error in file $pErrorFilename at line $pErrorLine";
 
 			// Log the error
@@ -188,7 +184,7 @@ class Log {
 	 * @return void
 	 */
 	public static function ExceptionHandler(mixed $pException) {
-		self::Error(__FILE__, __METHOD__, __LINE__, ['Uncaught exception', $pException->getCode() . ': ' . $pException->getMessage()], true);
+		self::Error($pException->getFile(), __METHOD__, $pException->getLine(), ['Uncaught exception', $pException->getCode() . ': ' . $pException->getMessage()], true);
 	}
 
 	/**
@@ -214,13 +210,13 @@ class Log {
 	 * Save a Log for reporting
 	 *
 	 * @param string $pFile
-	 * @param string $pMethod
+	 * @param ?string $pMethod
 	 * @param integer $pLine
 	 * @param mixed $pLog
 	 * @param boolean $pMail
 	 * @return void
 	 */
-	public static function Report(string $pFile, string $pMethod, int $pLine, mixed $pLog = null, bool $pMail = false) {
+	public static function Report(string $pFile, ?string $pMethod, int $pLine, mixed $pLog = null, bool $pMail = false) {
 		self::LogHandler($pFile, $pMethod, $pLine, self::REPORT, $pLog, $pMail);
 	}
 
@@ -228,13 +224,13 @@ class Log {
 	 * Save a Log for debugging
 	 *
 	 * @param string $pFile
-	 * @param string $pMethod
+	 * @param ?string $pMethod
 	 * @param integer $pLine
 	 * @param mixed $pLog
 	 * @param boolean $pMail
 	 * @return void
 	 */
-	public static function Debug(string $pFile, string $pMethod, int $pLine, mixed $pLog = null, bool $pMail = false) {
+	public static function Debug(string $pFile, ?string $pMethod, int $pLine, mixed $pLog = null, bool $pMail = false) {
 		if (DEBUG)
 			self::LogHandler($pFile, $pMethod, $pLine, self::DEBUG, $pLog, $pMail);
 	}
@@ -243,7 +239,7 @@ class Log {
 	 * Save a Log because of an error
 	 *
 	 * @param string $pFile
-	 * @param string $pMethod
+	 * @param ?string $pMethod
 	 * @param integer $pLine
 	 * @param mixed $pLog
 	 * @param boolean $pMail
@@ -251,7 +247,7 @@ class Log {
 	 * @param boolean $pAddError
 	 * @return void
 	 */
-	public static function Error(string $pFile, string $pMethod, int $pLine, mixed $pLog, bool $pMail = false, bool $pShutdown = false, bool $pAddError = true) {
+	public static function Error(string $pFile, ?string $pMethod, int $pLine, mixed $pLog, bool $pMail = false, bool $pShutdown = false, bool $pAddError = true) {
 		if ($pAddError)
 			self::Add($pLog);
 
@@ -262,7 +258,7 @@ class Log {
 	 * Save a Log into a daily log file
 	 *
 	 * @param string $pFile
-	 * @param string $pMethod
+	 * @param ?string $pMethod
 	 * @param integer $pLine
 	 * @param string $pType
 	 * @param mixed $pLog
@@ -270,9 +266,7 @@ class Log {
 	 * @param boolean $pShutdown
 	 * @return void
 	 */
-	protected static function LogHandler(string $pFile, string $pMethod, int $pLine, string $pType, mixed $pLog = null, bool $pMail = false, $pShutdown = false) {
-		global $gMailer;
-
+	protected static function LogHandler(string $pFile, ?string $pMethod, int $pLine, string $pType, mixed $pLog = null, bool $pMail = false, $pShutdown = false) {
 		// Normalise UTF8 log
 		$pLog = !empty($pLog) ? NL . mb_convert_encoding(var_export($pLog, true), 'UTF-8', 'auto') : '';
 
@@ -297,42 +291,42 @@ class Log {
 		$vPath = $pShutdown ? self::$mPathAbs : self::$mPath;
 
 		// Set timestamp
-		$vDay       = gmdate("d", NOW);
-		$vMonth     = gmdate("m", NOW);
-		$vYear      = gmdate("Y", NOW);
-		$vHours     = gmdate("H", NOW);
-		$vMinutes   = gmdate("i", NOW);
-		$vSeconds   = gmdate("s", NOW);
+		$vDay = gmdate("d", NOW);
+		$vMonth = gmdate("m", NOW);
+		$vYear = gmdate("Y", NOW);
+		$vHours = gmdate("H", NOW);
+		$vMinutes = gmdate("i", NOW);
+		$vSeconds = gmdate("s", NOW);
 
 		// Set paths
 		$vFilePath = $vPath . self::FILE_NAME;
 		$vRotatedFilePath = $vPath . self::FILE_NAME . '.' . $vYear . '.' . $vMonth . '.' . $vDay . '@' . $vHours . '.' . $vMinutes . '.' . $vSeconds . '_' . Crypto::RandomUniqueHash(null, 'sha1');
 
 		// Set log
-		$vLog  = NL;
-		$vLog .= NL . "$vDay/$vMonth/$vYear " . Util::GetConfig('php.date.timezone') . " $vHours:$vMinutes:$vSeconds " . strtoupper($vSubject) . " " . basename($pFile, '.php') . ' >> ' . $pMethod . ':' . $pLine;
+		$vLog = NL;
+		$vLog .= NL . "$vDay/$vMonth/$vYear " . Util::GetConfig('php.date.timezone') . " $vHours:$vMinutes:$vSeconds " . strtoupper($vSubject) . ' ' . ($pMethod ? $pMethod . ' >> ' : '') . basename($pFile, '.php')   . ':' . $pLine;
 		$vLog .= $pLog;
 
 		if ($pMail) {
-			$vLog2Mail  =      'IP: ' . Util::GetIP();
+			$vLog2Mail = 'IP: ' . Util::GetIP();
 			$vLog2Mail .= NL . 'URI: ' . Util::GetURI();
 			$vLog2Mail .= NL . 'UserAgent: ' . Util::GetUserAgent();
 			$vLog2Mail .= NL;
-			$vLog2Mail .= NL . basename($pFile, '.php') . ' >> ' . $pMethod . ' : ' . $pLine;
+			$vLog2Mail .= NL . ($pMethod ? $pMethod . ' >> ' : '') . basename($pFile, '.php')   . ':' . $pLine;
 			$vLog2Mail .= NL . $pLog;
 
-			$vParams  = array();
-			$vParams['txt_title']	= Lang::Get('instance.i-title');
-			$vParams['txt_header']  = $vSubject;
-			$vParams['txt_body']   	= $vLog2Mail;
-			$vParams['txt_date']    = "$vDay/$vMonth/$vYear";
-			$vParams['txt_time']  	= "$vHours:$vMinutes:$vSeconds";
+			$vParams = array();
+			$vParams['txt_title'] = Lang::Get('instance.i-title');
+			$vParams['txt_header'] = $vSubject;
+			$vParams['txt_body'] = $vLog2Mail;
+			$vParams['txt_date'] = "$vDay/$vMonth/$vYear";
+			$vParams['txt_time'] = "$vHours:$vMinutes:$vSeconds";
 
-			$gMailer->clearAllRecipients();
-			$gMailer->addAddress(self::$mWebmasterEmail, self::$mWebmasterAlias);
-			$gMailer->msgHTML(Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.html', PATH_TEMPLATE . 't.mail.body.html', $vParams));
-			$gMailer->msgPlain(Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.txt', PATH_TEMPLATE . 't.mail.body.txt', $vParams));
-			$gMailer->Mail($vSubject);
+			\Mailer::$mInstance->clearAllRecipients();
+			\Mailer::$mInstance->addAddress(self::$mWebmasterEmail, self::$mWebmasterAlias);
+			\Mailer::$mInstance->msgHTML(Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.html', PATH_TEMPLATE . 't.mail.body.html', $vParams));
+			\Mailer::$mInstance->msgPlain(Util::ParseTemplate(PATH_TEMPLATE . 't.mail.wrapper.txt', PATH_TEMPLATE . 't.mail.body.txt', $vParams));
+			\Mailer::$mInstance->Mail($vSubject);
 		}
 
 		// Log and rotate if oversized
@@ -363,7 +357,7 @@ class Log {
 		$vPathLock = $pDirPath . 'lock';
 		try {
 			// Catch any issue not to break the code execution
-			while (!$vLock && $vSafeLock-- && is_file($pFilePath) && filesize($pFilePath) > self::$mMaxsize) {
+			while (!$vLock && $vSafeLock-- && is_file($pFilePath) && filesize($pFilePath) > self::$mLogMaxsize) {
 
 				// N.B. file and directory are the same in linux
 				if (

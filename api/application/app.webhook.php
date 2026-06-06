@@ -11,8 +11,8 @@ class Webhook {
      * Upgrade
      * https://domain/api/?webhook=upgrade&version=XXX&signedSalsa_base64=YYY
      *
-     * @param string|null $pVersion
-     * @param string|null $pSignedSalsa_base64
+     * @param string $pVersion
+     * @param ?string $pSignedSalsa_base64
      * @return void
      */
     public static function Upgrade(?string $pVersion, ?string $pSignedSalsa_base64 = null) {
@@ -51,7 +51,7 @@ class Webhook {
      * Cleanup
      * https://domain/api/?webhook=cleanup&signedSalsa_base64=YYY
      *
-     * @param string|null $pSignedSalsa_base64
+     * @param ?string $pSignedSalsa_base64
      * @return void
      */
     public static function Cleanup(?string $pSignedSalsa_base64 = null) {
@@ -67,7 +67,7 @@ class Webhook {
      * Batch
      * https://domain/api/?webhook=batch&signedUser_base64=YYY
      *
-     * @param string|null $pSignedUser_base64
+     * @param ?string $pSignedUser_base64
      * @return void
      */
     public static function Batch(?string $pSignedUser_base64 = null) {
@@ -83,7 +83,7 @@ class Webhook {
      * IpBlocklist
      * https://domain/api/?webhook=ipblocklist&signedSalsa_base64=YYY
      *
-     * @param string|null $pSignedSalsa_base64
+     * @param ?string $pSignedSalsa_base64
      * @return void
      */
     public static function IpBlocklist(?string $pSignedSalsa_base64 = null) {
@@ -99,7 +99,7 @@ class Webhook {
      * Traffic
      * https://domain/api/?webhook=traffic&signedSalsa_base64=YYY
      *
-     * @param string|null $pSignedSalsa_base64
+     * @param ?string $pSignedSalsa_base64
      * @return void
      */
     public static function Traffic(?string $pSignedSalsa_base64 = null) {
@@ -115,7 +115,7 @@ class Webhook {
      * Sync
      * https://domain/api/?webhook=sync&signedSalsa_base64=YYY
      *
-     * @param string|null $pSignedSalsa_base64
+     * @param ?string $pSignedSalsa_base64
      * @return void
      */
     public static function Sync(?string $pSignedSalsa_base64 = null) {

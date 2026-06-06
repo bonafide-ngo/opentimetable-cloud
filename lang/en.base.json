@@ -229,6 +229,7 @@
         "no-classes-day": "No lectures on {0}",
         "notice-maintenance": "Essential maintenance on {0}. <a href=\"{1}\" target=\"_blank\">Read more</a>",
         "safari-notice-info": "<p>Your Safari browser has limited support for <i>push notifications</i>.</p><p>Download the App on the <a href=\"{0}\" target=\"_blank\">App Store</a> or use a browser other than Safari.</p>",
+        "top-api-traffic-info": "Last <b>{0} days</b>, cached by the hour",
         "uptime-x-days": "Uptime: {0} day(s)"
     },
     "email": {

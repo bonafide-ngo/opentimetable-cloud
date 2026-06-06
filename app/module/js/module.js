@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         // Module - Continue
         $('#module-select-modules').find('button[type="submit"]').once('click', function () {
-            $('#module-select-period-heading button').click();
+            $('#module-select-period-heading button').trigger('click');
             $('html, body').animate({
                 scrollTop: $("#module-select-modules-heading").offset().top - 10
             }, 400);
@@ -22,7 +22,7 @@ $(document).ready(function () {
         $('#module-select-period').find('button[type="submit"]').once('click', app.module.readTimetable);
         // Period - Back
         $('#module-select-period').find('button[type="cancel"]').once('click', function () {
-            $('#module-select-module-heading button').click();
+            $('#module-select-module-heading button').trigger('click');
         });
 
         // Share
@@ -39,7 +39,7 @@ $(document).ready(function () {
             $('#module-selection').hide();
             $('#module-timetable-compact').hide();
             $('#module-steps').fadeIn(400, function () {
-                $(this).find('#module-select-modules-heading button').click();
+                $(this).find('#module-select-modules-heading button').trigger('click');
                 $('html, body').animate({
                     scrollTop: $("#module-select-modules-heading").offset().top - 10
                 }, 400);

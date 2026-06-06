@@ -1,14 +1,16 @@
 <?
+// Benchmark
+Benchmark::Start();
+
 // Load Configuration
 Util::LoadConfig(PATH_CONFIG . 'config.json');
 
 // Set PHP directives
-ini_set('url_rewriter.tags',        '');
-ini_set('ignore_user_abort',        true);
-ini_set('date.timezone',            Util::GetConfig('php.date.timezone'));
+ini_set('url_rewriter.tags', '');
+ini_set('ignore_user_abort', true);
+ini_set('date.timezone', Util::GetConfig('php.date.timezone'));
 
 // Set PHP Session directives
-// N.B. Use session on file to seriale requests
 ini_set('session.use_cookies', 1);
 ini_set('session.use_only_cookies', 1);
 ini_set('session.use_strict_mode', 1);
@@ -20,9 +22,18 @@ ini_set('session.gc_maxlifetime', Util::GetConfig('php.session.gc_maxlifetime'))
 ini_set('session.gc_probability', Util::GetConfig('php.session.gc_probability'));
 ini_set('session.gc_divisor', Util::GetConfig('php.session.gc_divisor'));
 ini_set('session.use_trans_sid', 0);
-ini_set('session.sid_length', 128); // sha512
-ini_set('session.sid_bits_per_character', 4); // sha512
-ini_set('session.save_path', PATH_SESSION);
+
+// Session handling with MemCacheD, else file system
+if (MEMCACHED_SESSION) {
+    ini_set('session.save_handler', 'memcached');
+    ini_set('session.save_path', \Cache::ImplodeServers(MEMCACHED_SERVERS));
+    ini_set('memcached.sess_locking', 1); // Force serialization of requests to prevent race conditions
+    ini_set('memcached.sess_lock_retries', round(ini_get('max_execution_time') * 1000 / ini_get('memcached.sess_lock_wait_min'))); // sess_lock_wait_min is in ms
+} else {
+    // Requests are always serialized with file-based sessions
+    ini_set('session.save_handler', 'files');
+    ini_set('session.save_path', PATH_SESSION);
+}
 
 // Error handler
 set_error_handler('Log::ErrorHandler');
@@ -33,68 +44,65 @@ set_exception_handler('Log::ExceptionHandler');
 // Shutdown function
 register_shutdown_function('Log::ShutdownFunction');
 
-// Benchmark
-Benchmark::Start();
-
 // Initialize Util
 Util::Initialise(array(
-    'reverse_proxy'     => REVERSE_PROXY,
-    'url'               => Util::GetConfig('url.api'),
-    'session_name'      => Util::GetConfig('cookie.property.session.id.name')
+    'reverse_proxy' => REVERSE_PROXY,
+    'url' => Util::GetConfig('url.api'),
+    'stateless' => STATELESS,
+    'session_name' => Util::GetConfig('cookie.property.session.id.name')
 ));
 
-// New Mailer
-global $gMailer;
-$gMailer = new Mailer(array(
-    'timeout'               => 9,
+// Initialize Mailer
+Mailer::Initialise(array(
+    'timeout' => 9,
 
-    'smtp'                  => SMTP,
-    'smtp_host'             => SMTP_HOST,
-    'smtp_port'             => SMTP_PORT,
-    'smtp_username'         => SMTP_USERNAME,
-    'smtp_password'         => SMTP_PASSWORD,
-    'smtp_authentication'   => SMTP_AUTHENTICATION,
-    'smtp_secure'           => SMTP_SECURE,
+    'smtp' => SMTP,
+    'smtp_host' => SMTP_HOST,
+    'smtp_port' => SMTP_PORT,
+    'smtp_username' => SMTP_USERNAME,
+    'smtp_password' => SMTP_PASSWORD,
+    'smtp_authentication' => SMTP_AUTHENTICATION,
+    'smtp_secure' => SMTP_SECURE,
 
-    'webmaster_email'       => Util::GetConfig('email.support.0'),
-    'webmaster_alias'       => Util::GetConfig('email.support.1'),
+    'webmaster_email' => Util::GetConfig('email.support.0'),
+    'webmaster_alias' => Util::GetConfig('email.support.1'),
 
-    'noreply_email'         => Util::GetConfig('email.noreply.0'),
-    'noreply_alias'         => Util::GetConfig('email.noreply.1'),
+    'noreply_email' => Util::GetConfig('email.noreply.0'),
+    'noreply_alias' => Util::GetConfig('email.noreply.1'),
 
-    'dkim'                  => DKIM,
-    'dkim_domain'           => DKIM_DOMAIN,
-    'dkim_private_path'     => PATH_CONSTANT_DKIM . 'dkim.pem',
-    'dkim_selector'         => DKIM_SELECTOR
+    'dkim'  => DKIM,
+    'dkim_domain' => DKIM_DOMAIN,
+    'dkim_private_path' => PATH_CONSTANT_DKIM . 'dkim.pem',
+    'dkim_selector' => DKIM_SELECTOR
 ));
 
 // Initialize Log
 Log::Initialise(array(
-    'path'              => PATH_LOG,
-    'path_abs'          => PATH_LOG_ABS,
-    'maxsize'           => 1048576,
-    'webmaster_email'   => Util::GetConfig('email.support.0'),
-    'webmaster_alias'   => Util::GetConfig('email.support.1')
+    'path' => PATH_LOG,
+    'path_abs' => PATH_LOG_ABS,
+    'log_maxsize' => Util::GetConfig('php.log.maxsize'),
+    'webmaster_email' => Util::GetConfig('email.support.0'),
+    'webmaster_alias' => Util::GetConfig('email.support.1')
 ));
 
 // Initialize Security
 Security::Initialise(array(
-    'ip_blocklist'          => (array) Util::GetConfig('ipBlocklist'),
-    'utf8_decode_input'     => UTF8_DECODE_INPUT
+    'ip_blocklist' => (array) Util::GetConfig('ipBlocklist'),
+    'utf8_decode_input' => UTF8_DECODE_INPUT
 ));
 
 // Initialize Language
 Lang::Initialise(array(
-    'path'          => PATH_LANG,
-    'languages'     => Util::GetConfig('language'),
-    'selected'      => Util::GetCookie('cookie.property.user.lang')
+    'path' => PATH_LANG,
+    'languages' => Util::GetConfig('language'),
+    'selected' => Util::GetCookie('cookie.property.user.lang')
 ));
 
 // Initialize CacheControl
 Cache::Initialise(array(
-    'path'          => PATH_CACHE,
-    'memcached'     => MEMCACHED,
-    'ob_gzhandler'  => OG_GZHANDLER
+    'path' => PATH_CACHE,
+    'memcached_servers' => MEMCACHED_SERVERS,
+    'ob_gzhandler' => OG_GZHANDLER
 ));
 
 // Initialize Validate
@@ -106,12 +114,8 @@ Validate::Initialise(array(
 Crypto::Initialise(array(
     'sign_secret_key' => CRYPTO_SIGN_SECRET_KEY,
     'sign_public_key' => CRYPTO_SIGN_PUBLIC_KEY,
-    'salsa'           => SALSA
+    'salsa' => SALSA
 ));
-
-// Start a session if not stateless
-if (!STATELESS)
-    Util::StartSession();
 
 // Initialise the IP blocklist
 Security::InitIpBlocklist();
@@ -119,6 +123,5 @@ Security::InitIpBlocklist();
 // Extend cookies
 Util::ExtendCookies(Util::GetConfig('cookie.alive'));
 
-// Connect to DBs
-foreach ($gDBs as $vDBName => $vDBParameters)
-    $gDBs[$vDBName] = new OSQL_MYSQL($vDBParameters);
+// Initialise DBs
+OSQL::Initialise(DB);

@@ -5,6 +5,7 @@
  */
 class VTI {
 
+    // Properties
     protected static string $mSessionKey = '__VTI';
     public static string $mClass = __CLASS__;
     public static string $mInit = 'Init';

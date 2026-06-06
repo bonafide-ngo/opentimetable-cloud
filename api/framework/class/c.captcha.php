@@ -5,17 +5,18 @@
  */
 class Captcha {
 
-    // Fixed char size due to PNG algorithm
-    const CHAR_SIZE = 40;
-    // Params
-    private string $mKeyCode = '';
-    private string $mKeyValue = '';
-    private string $mKeyName = '';
-    private array $mPNGs = array();
-    private int $mLength = 0;
-    private int $mWidth = 0;
-    private int $mHeight = 0;
-    private string $mImage = '';
+    // Constants
+    const int CHAR_SIZE = 40; //Fixed char size due to PNG algorithm
+
+    // Properties
+    protected string $mKeyCode = '';
+    protected string $mKeyValue = '';
+    protected string $mKeyName = '';
+    protected array $mPNGs = array();
+    protected int $mLength = 0;
+    protected int $mWidth = 0;
+    protected int $mHeight = 0;
+    protected string $mImage = '';
 
     /**
      * Constructor
@@ -58,7 +59,7 @@ class Captcha {
     /**
      * Verify captcha
      *
-     * @param string|null $pKeyCode
+     * @param ?string $pKeyCode
      * @return boolean
      */
     public function ValidateCaptcha(?string $pKeyCode): bool {
@@ -82,7 +83,7 @@ class Captcha {
     /**
      * Set the keys
      *
-     * @param null|string $pK$pKeyValueey
+     * @param null|string $pKeyValue
      * @return void
      */
     private function SetKeys(?string $pKeyValue) {
@@ -225,7 +226,7 @@ class Captcha {
             else if ($vPixel > 190)
                 $vNewLine .= chr(mt_rand(145, 255));
             else
-                $vNewLine .= $pScanline[$i];
+                $vNewLine .= $pScanline[intval($i)];
         }
 
         return $vNewLine;

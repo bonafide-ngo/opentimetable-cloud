@@ -46,11 +46,11 @@ class Firebase {
      * Undocumented function
      *
      * @param object $pPOST
-     * @param string|null $pLink
-     * @param integer|null $pTtl
+     * @param ?string $pLink
+     * @param ?integer $pTtl
      * @return string
      */
-    private static function InitPOST(object $pPOST, string $pLink = null, int $pTtl = null): string {
+    private static function InitPOST(object $pPOST, ?string $pLink = null, ?int $pTtl = null): string {
         // Set default time-to-live, allowing for 0 (zero) as well
         $vTtl = $pTtl || $pTtl === 0 ? min($pTtl, self::$mTtl) : self::$mTtl;
 
@@ -99,11 +99,11 @@ class Firebase {
      * Send a single notification
      *
      * @param object $pPOST
-     * @param string|null $pLink
-     * @param integer|null $pTtl
+     * @param ?string $pLink
+     * @param ?integer $pTtl
      * @return void
      */
-    public static function FireSingle(object $pPOST, string $pLink = null, int $pTtl = null) {
+    public static function FireSingle(object $pPOST, ?string $pLink = null, ?int $pTtl = null) {
         // Init POST
         $vPOST = self::InitPOST($pPOST, $pLink, $pTtl);
 
@@ -162,11 +162,11 @@ class Firebase {
      * https://firebase.google.com/docs/cloud-messaging/send-message#send-a-batch-of-messages
      *
      * @param array $pPOSTs
-     * @param string|null $pLink
+     * @param ?string $pLink
      * @param boolean $pIsInitPOST
      * @return boolean
      */
-    public static function FireBatch(array $pPOSTs, $pLink = null, $pIsInitPOST = false): bool {
+    public static function FireBatch(array $pPOSTs, ?string $pLink = null, bool $pIsInitPOST = false): bool {
         // Enforce batch limit of 100
         $vPOSTs = array_slice($pPOSTs, 0, 100, true);
 
@@ -276,7 +276,7 @@ JSON;
     /**
      * Generica notification
      *
-     * @param string|null $pToken
+     * @param ?string $pToken
      * @param string $pTitle
      * @param string $pBody
      * @return void

@@ -62,12 +62,12 @@ self.addEventListener('notificationclick', e => {
                 // Send the data to a client.
                 windowClient.postMessage(payload);
                 // Focus on the tab/window
-                windowClient.focus();
+                windowClient.trigger('focus');
                 return true;
             } else
                 return false;
         }))
             // Otherwise, open a new tab/window and focus
-            clients.openWindow(e.notification.data.url).then(windowClient => windowClient ? windowClient.focus() : null);
+            clients.openWindow(e.notification.data.url).then(windowClient => windowClient ? windowClient.trigger('focus') : null);
     }));
 });

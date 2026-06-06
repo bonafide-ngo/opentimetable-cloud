@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         // Department - Continue
         $('#department-select-departments').find('button[type="submit"]').once('click', function () {
-            $('#department-select-courses-heading button').click();
+            $('#department-select-courses-heading button').trigger('click');
             $('html, body').animate({
                 scrollTop: $("#department-select-departments-heading").offset().top - 10
             }, 400);
@@ -22,23 +22,23 @@ $(document).ready(function () {
         $('#department-select-courses').on('show.bs.collapse', app.department.readCourses);
         // Courses - Continue
         $('#department-select-courses').find('button[type="submit"]').once('click', function () {
-            $('#department-select-period-heading button').click();
+            $('#department-select-period-heading button').trigger('click');
             $('html, body').animate({
                 scrollTop: $("#department-select-courses-heading").offset().top - 10
             }, 400);
         });
         // Courses - Back
         $('#department-select-courses').find('button[type="cancel"]').once('click', function () {
-            $('#department-select-departments-heading button').click();
+            $('#department-select-departments-heading button').trigger('click');
         });
 
         // Period - Continue
         $('#department-select-period').find('button[type="submit"]').once('click', function () {
-            $('#department-select-modules-heading button').click();
+            $('#department-select-modules-heading button').trigger('click');
         });
         // Period - Back
         $('#department-select-period').find('button[type="cancel"]').once('click', function () {
-            $('#department-select-courses-heading button').click();
+            $('#department-select-courses-heading button').trigger('click');
         });
 
         // Modules - Shown
@@ -47,7 +47,7 @@ $(document).ready(function () {
         $('#department-select-modules').find('button[type="submit"]').once('click', app.department.readTimetable);
         // Modules - Back
         $('#department-select-modules').find('button[type="cancel"]').once('click', function () {
-            $('#department-select-period-heading button').click();
+            $('#department-select-period-heading button').trigger('click');
         });
 
         // Share
@@ -64,7 +64,7 @@ $(document).ready(function () {
             $('#department-selection').hide();
             $('#department-timetable-compact').hide();
             $('#department-steps').fadeIn(400, function () {
-                $(this).find('#department-select-departments-heading button').click();
+                $(this).find('#department-select-departments-heading button').trigger('click');
                 $('html, body').animate({
                     scrollTop: $("#department-select-departments-heading").offset().top - 10
                 }, 400);

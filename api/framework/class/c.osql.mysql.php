@@ -5,16 +5,19 @@
  */
 class OSQL_MYSQL extends OSQL {
 
-    protected $mHost;
-    protected $mPort;
-    protected $mSchema;
-    protected $mUser;
-    protected $mPassword;
-    protected $mResults;
-    protected $mTransaction;
-    protected $mQueryID;
+    // Constants
+    const int IN_LIMIT = 1000;
 
-    protected static $mInLimit = 1000;
+    // Properties
+    protected string $mHost;
+    protected int $mPort;
+    protected string $mSchema;
+    protected string $mUser;
+    protected string $mPassword;
+    protected mysqli_result|bool $mResults;
+    protected bool $mTransaction = false;
+    protected int $mQueryID = 0;
+
 
     /**
      * Initialize a DB connection
@@ -339,7 +342,7 @@ class OSQL_MYSQL extends OSQL {
 
         // Concatenate array items
         foreach ($vItems as $vIndex => &$pItem) {
-            if ($vIndex < self::$mInLimit) {
+            if ($vIndex < self::IN_LIMIT) {
                 // Strip
                 if (!empty($pStrips))
                     $pItem = str_replace($pStrips, [], $pItem);

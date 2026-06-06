@@ -290,7 +290,13 @@ frm.ajax.jsonrpc.request = function (pAPI_URL, pAPI_Method, pAPI_Params, callbac
                         break;
                     // JWT Data exception
                     case -32094:
-                        frm.msal.getAccessToken().then(accessToken => {
+                        await frm.msal.getAccessToken().then(async (asyncToken) => {
+                            // Wait for cookies to settle before retrying the request
+                            // N.B. This is a workaround for the issue where cookies are not immediately available after MSAL authentication
+                            await frm.spinner.start(true);
+                            await frm.sleep(1000);
+                            frm.spinner.stop();
+
                             frm.ajax.jsonrpc.request(pAPI_URL, pAPI_Method, pAPI_Params, callbackFunctionName_onSuccess, callbackParams_onSuccess, callbackFunctionName_onError, callbackParams_onError, pAJAX_Params, pIsAsyncWrapper);
                         });
                         break;

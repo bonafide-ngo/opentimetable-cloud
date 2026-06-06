@@ -12,7 +12,7 @@ $(document).ready(function () {
 
         // Course - Continue
         $('#lecture-select-courses').find('button[type="submit"]').once('click', function () {
-            $('#lecture-select-period-heading button').click();
+            $('#lecture-select-period-heading button').trigger('click');
             $('html, body').animate({
                 scrollTop: $("#lecture-select-courses-heading").offset().top - 10
             }, 400);
@@ -20,11 +20,11 @@ $(document).ready(function () {
 
         // Period - Continue
         $('#lecture-select-period').find('button[type="submit"]').once('click', function () {
-            $('#lecture-select-modules-heading button').click();
+            $('#lecture-select-modules-heading button').trigger('click');
         });
         // Period - Back
         $('#lecture-select-period').find('button[type="cancel"]').once('click', function () {
-            $('#lecture-select-courses-heading button').click();
+            $('#lecture-select-courses-heading button').trigger('click');
         });
 
         // Modules - Shown
@@ -33,7 +33,7 @@ $(document).ready(function () {
         $('#lecture-select-modules').find('button[type="submit"]').once('click', app.lecture.readTimetable);
         // Modules - Back
         $('#lecture-select-modules').find('button[type="cancel"]').once('click', function () {
-            $('#lecture-select-period-heading button').click();
+            $('#lecture-select-period-heading button').trigger('click');
         });
 
         // Share
@@ -50,7 +50,7 @@ $(document).ready(function () {
             $('#lecture-selection').hide();
             $('#lecture-timetable-compact').hide();
             $('#lecture-steps').fadeIn(400, function () {
-                $(this).find('#lecture-select-courses-heading button').click();
+                $(this).find('#lecture-select-courses-heading button').trigger('click');
                 $('html, body').animate({
                     scrollTop: $("#lecture-select-courses-heading").offset().top - 10
                 }, 400);

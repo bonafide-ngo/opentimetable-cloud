@@ -5,11 +5,11 @@
  *
  * @param string $label
  * @param integer $code
- * @param Throwable|null $previous
+ * @param ?Throwable $previous
  */
 class JWTDataException extends Exception {
 	// Redefine the exception so message isn't optional
-	public function __construct($label = 'static.exception-jwt-data', $code = -32094, Throwable $previous = null) {
+	public function __construct($label = 'static.exception-jwt-data', $code = -32094, ?Throwable $previous = null) {
 		// Make sure everything is assigned properly
 		parent::__construct(\Lang::Get($label), $code, $previous);
 	}
@@ -20,11 +20,11 @@ class JWTDataException extends Exception {
  *
  * @param string $label
  * @param integer $code
- * @param Throwable|null $previous
+ * @param ?Throwable $previous
  */
 class JWTUnexpectedException extends Exception {
 	// Redefine the exception so message isn't optional
-	public function __construct($label = 'static.exception-jwt-unexpected', $code = -32095, Throwable $previous = null) {
+	public function __construct($label = 'static.exception-jwt-unexpected', $code = -32095, ?Throwable $previous = null) {
 		// Make sure everything is assigned properly
 		parent::__construct(\Lang::Get($label), $code, $previous);
 	}
@@ -35,11 +35,11 @@ class JWTUnexpectedException extends Exception {
  *
  * @param string $label
  * @param integer $code
- * @param Throwable|null $previous
+ * @param ?Throwable $previous
  */
 class DataException extends Exception {
 	// Redefine the exception so message isn't optional
-	public function __construct($label = 'static.exception-ajax-data', $code = -32096, Throwable $previous = null) {
+	public function __construct($label = 'static.exception-ajax-data', $code = -32096, ?Throwable $previous = null) {
 		// Make sure everything is assigned properly
 		parent::__construct(\Lang::Get($label), $code, $previous);
 	}
@@ -50,11 +50,11 @@ class DataException extends Exception {
  *
  * @param string $label
  * @param integer $code
- * @param Throwable|null $previous
+ * @param ?Throwable $previous
  */
 class UnexpectedException extends Exception {
 	// Redefine the exception so message isn't optional
-	public function __construct($label = 'static.exception-ajax-unexpected', $code = -32097, Throwable $previous = null) {
+	public function __construct($label = 'static.exception-ajax-unexpected', $code = -32097, ?Throwable $previous = null) {
 		// Make sure everything is assigned properly
 		parent::__construct(\Lang::Get($label), $code, $previous);
 	}
@@ -65,7 +65,7 @@ class UnexpectedException extends Exception {
  *
  * @param string $label
  * @param integer $code
- * @param Throwable|null $previous
+ * @param ?Throwable $previous
  */
 class ParseErrorException extends Exception {
 	// Default parse error to fall into final block
@@ -78,28 +78,28 @@ class ParseErrorException extends Exception {
  * API Class for JSON-RPC 
  */
 class JsonRpc {
-	// Constants
-	const SUCCESS = 'success';
 
-	const JSONRPC_VERSION = '2.0';
-	const JSONRPC_MIMETYPE = 'application/json';
+	// Constants
+	const string SUCCESS = 'success';
+	const string JSONRPC_VERSION = '2.0';
+	const string JSONRPC_MIMETYPE = 'application/json';
 
 	// Properties
-	protected static $mAppNamespace = 'App';
-	protected static $mJsonRpc_Request = null;
-	protected static $mApiResponse = null;
-	protected static $mIsVTI = false;
-	protected static $mByteIn = 0;
-	protected static $mByteOut = 0;
-	protected static $mIsIpBlocked = false;
+	protected static string $mAppNamespace = 'App';
+	protected static ?JsonRpc_Request $mJsonRpc_Request = null;
+	protected static ?ApiResponse $mApiResponse = null;
+	protected static bool $mIsVTI = false;
+	protected static int $mByteIn = 0;
+	protected static int $mByteOut = 0;
+	protected static bool $mIsIpBlocked = false;
 
 	/**
 	 * Listen JsonRpc
 	 *
-	 * @param string|null $pAppNamespace
+	 * @param ?string $pAppNamespace
 	 * @return void
 	 */
-	public static function Listen(string $pAppNamespace = null) {
+	public static function Listen(?string $pAppNamespace = null) {
 		Log::Debug(__FILE__, __METHOD__, __LINE__, 'JSON-RPC interface opened');
 
 		// Set properties
@@ -288,10 +288,10 @@ class JsonRpc {
 	 *
 	 * @param string $pNamespace
 	 * @param string $pClass
-	 * @param string $pMethod
+	 * @param ?string $pMethod
 	 * @return void
 	 */
-	public static function LoadReferences(string $pNamespace, string $pClass, string $pMethod = null) {
+	public static function LoadReferences(string $pNamespace, string $pClass, ?string $pMethod = null) {
 		// Do not load references if VTI initialisation is in progress
 		if ($pClass == VTI::$mClass && $pMethod == VTI::$mInit)
 			return;
@@ -513,9 +513,9 @@ class JsonRpc {
 }
 
 class ApiResponse {
-	public $result = null;
-	public $error = null;
-	public $enforceCommit = false;
+	public mixed $result = null;
+	public mixed $error = null;
+	public bool $enforceCommit = false;
 
 	/**
 	 * Undocumented function
@@ -532,69 +532,70 @@ class ApiResponse {
 }
 
 class JsonRpc_Request {
-	public $jsonrpc = JsonRpc::JSONRPC_VERSION;
-	public $method = null;
-	public $params = null;
-	public $id = null;
+	public string $jsonrpc = JsonRpc::JSONRPC_VERSION;
+	public ?string $method = null;
+	public mixed $params = null;
+	public ?string $id = null;
 }
 
 class JsonRpc_ResponseResult {
-	public $jsonrpc = JsonRpc::JSONRPC_VERSION;
-	public $result = null;
-	public $id = null;
+	public string $jsonrpc = JsonRpc::JSONRPC_VERSION;
+	public mixed $result = null;
+	public ?string $id = null;
 
 	/**
 	 *
 	 * @param mixed $result
-	 * @param string $id
+	 * @param ?string $id
 	 */
-	public function  __construct(mixed $result = null, string $id = null) {
+	public function  __construct(mixed $result = null, ?string $id = null) {
 		$this->result = $result;
 		$this->id = $id;
 	}
 }
 
 class JsonRpc_ResponseError {
-	public $jsonrpc = JsonRpc::JSONRPC_VERSION;
-	public $error = null;
-	public $id = null;
+	public string $jsonrpc = JsonRpc::JSONRPC_VERSION;
+	public mixed $error = null;
+	public ?string $id = null;
 
 	/**
 	 * 
 	 * @param mixed $error
-	 * @param string $id
+	 * @param ?string $id
 	 */
-	public function  __construct(mixed $error = null, string $id = null) {
+	public function  __construct(mixed $error = null, ?string $id = null) {
 		$this->error = $error;
 		$this->id = $id;
 	}
 }
 
 class JsonRpc_ResponseException {
-	public $jsonrpc = JsonRpc::JSONRPC_VERSION;
-	public $id = null;
+	public string $jsonrpc = JsonRpc::JSONRPC_VERSION;
+	public ?string $id = null;
 
 	/**
-	 * 
-	 * @param string|null $id
+	 * Undocumented function
+	 *
+	 * @param ?string $id
 	 */
 	public function  __construct(?string $id = null) {
 		$this->id = $id;
 	}
 }
 class JsonRpc_Error {
-	public $code = null;
-	public $message = null;
-	public $data = null;
+	public ?int $code = null;
+	public ?string $message = null;
+	public mixed $data = null;
 
 	/**
 	 * Undocumented function
 	 *
-	 * @param integer|null $code
-	 * @param string|null $message
+	 * @param ?integer $code
+	 * @param ?string $message
 	 * @param mixed $data
 	 */
-	public function  __construct(int $code = null, ?string $message = null, mixed $data = null) {
+	public function  __construct(?int $code = null, ?string $message = null, mixed $data = null) {
 		$this->code = $code;
 		$this->message = $message;
 		$this->data = $data;

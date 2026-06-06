@@ -31,7 +31,7 @@
                         <h2 class="accordion-header border-bottom" id="admin-general-heading">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#admin-general" aria-expanded="true" aria-controls="admin-general" label="general-timetable"></button>
                         </h2>
-                        <div id="admin-general" class="accordion-collapse collapse show" aria-labelledby="admin-general-heading" data-bs-parent="#admin-accordion" style="">
+                        <div id="admin-general" class="accordion-collapse collapse show" aria-labelledby="admin-general-heading" data-bs-parent="#admin-accordion">
                             <div class="accordion-body">
                                 <div class="row mb-3">
                                     <div class="col-4 col-sm-2 text-end">
@@ -59,7 +59,7 @@
                         <h2 class="accordion-header border-bottom" id="admin-student-heading">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#admin-student" aria-expanded="false" aria-controls="admin-student" label="student-timetable"></button>
                         </h2>
-                        <div id="admin-student" class="accordion-collapse collapse show" aria-labelledby="admin-student-heading" data-bs-parent="#admin-accordion" style="">
+                        <div id="admin-student" class="accordion-collapse collapse show" aria-labelledby="admin-student-heading" data-bs-parent="#admin-accordion">
                             <div class="accordion-body">
                                 <div class="row mb-3">
                                     <div class="input-group">
@@ -94,7 +94,7 @@
                         <h2 class="accordion-header border-bottom" id="admin-sync-heading">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#admin-sync" aria-expanded="false" aria-controls="admin-sync" label="sync"></button>
                         </h2>
-                        <div id="admin-sync" class="accordion-collapse collapse show" aria-labelledby="admin-sync-heading" data-bs-parent="#admin-accordion" style="">
+                        <div id="admin-sync" class="accordion-collapse collapse show" aria-labelledby="admin-sync-heading" data-bs-parent="#admin-accordion">
                             <div class="accordion-body">
                                 <div class="row mb-3">
                                     <div class="col-4 col-sm-2 text-end">
@@ -148,7 +148,7 @@
                         <h2 class="accordion-header border-bottom" id="admin-venue-heading">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#admin-venue" aria-expanded="false" aria-controls="admin-venue" label="venues"></button>
                         </h2>
-                        <div id="admin-venue" class="accordion-collapse collapse show" aria-labelledby="admin-venue-heading" data-bs-parent="#admin-accordion" style="">
+                        <div id="admin-venue" class="accordion-collapse collapse show" aria-labelledby="admin-venue-heading" data-bs-parent="#admin-accordion">
                             <div class="accordion-body">
                                 <table id="admin-venue-table" class="nowrap table table-striped table-hover" style="width: 100%;">
                                     <thead>
@@ -172,7 +172,7 @@
                         <h2 class="accordion-header border-bottom" id="admin-system-heading">
                             <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#admin-system" aria-expanded="true" aria-controls="admin-system" label="system"></button>
                         </h2>
-                        <div id="admin-system" class="accordion-collapse collapse show" aria-labelledby="admin-system-heading" data-bs-parent="#admin-accordion" style="">
+                        <div id="admin-system" class="accordion-collapse collapse show" aria-labelledby="admin-system-heading" data-bs-parent="#admin-accordion">
                             <div class="accordion-body">
                                 <div class="row mb-3">
                                     <div class="col-4 col-sm-2 text-end">
@@ -215,6 +215,9 @@
                                             <i class="fas fa-clock pe-1"></i>
                                             <span name="avgtime"></span>
                                         </div>
+                                    </div>
+                                    <div class="card-header">
+                                        <span name="top-api-traffic-info" style="font-size: small;"></span>
                                     </div>
                                     <div class="card-body px-1">
                                         <canvas id="admin-system-traffic-top" width="100%"></canvas>
@@ -263,11 +266,8 @@
 
             <!-- Framework JS -->
             <script src="/js/framework/frm.location.js"></script>
-            <!-- App CSS - Entity -->
-            <link href="/app/admin/css/admin.prism.css" rel="stylesheet">
             <!-- App JS - Entity -->
             <script src="/app/admin/js/admin.library.js"></script>
-            <script src="/app/admin/js/admin.prism.library.js"></script>
             <script src="/app/admin/js/admin.sync.library.js"></script>
             <script src="/app/admin/js/admin.venue.library.js"></script>
             <script src="/app/admin/js/admin.system.library.js"></script>

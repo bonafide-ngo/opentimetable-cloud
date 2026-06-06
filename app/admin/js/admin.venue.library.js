@@ -135,7 +135,7 @@ app.admin.venue.read = function () {
                     // Prevent line break in contenteditable
                     e.preventDefault();
                     // Trigger blur to re-use same handler
-                    $(this).blur();
+                    $(this).trigger('blur');
                 }
             }).once('blur', function (e) {
                 // Get tr, td, value 

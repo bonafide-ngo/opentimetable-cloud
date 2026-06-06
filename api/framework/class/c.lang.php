@@ -5,29 +5,29 @@
  */
 class Lang {
 
-    protected static $mPath             = 'lang/';
-    protected static $mDefault          = 'en';
-    protected static $mSelected         = null;
-    protected static $mLanguages        = array('en' => 'english-in-english');
-    protected static $mDictionary       = array();
+    // Properties
+    protected static string $mPath = 'lang/';
+    protected static string $mDefault = 'en';
+    protected static ?string $mSelected = null;
+    protected static array $mLanguages = array('en' => 'english-in-english');
+    protected static array $mDictionary = array();
 
     /**
      * Initilize Lang
-     * 
-     * @param <type> $pPath
-     * @param <type> $pLanguages
-     * @param <type> $mDefaultLanguage
+     *
+     * @param array $pParams
+     * @return void
      */
     public static function Initialise(array $pParams = array()) {
-        self::$mPath        = array_key_exists('path', $pParams)       ? $pParams['path']         : self::$mPath;
-        self::$mDefault     = array_key_exists('default', $pParams)    ? $pParams['default']      : self::$mDefault;
-        self::$mSelected    = array_key_exists('selected', $pParams)   ? $pParams['selected']     : self::$mSelected;
-        self::$mLanguages   = array_key_exists('languages', $pParams)  ? $pParams['languages']    : self::$mLanguages;
+        self::$mPath = array_key_exists('path', $pParams) ? $pParams['path'] : self::$mPath;
+        self::$mDefault = array_key_exists('default', $pParams) ? $pParams['default'] : self::$mDefault;
+        self::$mSelected = array_key_exists('selected', $pParams) ? $pParams['selected'] : self::$mSelected;
+        self::$mLanguages = array_key_exists('languages', $pParams) ? $pParams['languages'] : self::$mLanguages;
 
         // Sanitize and Validate data
-        self::$mDefault     = strtolower(self::$mDefault);
-        self::$mLanguages   = array_map('strtolower', self::$mLanguages);
-        self::$mSelected    = self::SanitizeLanguage(self::$mSelected);
+        self::$mDefault = strtolower(self::$mDefault);
+        self::$mLanguages = array_map('strtolower', self::$mLanguages);
+        self::$mSelected = self::SanitizeLanguage(self::$mSelected);
 
         // Load Dictionary
         self::LoadDictionary();
@@ -68,12 +68,22 @@ class Lang {
      * @return void
      */
     public static function LoadDictionary() {
-        // source : https://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/drupal_array_merge_deep_array/7.x
+        /**
+         * source : https://api.drupal.org/api/drupal/includes%21bootstrap.inc/function/drupal_array_merge_deep_array/7.x
+         *
+         * @return array
+         */
         function array_merge_deep() {
             $vArgs = func_get_args();
             return array_merge_deep_array($vArgs);
         }
 
+        /**
+         * Undocumented function
+         *
+         * @param array $pArrays
+         * @return array
+         */
         function array_merge_deep_array($pArrays) {
             $vResult = array();
             foreach ($pArrays as $vArray) {
@@ -145,7 +155,7 @@ class Lang {
 
     /**
      *
-     * @param string $vLanguage
+     * @param ?string $pLanguage
      * @return string
      */
     public static function SanitizeLanguage(?string $pLanguage): string {

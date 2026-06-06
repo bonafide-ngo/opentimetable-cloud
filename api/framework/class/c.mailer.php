@@ -5,22 +5,25 @@
  */
 class Mailer extends \PHPMailer\PHPMailer\PHPMailer {
 
-    protected $mSmtp;
-    protected $mWebmasterEmail;
-    protected $mWebmasterAlias;
-    protected $mNoreplyEmail;
-    protected $mNoreplyAlias;
-    protected $mDkim;
-    protected $mDkimDomain;
-    protected $mDkimPrivatePath;
-    protected $mDkimSelector;
+    // Constants
+    const string NEWLINE = 'NEWLINE';
 
-    const NEWLINE = 'NEWLINE';
+    // Properties
+    public static Mailer $mInstance;
+    protected bool $mSmtp = false;
+    protected ?string $mWebmasterEmail = null;
+    protected ?string $mWebmasterAlias = null;
+    protected ?string $mNoreplyEmail = null;
+    protected ?string $mNoreplyAlias = null;
+    protected bool $mDkim = false;
+    protected ?string $mDkimDomain = null;
+    protected ?string $mDkimPrivatePath = null;
+    protected ?string $mDkimSelector = null;
 
     /**
      * @param array $pParams
      */
-    public function  __construct(array $pParams = array()) {
+    public function __construct(array $pParams = array()) {
         // Generate an Exception if something goes wrong
         try {
             $this->IsSMTP(); // Instruct to use SMTP 
@@ -30,25 +33,25 @@ class Mailer extends \PHPMailer\PHPMailer\PHPMailer {
             $this->isHTML(true);
 
             // Follow PHPMailer naming convention
-            $this->Timeout          = array_key_exists('timeout', $pParams)                 ? $pParams['timeout']               : null;
+            $this->Timeout = array_key_exists('timeout', $pParams) ? $pParams['timeout'] : null;
 
-            $this->Host             = array_key_exists('smtp_host', $pParams)               ? $pParams['smtp_host']             : null;
-            $this->Port             = array_key_exists('smtp_port', $pParams)               ? $pParams['smtp_port']             : null;
-            $this->Username         = array_key_exists('smtp_username', $pParams)           ? $pParams['smtp_username']         : null;
-            $this->Password         = array_key_exists('smtp_password', $pParams)           ? $pParams['smtp_password']         : null;
-            $this->SMTPAuth         = array_key_exists('smtp_authentication', $pParams)     ? $pParams['smtp_authentication']   : null;
-            $this->SMTPSecure       = array_key_exists('smtp_secure', $pParams)             ? $pParams['smtp_secure']           : null;
+            $this->Host = array_key_exists('smtp_host', $pParams) ? $pParams['smtp_host'] : null;
+            $this->Port = array_key_exists('smtp_port', $pParams) ? $pParams['smtp_port'] : null;
+            $this->Username = array_key_exists('smtp_username', $pParams) ? $pParams['smtp_username'] : null;
+            $this->Password = array_key_exists('smtp_password', $pParams) ? $pParams['smtp_password'] : null;
+            $this->SMTPAuth = array_key_exists('smtp_authentication', $pParams) ? $pParams['smtp_authentication'] : null;
+            $this->SMTPSecure = array_key_exists('smtp_secure', $pParams) ? $pParams['smtp_secure'] : null;
 
-            $this->mSmtp            = array_key_exists('smtp', $pParams)                    ? $pParams['smtp']                  : null;
-            $this->mWebmasterEmail  = array_key_exists('webmaster_email', $pParams)         ? $pParams['webmaster_email']       : null;
-            $this->mWebmasterAlias  = array_key_exists('webmaster_alias', $pParams)         ? $pParams['webmaster_alias']       : null;
-            $this->mNoreplyEmail    = array_key_exists('noreply_email', $pParams)           ? $pParams['noreply_email']         : null;
-            $this->mNoreplyAlias    = array_key_exists('noreply_alias', $pParams)           ? $pParams['noreply_alias']         : null;
+            $this->mSmtp = array_key_exists('smtp', $pParams) ? $pParams['smtp'] : self::$mSmtp;
+            $this->mWebmasterEmail = array_key_exists('webmaster_email', $pParams) ? $pParams['webmaster_email'] : null;
+            $this->mWebmasterAlias = array_key_exists('webmaster_alias', $pParams) ? $pParams['webmaster_alias'] : null;
+            $this->mNoreplyEmail = array_key_exists('noreply_email', $pParams) ? $pParams['noreply_email'] : null;
+            $this->mNoreplyAlias = array_key_exists('noreply_alias', $pParams) ? $pParams['noreply_alias'] : null;
 
-            $this->mDkim            = array_key_exists('dkim', $pParams)                    ? $pParams['dkim']                  : null;
-            $this->mDkimDomain      = array_key_exists('dkim_domain', $pParams)             ? $pParams['dkim_domain']           : null;
-            $this->mDkimPrivatePath = array_key_exists('dkim_private_path', $pParams)       ? $pParams['dkim_private_path']     : null;
-            $this->mDkimSelector    = array_key_exists('dkim_selector', $pParams)           ? $pParams['dkim_selector']         : null;
+            $this->mDkim = array_key_exists('dkim', $pParams) ? $pParams['dkim'] : self::$mDkim;
+            $this->mDkimDomain = array_key_exists('dkim_domain', $pParams) ? $pParams['dkim_domain'] : null;
+            $this->mDkimPrivatePath = array_key_exists('dkim_private_path', $pParams) ? $pParams['dkim_private_path'] : null;
+            $this->mDkimSelector = array_key_exists('dkim_selector', $pParams) ? $pParams['dkim_selector'] : null;
 
             // Set encoding
             $this->CharSet = 'UTF-8';
@@ -59,6 +62,16 @@ class Mailer extends \PHPMailer\PHPMailer\PHPMailer {
             // Do not email to avoid endless loop
             Log::Error(__FILE__, __METHOD__, __LINE__, $e->getMessage());
         }
+    }
+
+    /**
+     * Initilize instance with parameters
+     *
+     * @param array $pParams
+     * @return void
+     */
+    public static function Initialise(array $pParams) {
+        self::$mInstance = new self($pParams);
     }
 
     /**

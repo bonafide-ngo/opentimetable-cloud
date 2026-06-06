@@ -287,7 +287,7 @@ frm.download = function (filename, fileBase64) {
                 a.dispatchEvent(event);
             }
             else {
-                a.click();
+                a.trigger('click');
             }
             break;
     }

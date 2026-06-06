@@ -1,36 +1,38 @@
 <?
 // Error level
-error_reporting(E_ALL);
+error_reporting(E_ALL & ~E_WARNING & ~E_NOTICE & ~E_DEPRECATED);
 
-// Memcache
-define('MEMCACHED', [['', 11211]]); // MemCacheD Servers' host, port or null
+// MemCacheD
+define('MEMCACHED_SERVERS', [['', 11211]]); // MemCacheD Servers' host, port or null
+define('MEMCACHED_SESSION', false); // MemCacheD for session handling, else file system
 
-// Database [dev,uat,live]
-global $gDBs;
-$gDBs = array(
+// Database
+define('DB', array(
     DB_LINK_MASTER => array(
-        DB_DEBUG    => DEBUG,
-        DB_HOST     => '',
-        DB_PORT     => 3306,
-        DB_SCHEMA   => '',
-        DB_USER     => '',
+        DB_DEBUG => DEBUG,
+        DB_TYPE => 'OSQL_MYSQL',
+        DB_HOST => '',
+        DB_PORT => 3306,
+        DB_SCHEMA => '',
+        DB_USER => '',
         DB_PASSWORD => ''
     ),
     DB_LINK_MYSQLDUMP => array(
-        DB_DEBUG    => DEBUG,
-        DB_HOST     => '',
-        DB_PORT     => 3306,
-        DB_SCHEMA   => '',
-        DB_USER     => '',
+        DB_DEBUG => DEBUG,
+        DB_TYPE => 'OSQL_MYSQL',
+        DB_HOST => '',
+        DB_PORT => 3306,
+        DB_SCHEMA => '',
+        DB_USER => '',
         DB_PASSWORD => ''
     )
-);
+));
 
 // SMS (see environment)
-define('SMS_PROVIDER',          null);
-define('SMS_SENDER',            null); // Max 11 chars
-define('SMS_DEBUG_MOBILE',      null);
-define('SMS_CREDENTIALS',       array(
+define('SMS_PROVIDER', '');
+define('SMS_SENDER', ''); // Max 11 chars
+define('SMS_DEBUG_MOBILE', false);
+define('SMS_CREDENTIALS', array(
     APP_SMS_PROVIDER_VONAGE => array(
         APP_SMS_API_KEY => null,
         APP_SMS_API_SECRET => null
@@ -38,18 +40,18 @@ define('SMS_CREDENTIALS',       array(
 ));
 
 // SMTP
-define('SMTP_HOST',             '');
-define('SMTP_PORT',             '');
-define('SMTP_USERNAME',         '');
-define('SMTP_PASSWORD',         '');
-define('SMTP_AUTHENTICATION',   true);
-define('SMTP_SECURE',           'ssl');
+define('SMTP_HOST', null);
+define('SMTP_PORT', null);
+define('SMTP_USERNAME', null);
+define('SMTP_PASSWORD', null);
+define('SMTP_AUTHENTICATION', true);
+define('SMTP_SECURE', 'ssl');
 
 // DKIM
 // Sync against mail server, enable PHP's DKIM for hosting (no own DNS server)
-define('DKIM',                  false);
-define('DKIM_DOMAIN',           null);
-define('DKIM_SELECTOR',         null);
+define('DKIM', false);
+define('DKIM_DOMAIN', null);
+define('DKIM_SELECTOR', null);
 
 // Salsa
 define('SALSA', '');
