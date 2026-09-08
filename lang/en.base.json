@@ -28,6 +28,7 @@
         "confirm-delete-logs": "You are about to delete all historical logs.<br><br>Confirm to continue or Cancel",
         "confirm-directions": "You are about to open Google Maps to get directions.<br><br>Confirm to continue or Cancel",
         "confirm-msal-interaction": "You are about to login with your Single Sign-on (SSO) credentials.<br><br>Confirm to continue or Cancel",
+        "confirm-msal-interaction-required": "Your session needs to be refreshed for security reasons. You'll be signed out shortly. Please sign in again using your Single Sign-On (SSO) credentials.<br><br>Confirm to continue or Cancel",
         "confirm-sync": "You are about to synchronise the database which may require some time.<br><br>Confirm to continue or Cancel",
         "contact-us": "Contact us",
         "continue": "Continue",

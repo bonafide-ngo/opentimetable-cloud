@@ -28,6 +28,7 @@
         "confirm-delete-logs": "Tá tú ar tí na logaí stairiúla go léir a scriosadh.<br><br>Deimhnigh chun leanúint ar aghaidh nó Cealaigh",
         "confirm-directions": "Tá tú ar tí Google Maps a oscailt chun treoracha a fháil.<br><br>Deimhnigh chun leanúint ar aghaidh nó Cealaigh",
         "confirm-msal-interaction": "Tá tú ar tí logáil isteach le do dhintiúir Single Sign-on (SSO).<br><br>Deimhnigh chun leanúint ar aghaidh nó Cealaigh",
+        "confirm-msal-interaction-required": "Ní mór do sheisiún a athnuachan ar chúiseanna slándála. Déanfar tú a logáil amach gan mhoill. Logáil isteach arís le do dhintiúir Aon Logáil Isteach (SSO).<br><br>Deimhnigh chun leanúint ar aghaidh nó Cealaigh",
         "confirm-sync": "Tá tú ar tí an bunachar sonraí a shioncrónú agus d'fhéadfadh roinnt ama a bheith ag teastáil uaidh sin.<br><br>Deimhnigh chun leanúint ar aghaidh nó Cealaigh",
         "contact-us": "Déan teagmháil linn",
         "continue": "Lean ort",

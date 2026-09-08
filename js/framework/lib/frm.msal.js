@@ -137,9 +137,17 @@ frm.msal.login = function () {
                     frm.ss.engine.load(frm.config.url.home);
                     break;
                 case 'no_account_error': // Microsoft had a glitch finding the account
-                case 'block_nested_popups': // Request blocked form within a popup or iframe
+                case 'block_nested_popups':
+                    // Request blocked form within a popup or iframe
                     // Reload with no history
                     window.location.reload();
+                    break;
+                case 'interaction_required':
+                    // Microsoft conditional access/session frequency policy issue
+                    // Ask the user to logout and log back in
+                    frm.modal.confirm(frm.label.getStatic('confirm-msal-interaction-required'), function () {
+                        frm.msal.logout(true);
+                    });
                     break;
                 default:
                     frm.msal.exception('frm.msal.login', e);
@@ -260,9 +268,17 @@ frm.msal.getAccessToken = async function () {
                                 frm.ss.engine.load(frm.config.url.home);
                                 break;
                             case 'no_account_error': // Microsoft had a glitch finding the account
-                            case 'block_nested_popups': // Request blocked form within a popup or iframe
+                            case 'block_nested_popups':
+                                // Request blocked form within a popup or iframe
                                 // Reload with no history
                                 window.location.reload();
+                                break;
+                            case 'interaction_required':
+                                // Microsoft conditional access/session frequency policy issue
+                                // Ask the user to logout and log back in
+                                frm.modal.confirm(frm.label.getStatic('confirm-msal-interaction-required'), function () {
+                                    frm.msal.logout(true);
+                                });
                                 break;
                             default:
                                 frm.msal.exception('frm.msal.getAccessToken', e);

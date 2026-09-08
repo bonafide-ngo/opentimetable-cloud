@@ -238,24 +238,21 @@ class JsonRpc {
 		if (!$vRequest)
 			self::ParseError(new JsonRpc_Error(-32700));
 
-		// Populate the JSON-RPC request from the payload 
-		self::$mJsonRpc_Request->jsonrpc = $vRequest->jsonrpc ?? null;
+		// Check version exist
+		if (!isset($vRequest->jsonrpc) || !$vRequest->jsonrpc)
+			self::ParseError(new JsonRpc_Error(-32600));
+
+		// Check version number
+		if ($vRequest->jsonrpc != self::JSONRPC_VERSION)
+			self::ParseError(new JsonRpc_Error(-32000));
+
+		// Assign the request to the class property
+		self::$mJsonRpc_Request->jsonrpc = $vRequest->jsonrpc;
 		self::$mJsonRpc_Request->method = $vRequest->method ?? null;
 		self::$mJsonRpc_Request->params = $vRequest->params ?? null;
 		self::$mJsonRpc_Request->id = $vRequest->id ?? null;
 
 		Log::Debug(__FILE__, __METHOD__, __LINE__, self::$mJsonRpc_Request);
-
-		// Check version and method exist
-		if (
-			!self::$mJsonRpc_Request->jsonrpc
-			|| !self::$mJsonRpc_Request->method
-		)
-			self::ParseError(new JsonRpc_Error(-32600));
-
-		// Check version number
-		if (self::$mJsonRpc_Request->jsonrpc != self::JSONRPC_VERSION)
-			self::ParseError(new JsonRpc_Error(-32000));
 
 		// Parse the method, class, namespace
 		// N.B. Stick to naming convention: namespace.class.method
