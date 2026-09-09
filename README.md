@@ -97,8 +97,9 @@ is present in the directory user profile.
 - Serve the site exclusively over HTTPS and verify that HTTP and `www` redirects
 	preserve HTTPS. The checked-in Apache rewrite rule is only a starting point;
 	apply the equivalent policy in the production web server or reverse proxy.
-- Keep `/api/cache/`, `/api/log/`, `/api/session/`, `/api/stat/` completely outside web
-	access. These are runtime storage directories, not public application assets.
+- Keep `/api/cache/`, `/api/log/`, `/api/session/`, and `/api/stat/` completely
+	outside web access. These are runtime storage directories, not public
+	application assets.
 - Add suitable security headers, backups, log retention, and operating-system
 	permissions according to the hosting environment. Test the deployed paths
 	from an unauthenticated browser before opening the service publicly.
@@ -106,8 +107,8 @@ is present in the directory user profile.
 ## Optional Integrations
 - **Memcached:** Available for application caching, distributed locking, and PHP session storage. It is strongly recommended for production deployments with high traffic or load because it reduces repeated database and filesystem work and improves coordination across multiple application workers. File-based caching and sessions remain available when Memcached is disabled.
 - **Firebase:** Firebase is currently not in active use. The existing Firebase configuration and service integration are retained as a foundation for a potential future push-notification feature.
-- **Matomo:** The application supports Matomo analytics for monitoring usage and timetable interactions. It can be enabled and configured with the Matomo settings in `/config/config.json`, including the instance URL, site ID, and cookie preferences.
-- **GoAccess:** GoAccess is an optional deployment-level web-access-log analyzer.
+- **Matomo:** The application supports Matomo as an optional analytics application for monitoring usage and timetable interactions. Configure its public instance URL through `url.analytics` in `/config/config.json`, and configure tracking through the `matomo` settings, including `enable`, `siteId`, `baseUrl`, and cookie preferences.
+- **GoAccess:** The application supports an optional GoAccess implementation for web-server access-log analysis. A scheduled GoAccess process should generate its HTML statistics report at `PATH_STAT . 'stat.html'`. The admin API reads this file for server statistics. GoAccess is not required for the application to run and must be installed, scheduled, and maintained as a deployment service. GoAccess is separate from Matomo client-side analytics, the database telemetry, and the API log.
 
 ## Configuration
 Configuration is split between browser-visible settings and server-only environment settings:
@@ -561,6 +562,7 @@ until it finds `root.php`, then derives the runtime paths below:
 | `PATH_CACHE` | `/api/cache/` | Filesystem cache location when applicable. |
 | `PATH_CONSTANT` | `/api/constant/` | PHP constants, environment settings, and signing material. |
 | `PATH_SESSION` | `/api/session/` | Filesystem session storage when `MEMCACHED_SESSION` is `false`. |
+| `PATH_STAT` | `/api/stat/` | Server-statistics output directory. The optional GoAccess process writes `stat.html` here, and the admin API reads the generated report from this path. |
 | `PATH_CONSTANT_ENV` | `/api/constant/env/` | Location of `env.php`. |
 | `PATH_CONSTANT_DKIM` | `/api/constant/dkim/` | Location of the DKIM private key. |
 | `PATH_SQL` and `PATH_SQL_*` | `/sql/` and its application/framework subdirectories | SQL schema, queries, batch operations, and database dump paths. |
