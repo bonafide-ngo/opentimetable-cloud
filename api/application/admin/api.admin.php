@@ -256,6 +256,17 @@ class Admin {
     }
 
     /**
+     * Read server stats
+     * N.B. See GoAccess implementation
+     * 
+     * @param mixed $pParams
+     * @return mixed
+     */
+    public static function Read_ServerStats(mixed $pParams = null): mixed {
+        return BSO_Admin::Read_ServerStats($pParams);
+    }
+
+    /**
      * Flush cache
      *
      * @param mixed $pParams

@@ -1,5 +1,5 @@
 {
-    "version": "1.9.3",
+    "version": "1.9.4",
     "license": "2026 Bona Fide NGO",
     "lang": "en",
     "language": {
@@ -39,7 +39,7 @@
         "module": "/app/module/",
         "admin": "/app/admin/",
         "maintenance": "/app/maintenance/",
-        "analytics": "/goaccess/",
+        "analytics": "https://matomo.domain.ext",
         "uptime": "",
         "ticketingSystem": "",
         "www": "",
@@ -85,7 +85,7 @@
         "payload": 1200,
         "syncTimeout": 600,
         "toast": 5000,
-        "trafficLog": 31536000
+        "trafficLog": 2592000
     },
     "email": {
         "support": [

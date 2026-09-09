@@ -175,3 +175,29 @@ app.admin.system.deleteLogHistory = function () {
         app.admin.system.readLogHistory();
     }
 }
+
+/**
+ * Read dashboard
+ */
+app.admin.system.readDashboard = function (log) {
+    log = log || null;
+    frm.ajax.jsonrpc.request(
+        frm.config.url.api,
+        'App.Admin.Read_ServerStats',
+        null,
+        onSuccess,
+        null,
+        null,
+        null,
+        { async: false });
+
+    function onSuccess(result) {
+        const blob = new Blob([result], { type: "text/html" });
+        const url = URL.createObjectURL(blob);
+
+        window.open(url, "_blank");
+
+        // Cleanup blob after having given the time to the page to load the underlying content
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
+    }
+}

@@ -136,6 +136,7 @@ $(document).ready(function () {
         // System tab is for admin only
         if ([C_MSAL_GROUP_ADMIN].includes(frm.msal.role)) {
             // Set URLs
+            $("#admin-system").find('[name="dashboard"]').once('click', app.admin.system.readDashboard);
             $('#admin-system').find('[name="analytics"]').attr('href', frm.config.url.analytics);
             $('#admin-system').find('[name="uptime"]').attr('href', frm.config.url.uptime);
         } else {

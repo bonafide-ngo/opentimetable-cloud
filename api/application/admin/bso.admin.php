@@ -838,6 +838,21 @@ class BSO_Admin {
      * @param mixed $pParams
      * @return mixed
      */
+    public static function Read_ServerStats(mixed $pParams = null): mixed {
+        // Check privile
+        Common::CheckUserInGroups(array(APP_MSAL_GROUP_ADMIN));
+
+        // Get filepath
+        $vFilepath = PATH_STAT . 'stat.html';
+        return new \ApiResponse(is_file($vFilepath) ? mb_convert_encoding(file_get_contents($vFilepath), 'UTF-8', 'UTF-8') : '');
+    }
+
+    /**
+     * Undocumented function
+     *
+     * @param mixed $pParams
+     * @return mixed
+     */
     public static function Delete_Cache(mixed $pParams = null): mixed {
         // Check privile
         Common::CheckUserInGroups(array(APP_MSAL_GROUP_ADMIN));
@@ -905,9 +920,9 @@ class BSO_Admin {
         // Get params
         $vDTO = new DTO_Admin_Read_Log($pParams);
 
-        // Get log filepath
+        // Get filepath
         $vFilepath = PATH_LOG . $vDTO->log;
-        return new \ApiResponse(is_file($vFilepath) ? file_get_contents($vFilepath) : '');
+        return new \ApiResponse(is_file($vFilepath) ? mb_convert_encoding(file_get_contents($vFilepath), 'UTF-8', 'UTF-8') : '');
     }
 
     /**

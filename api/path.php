@@ -27,6 +27,7 @@ define('PATH_LOG_ABS', getcwd() . '/' . 'log/');
 define('PATH_CACHE', PATH_API . 'cache/');
 define('PATH_CONSTANT', PATH_API . 'constant/');
 define('PATH_SESSION', PATH_API . 'session/');
+define('PATH_STAT', PATH_API . 'stat/');
 // Paths constants
 define('PATH_CONSTANT_ENV', PATH_CONSTANT . 'env/');
 define('PATH_CONSTANT_DKIM', PATH_CONSTANT . 'dkim/');

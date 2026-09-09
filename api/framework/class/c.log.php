@@ -10,6 +10,7 @@ class Log {
 	const string ERROR = 'error';
 	const string REPORT = 'report';
 	const string FILE_NAME = 'log';
+	// Protecting log filename against path traversal by not allowing \ or / chars
 	const string PATTERN_LOG = '|^[a-zA-Z0-9\\.@_]*$|'; // log.2022.03.01@13.30.11_3b4d99d2b8f45907260b487e8d714d92e123b6f3
 
 	// Properties
